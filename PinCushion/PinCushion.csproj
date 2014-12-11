@@ -32,7 +32,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dotNET|AnyCPU'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\dotNET\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dotNET64|x64'">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\dotNET\x64\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -50,7 +50,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mono|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\Mono\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>true</Prefer32Bit>
@@ -60,7 +60,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Mono64|x64' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\Mono\x64\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>

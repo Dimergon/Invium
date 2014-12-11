@@ -1,4 +1,5 @@
 PinCushion, a password manager in C#
+
 Copyright (c) 2013, 2014 Armin Altorffer
 
 PinCushion is free software: you can redistribute it and/or modify

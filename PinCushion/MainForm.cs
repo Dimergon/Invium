@@ -124,12 +124,12 @@ namespace PinCushion
 			* I experimented with various other approaches but XmlDocument + Xpath proved the least cumbersome.
 			*/
 			Stopwatch load_timer = new Stopwatch ();
-			XmlDocument x_d = new XmlDocument ();
-			x_d.Load (file);
+			XmlDocument document = new XmlDocument ();
+			document.Load (file);
 
 			// Check for encryption
 			bool do_decrypt = true;
-			if (x_d.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLencrypt)) == null) {
+			if (document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLencrypt)) == null) {
 				do_decrypt = false;
 			}
 
@@ -137,8 +137,8 @@ namespace PinCushion
 			string salt = string.Empty, input_password = string.Empty;
 
 			if (do_decrypt) {
-				XmlNode salt_node = x_d.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLSalt));
-				XmlNode password_node = x_d.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
+				XmlNode salt_node = document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLSalt));
+				XmlNode password_node = document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
 				if (salt_node == null) {
 					throw new PinCushionException (Program.Language.FatalNoSaltNode);
 				}
@@ -188,36 +188,37 @@ namespace PinCushion
 			/*
 			 * Main Loop, will also decrypt if data is encrypted
 			 */
-			foreach (XmlNode x_n_p in x_d.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLProfile))) {
+			foreach (XmlNode profile_node in document.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLProfile))) {
 				p_count++;
-				XmlNode p_name_node = x_n_p.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
-				string p_name = do_decrypt ? Crypto.Decrypt (p_name_node.InnerText, input_password, salt) : p_name_node.InnerText;
+				XmlNode profile_name_node = profile_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
+				string profile_name = do_decrypt ? Crypto.Decrypt (profile_name_node.InnerText, input_password, salt) : profile_name_node.InnerText;
 
 				// Check for duplicates, importing requires this step.
 				if (this.profiles.Find (delegate(Profile x) {
-					return x.Name == p_name;
+					return x.Name == profile_name;
 				}) != null) {
-					p_name += DateTime.Now.ToString ();
+					profile_name += DateTime.Now.ToString ();
 				}
 
-				Profile p = new Profile (p_name);
-				foreach (XmlNode x_n_s in x_n_p.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLService))) {
+				Profile p = new Profile (profile_name);
+				foreach (XmlNode service_node in profile_node.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLService))) {
 					s_count++;
-					XmlNode s_name_node = x_n_s.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
-					XmlNode s_command_node = x_n_s.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLCommand));
-					string s_command = string.Empty;
-					if (s_command_node != null) {
-						s_command = do_decrypt ? Crypto.Decrypt (s_command_node.InnerText, input_password, salt) : s_command_node.InnerText;
+					XmlNode service_name_node = service_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
+					XmlNode service_command_node = service_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLCommand));
+					string service_name = do_decrypt ? Crypto.Decrypt (service_name_node.InnerText, input_password, salt) : service_name_node.InnerText;
+					string service_command = string.Empty;
+					if (service_command_node != null) {
+						service_command = do_decrypt ? Crypto.Decrypt (service_command_node.InnerText, input_password, salt) : service_command_node.InnerText;
 					}
 
-					Service s = new Service (do_decrypt ? Crypto.Decrypt (s_name_node.InnerText, input_password, salt) : s_name_node.InnerText, s_command);
-					foreach (XmlNode x_n_a in x_n_s.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLAccount))) {
+					Service s = new Service (service_name, service_command);
+					foreach (XmlNode account_node in service_node.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLAccount))) {
 						a_count++;
-						XmlNode a_name_node = x_n_a.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
-						XmlNode a_password_node = x_n_a.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
-						Account a = new Account (
-							            do_decrypt ? Crypto.Decrypt (a_name_node.InnerText, input_password, salt) : a_name_node.InnerText,
-							            do_decrypt ? Crypto.Decrypt (a_password_node.InnerText, input_password, salt) : a_password_node.InnerText);
+						XmlNode account_name_node = account_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
+						XmlNode account_password_node = account_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
+						string account_name = do_decrypt ? Crypto.Decrypt (account_name_node.InnerText, input_password, salt) : account_name_node.InnerText;
+						string account_password = do_decrypt ? Crypto.Decrypt (account_password_node.InnerText, input_password, salt) : account_password_node.InnerText;
+						Account a = new Account (account_name, account_password);
 						s.ServiceAccounts.Add (a);
 					}
 
@@ -244,56 +245,56 @@ namespace PinCushion
 		public void DoSave ()
 		{
 			// Create the required streams and write the start
-			using (StreamWriter s_w = File.CreateText (Program.DataFile)) {
-				XmlWriterSettings x_w_s = new XmlWriterSettings ();
-				x_w_s.Encoding = Encoding.UTF8;
-				XmlWriter x_w = XmlWriter.Create (s_w, x_w_s);
-				x_w.WriteStartElement (XMLBody);
+			using (StreamWriter document = File.CreateText (Program.DataFile)) {
+				XmlWriterSettings settings = new XmlWriterSettings ();
+				settings.Encoding = Encoding.UTF8;
+				XmlWriter document_writer = XmlWriter.Create (document, settings);
+				document_writer.WriteStartElement (XMLBody);
 
 				// encryption releated data
 				string salt = Password.GenSalt ();
 				string password_hash = Crypto.Hash (this.pinCushionPassword.Password, salt);
 				if (this.encrypt.Checked) {
-					x_w.WriteElementString (XMLencrypt, Password.GenSalt ());
-					x_w.WriteElementString (XMLSalt, salt);
-					x_w.WriteElementString (XMLPassword, password_hash);
+					document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
+					document_writer.WriteElementString (XMLSalt, salt);
+					document_writer.WriteElementString (XMLPassword, password_hash);
 				}
 
 				/*
 				 * Main Loop, will also encrypt if specified
 				 */
 				foreach (Profile p in this.profiles) {
-					x_w.WriteStartElement (XMLProfile);
-					string p_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password, salt) : p.Name;
-					x_w.WriteElementString (XMLName, p_name);
+					document_writer.WriteStartElement (XMLProfile);
+					string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password, salt) : p.Name;
+					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
-						x_w.WriteStartElement (XMLService);
-						string s_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password, salt) : s.Name;
-						x_w.WriteElementString (XMLName, s_name);
+						document_writer.WriteStartElement (XMLService);
+						string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password, salt) : s.Name;
+						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string s_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password, salt) : s.Command;
-							x_w.WriteElementString (XMLCommand, s_command);
+							string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password, salt) : s.Command;
+							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
-							x_w.WriteStartElement (XMLAccount);
-							string a_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password, salt) : a.Name;
-							string a_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password, salt) : a.Password;
-							x_w.WriteElementString (XMLName, a_name);
-							x_w.WriteElementString (XMLPassword, a_password);
-							x_w.WriteEndElement ();
+							document_writer.WriteStartElement (XMLAccount);
+							string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password, salt) : a.Name;
+							string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password, salt) : a.Password;
+							document_writer.WriteElementString (XMLName, account_name);
+							document_writer.WriteElementString (XMLPassword, account_password);
+							document_writer.WriteEndElement ();
 						}
 
-						x_w.WriteEndElement ();
+						document_writer.WriteEndElement ();
 					}
 
-					x_w.WriteEndElement ();
+					document_writer.WriteEndElement ();
 				}
 
 				// Done
-				x_w.WriteEndElement ();
-				x_w.Close ();
-				s_w.Close ();
+				document_writer.WriteEndElement ();
+				document_writer.Close ();
+				document.Close ();
 			}
 		}
 

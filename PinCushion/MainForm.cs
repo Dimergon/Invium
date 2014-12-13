@@ -1087,5 +1087,19 @@ namespace PinCushion
 
 			this.RefreshControls (RefreshLevel.None);
 		}
+
+		/*
+		 * Closing the form, let's save the data...
+		 */
+		private void MainForm_Closing (object sender, EventArgs e)
+		{
+			if (this.unsavedPassword) {
+				// The call to NotIdle() is to invoke the prompt there...
+				this.NotIdle ();
+			} else {
+				// Seeing as how there is no unsaved password, just save.
+				this.DoSave ();
+			}
+		}
 	}
 }

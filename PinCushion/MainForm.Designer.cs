@@ -328,7 +328,7 @@ namespace PinCushion
 			this.MinimizeBox = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Load += new System.EventHandler (this.MainForm_Load);
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.NotIdle);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.MainForm_Closing);
 			this.copyTextToClipboardRightclick.ResumeLayout (false);
 			this.serviceRightclick.ResumeLayout (false);
 			((System.ComponentModel.ISupportInitialize)this.passwordStrength).EndInit ();

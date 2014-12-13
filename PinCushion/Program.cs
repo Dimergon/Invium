@@ -81,7 +81,12 @@ namespace PinCushion
 				*/
 			}
 
-			// default to SafePC = true in case of *nix (unlikely to have a ram scraper running)
+			/*
+			 * Default to SafePC = true in case of *nix (unlikely to have a ram scraper running)
+			 *
+			 * What SafePC = true will do is disabling the in-memory encryption of each and every
+			 * object (Profiles, Services, Accounts and Passwords).
+			 */
 			switch ((int)Environment.OSVersion.Platform) {
 			case 4:
 			case 6:
@@ -95,8 +100,8 @@ namespace PinCushion
 			/* Loop through all the specified commandline parameters */
 			foreach (string s in args) {
 				switch (s.ToLower ()) {
-				/* Manually specify a language (culture) */
 				case "-language":
+					// Manually specifying a language...
 					try {
 						ManualLanguage = args [Array.IndexOf (args, s) + 1];
 					} catch (Exception) {
@@ -105,6 +110,7 @@ namespace PinCushion
 
 					break;
 				case "-load":
+					// Manually specifying the data file to load...
 					DataFile = args [Array.IndexOf (args, s) + 1];
 					if (!File.Exists (DataFile)) {
 						MessageBox.Show (string.Format (Language.CustomLoadFail, DataFile));
@@ -113,10 +119,11 @@ namespace PinCushion
 
 					break;
 				case "-trust":
+					// Manually disabling the in-memory encryption...
 					SafePC = true;
 					break;
 				default:
-                        // Whatever it is, it's not something we're interested in.
+					// Whatever it is, it's not something we're interested in.
 					break;
 				}
 			}

@@ -1093,12 +1093,14 @@ namespace PinCushion
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
-			if (this.unsavedPassword) {
-				// The call to NotIdle() is to invoke the prompt there...
-				this.NotIdle ();
-			} else {
-				// Seeing as how there is no unsaved password, just save.
-				this.DoSave ();
+			if (!this.readOnly.Checked) {
+				if (this.unsavedPassword) {
+					// The call to NotIdle() is to invoke the prompt there...
+					this.NotIdle ();
+				} else {
+					// Seeing as how there is no unsaved password, just save.
+					this.DoSave ();
+				}
 			}
 		}
 	}

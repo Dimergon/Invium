@@ -54,6 +54,7 @@ namespace PinCushion
 		private System.Windows.Forms.ContextMenuStrip serviceRightclick;
 		private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem setexecuteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem cloneServiceToolStripMenuItem;
 		private System.Windows.Forms.CheckBox showPassword;
 		private System.Windows.Forms.Label passwordStrengthLabel;
 		private System.Windows.Forms.NotifyIcon tray;
@@ -99,6 +100,7 @@ namespace PinCushion
 			this.serviceRightclick = new System.Windows.Forms.ContextMenuStrip (this.components);
 			this.executeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setexecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
+			this.cloneServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setPassword = new System.Windows.Forms.Button ();
 			this.generatePassword = new System.Windows.Forms.Button ();
 			this.passwordLabel = new System.Windows.Forms.Label ();
@@ -222,12 +224,15 @@ namespace PinCushion
 			this.serviceRightclick.Size = new System.Drawing.Size (199, 28);
 			this.serviceRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
 				this.executeToolStripMenuItem,
-				this.setexecuteToolStripMenuItem
+				this.setexecuteToolStripMenuItem,
+				this.cloneServiceToolStripMenuItem
 			});
 			this.executeToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
 			this.executeToolStripMenuItem.Click += new System.EventHandler (this.ExecuteToolStripMenuItem_Click);
 			this.setexecuteToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
 			this.setexecuteToolStripMenuItem.Click += new System.EventHandler (this.SetexecuteToolStripMenuItem_Click);
+			this.cloneServiceToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
+			this.cloneServiceToolStripMenuItem.Click += new System.EventHandler (this.CloneServiceToolStripMenuItem_Click);
 			this.setPassword.Location = new System.Drawing.Point (180, 284);
 			this.setPassword.Margin = new System.Windows.Forms.Padding (4);
 			this.setPassword.Size = new System.Drawing.Size (152, 39);

@@ -53,6 +53,9 @@ namespace PinCushion
 		public string RenameServicePrompt;
 		public string SetExecuteTitle;
 		public string SetExecutePrompt;
+		public string CloneServiceTitle;
+		public string CloneServicePrompt;
+		public string CloneServiceRename;
 
 		/* New password input */
 		public string NewPasswordTitle;
@@ -110,6 +113,7 @@ namespace PinCushion
 		public string Execute;
 		public string NoExecute;
 		public string SetExecute;
+		public string CloneService;
 
 		/* etc... */
 		public string ConfirmQuestion;
@@ -123,6 +127,7 @@ namespace PinCushion
 		public string RenameServiceError;
 		public string SetExecuteError;
 		public string RunExecuteError;
+		public string CloneServiceError;
 		public string AddAccountError;
 		public string RemoveAccountError;
 		public string RenameAccountError;
@@ -173,6 +178,9 @@ namespace PinCushion
 				this.RenameServicePrompt = "Please provide a new service name.";
 				this.SetExecuteTitle = "Set execute command";
 				this.SetExecutePrompt = "Please set a command to execute for this service.";
+				this.CloneServiceTitle = "Specify the destination profile";
+				this.CloneServicePrompt = "Please specify the profile to clone {0} to.";
+				this.CloneServiceRename = "A service named {0} already exists in profile {1}.\r\nCloned it to a different name: {2}";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";
 				this.NewPasswordConfirmation = "Please confirm the password.";
@@ -219,6 +227,7 @@ namespace PinCushion
 				this.PinCushionPassword = "Set {0} password";
 				this.Execute = "Open {0}";
 				this.NoExecute = "No command specified to execute.";
+				this.CloneService = "Clone service";
 				this.SetExecute = "Set command to execute.";
 				this.ConfirmQuestion = "Are you sure?";
 				this.ConfirmCaption = "Please confirm";
@@ -231,6 +240,7 @@ namespace PinCushion
 				this.RenameServiceError = "An error occurred while trying to rename a service, please try again.";
 				this.SetExecuteError = "An error occurred while trying to set a command for the specified service, please try again.";
 				this.RunExecuteError = "An error occurred while trying to launch the command for this service, please try again.";
+				this.CloneServiceError = "An error occurred while trying to clone {0}, please try again.";
 				this.AddAccountError = "An error occurred while trying to add an account, please try again.";
 				this.RemoveAccountError = "An error occurred while trying to remove an account, please try again.";
 				this.RenameAccountError = "An error occurred while trying to rename an account, please try again.";

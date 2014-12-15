@@ -777,6 +777,7 @@ namespace PinCushion
 				this.serviceRightclick.Items [0].Text = this.serviceSelection.SelectedItem == null ? Program.Language.NoExecute : this.serviceRightclick.Items [0].Text;
 				this.serviceRightclick.Items [0].Enabled = this.serviceSelection.SelectedItem == null ? false : this.serviceRightclick.Items [0].Enabled;
 				this.serviceRightclick.Items [1].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
+				this.serviceRightclick.Items [2].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.accountSelection.Enabled = this.serviceSelection.SelectedItem == null ? false : true;
 				this.accountPassword.TabStop = this.serviceSelection.SelectedItem == null ? false : true;
 				this.addAccount.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
@@ -930,6 +931,7 @@ namespace PinCushion
 			this.renameProfile.Text = this.renameService.Text = this.renameAccount.Text = Program.Language.Rename;
 			this.serviceRightclick.Items [0].Text = Program.Language.NoExecute;
 			this.serviceRightclick.Items [1].Text = Program.Language.SetExecute;
+			this.serviceRightclick.Items [2].Text = Program.Language.CloneService;
 			this.setPassword.Text = Program.Language.Set;
 			this.setPinCushionPassword.Text = string.Format (Program.Language.PinCushionPassword, System.Windows.Forms.Application.ProductName);
 			this.generatePassword.Text = Program.Language.Generate;
@@ -1007,6 +1009,25 @@ namespace PinCushion
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.SetExecuteError);
+				this.RefreshControls (RefreshLevel.Profile);
+			}
+		}
+
+		/*
+		 * Clone a service to a different profile
+		 */
+		private void CloneServiceToolStripMenuItem_Click (object sender, EventArgs e)
+		{
+			this.NotIdle ();
+
+			try {
+				string userinput = string.Empty;
+
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
+					MessageBox.Show ("This functionality has not yet been implemented.");
+				}
+			} catch (ArgumentOutOfRangeException) {
+				MessageBox.Show (Program.Language.CloneServiceError);
 				this.RefreshControls (RefreshLevel.Profile);
 			}
 		}

@@ -123,7 +123,7 @@ namespace PinCushion
 			this.profileSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.profileSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.profileSelection.ContextMenu = null;
-			this.profileSelection.ContextMenuStrip = null;
+			this.profileSelection.ContextMenuStrip = this.copyTextToClipboardRightclick;
 			this.profileSelection.FormattingEnabled = true;
 			this.profileSelection.Location = new System.Drawing.Point (143, 15);
 			this.profileSelection.Margin = new System.Windows.Forms.Padding (4);

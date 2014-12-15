@@ -56,6 +56,7 @@ namespace PinCushion
 		public string CloneServiceTitle;
 		public string CloneServicePrompt;
 		public string CloneServiceRename;
+		public string CloneServiceNoSuchProfile;
 
 		/* New password input */
 		public string NewPasswordTitle;
@@ -181,6 +182,7 @@ namespace PinCushion
 				this.CloneServiceTitle = "Specify the destination profile";
 				this.CloneServicePrompt = "Please specify the profile to clone {0} to.";
 				this.CloneServiceRename = "A service named {0} already exists in profile {1}.\r\nCloned it to a different name: {2}";
+				this.CloneServiceNoSuchProfile = "There is no profile with that name, please try again.";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";
 				this.NewPasswordConfirmation = "Please confirm the password.";

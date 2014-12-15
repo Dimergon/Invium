@@ -1053,9 +1053,7 @@ namespace PinCushion
 							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, this.profiles [destination_profile].Name, destination_service));
 						}
 
-						this.RefreshControls (RefreshLevel.Profile);
-						this.profileSelection.SelectedIndex = destination_profile;
-						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (destination_service, 0);
+						this.RefreshControls (RefreshLevel.Service);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {

@@ -1024,7 +1024,14 @@ namespace PinCushion
 				string userinput = string.Empty;
 
 				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
-					MessageBox.Show ("This functionality has not yet been implemented.");
+					int destination_index = this.profiles.FindIndex (delegate (Profile p) {
+						return p.Name == userinput;
+					});
+					if (destination_index == -1) {
+						MessageBox.Show (Program.Language.CloneServiceNoSuchProfile);
+					} else {
+						MessageBox.Show ("This functionality has not yet been implemented.");
+					}
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.CloneServiceError);

@@ -1024,13 +1024,36 @@ namespace PinCushion
 				string userinput = string.Empty;
 
 				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
-					int destination_index = this.profiles.FindIndex (delegate (Profile p) {
+					int destination_profile = this.profiles.FindIndex (delegate (Profile p) {
 						return p.Name == userinput;
 					});
-					if (destination_index == -1) {
+					if (destination_profile == -1) {
 						MessageBox.Show (Program.Language.CloneServiceNoSuchProfile);
 					} else {
-						MessageBox.Show ("This functionality has not yet been implemented.");
+						bool renamed = false;
+						string destination_service = this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name;
+						if (this.profiles [destination_profile].Profileservices.Find (delegate (Service s) {
+							return s.Name == destination_service;
+						}) != null) {
+							renamed = true;
+							destination_service += DateTime.Now.ToString ();
+						}
+
+						Service new_service = new Service (destination_service, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
+						foreach (Account a in this.profiles[this.profileSelection.SelectedIndex].Profileservices[this.serviceSelection.SelectedIndex].ServiceAccounts) {
+							new_service.ServiceAccounts.Add (new Account (a.Name, a.Password));
+						}
+
+						this.profiles [destination_profile].Profileservices.Add (new_service);
+						this.profiles [destination_profile].Profileservices.Sort (delegate (Service a, Service b) {
+							return a.Name.CompareTo (b.Name);
+						});
+						this.DoSave ();
+						if (renamed) {
+							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, this.profiles [destination_profile].Name, destination_service));
+						}
+
+						this.RefreshControls (RefreshLevel.Service);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {

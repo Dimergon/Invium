@@ -342,20 +342,20 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string input = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref input, Program.Language.AddProfileTitle, Program.Language.AddProfilePrompt) == DialogResult.OK) {
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.AddProfileTitle, Program.Language.AddProfilePrompt) == DialogResult.OK) {
 					if (this.profiles.Find (delegate(Profile p) {
-						return p.Name == input;
+						return p.Name == userinput;
 					}) != null) {
 						MessageBox.Show (Program.Language.ProfileExists);
 					} else {
-						this.profiles.Add (new Profile (input));
+						this.profiles.Add (new Profile (userinput));
 						this.profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Profile);
-						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (input, 0);
+						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -404,20 +404,20 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string input = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref input, Program.Language.RenameProfileTitle, Program.Language.RenameProfilePrompt) == DialogResult.OK) {
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameProfileTitle, Program.Language.RenameProfilePrompt) == DialogResult.OK) {
 					if (this.profiles.Find (delegate(Profile p) {
-						return p.Name == input;
+						return p.Name == userinput;
 					}) != null) {
 						MessageBox.Show (Program.Language.ProfileExists);
 					} else {
-						this.profiles [this.profileSelection.SelectedIndex].Name = input;
+						this.profiles [this.profileSelection.SelectedIndex].Name = userinput;
 						this.profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Profile);
-						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (input, 0);
+						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -440,20 +440,20 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string input = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref input, Program.Language.AddServiceTitle, Program.Language.AddServicePrompt) == DialogResult.OK) {
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.AddServiceTitle, Program.Language.AddServicePrompt) == DialogResult.OK) {
 					if (this.profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
-						return s.Name == input;
+						return s.Name == userinput;
 					}) != null) {
 						MessageBox.Show (string.Format (Program.Language.ServiceExists, this.profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						this.profiles [this.profileSelection.SelectedIndex].Profileservices.Add (new Service (input, string.Empty));
+						this.profiles [this.profileSelection.SelectedIndex].Profileservices.Add (new Service (userinput, string.Empty));
 						this.profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Service);
-						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (input, 0);
+						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -502,20 +502,20 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string input = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref input, Program.Language.RenameServiceTitle, Program.Language.RenameServicePrompt) == DialogResult.OK) {
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameServiceTitle, Program.Language.RenameServicePrompt) == DialogResult.OK) {
 					if (this.profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
-						return s.Name == input;
+						return s.Name == userinput;
 					}) != null) {
 						MessageBox.Show (string.Format (Program.Language.ServiceExists, this.profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name = input;
+						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name = userinput;
 						this.profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Service);
-						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (input, 0);
+						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -604,20 +604,20 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string input = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref input, Program.Language.RenameAccountTitle, Program.Language.RenameAccountPrompt) == DialogResult.OK) {
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameAccountTitle, Program.Language.RenameAccountPrompt) == DialogResult.OK) {
 					if (this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
-						return a.Name == input;
+						return a.Name == userinput;
 					}) != null) {
 						MessageBox.Show (string.Format (Program.Language.AccountExists, this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, this.profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name = input;
+						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name = userinput;
 						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 							return a.Name.CompareTo (b.Name);
 						});
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Account);
-						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (input, 0);
+						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (userinput, 0);
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -670,10 +670,10 @@ namespace PinCushion
 					/*
 					 * Show the popup in case the shown password matches the listed password, implying we want to manually set a new password.
 					 */
-					string input_password = string.Empty;
-					if (this.Inputbox (InputBoxMode.Doublepassword, ref input_password, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
+					string userinput = string.Empty;
+					if (this.Inputbox (InputBoxMode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
 						string current = this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
-						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = input_password;
+						this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
 						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
@@ -1001,9 +1001,9 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string command = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref command, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
-					this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = command;
+				string userinput = string.Empty;
+				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
+					this.profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = userinput;
 					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Account);
 				}

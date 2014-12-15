@@ -20,7 +20,7 @@
 
 /*
 * This performs all cryptography related functions (encryption, decryption
-* and hashesh).
+* and hashes).
 */
 namespace PinCushion
 {
@@ -33,8 +33,8 @@ namespace PinCushion
 	public static class Crypto
 	{
 		/*
-		* Encryption/Decryption is in AES-256 bit.
-		*/
+		 * Encryption/Decryption is in AES-256 bit.
+		 */
 		public static string Encrypt (string plainText, string passPhrase, string salt)
 		{
 			using (MemoryStream memoryStream = new MemoryStream ()) {
@@ -71,16 +71,17 @@ namespace PinCushion
 		}
 
 		/*
-        * A SHA512 mash hash generator
-        *
-        * This will mash together the input and the salt into a single array by even and odd positions.
-        * So:
-        *
-        * input_bytes will be placed at 0, 2, 4, 6, ..
-        * salt_bytes will be placed at 1, 3, 5, 7, ..
-        *
-        * The hash is based on the mash.
-        */
+		 * A SHA512 mash hash generator
+		 *
+		 * This will mash together the input and the salt into a single array by even and odd positions.
+		 *
+		 * So:
+		 *
+		 * input_bytes will be placed at 0, 2, 4, 6, ..
+		 * salt_bytes will be placed at 1, 3, 5, 7, ..
+		 *
+		 * The hash is based on the mash.
+		 */
 		public static string Hash (string input, string salt)
 		{
 			byte[] salt_bytes = Encoding.UTF8.GetBytes (salt);

@@ -32,8 +32,7 @@ namespace PinCushion
 		public List<Account> ServiceAccounts = new List<Account> ();
 		private string servicename = string.Empty;
 		private string servicecommand = string.Empty;
-		private string internalpassword = Program.SafePC ? string.Empty : Password.GenSalt ();
-		private string internalsalt = Program.SafePC ? string.Empty : Password.GenSalt ();
+		private string internalpassword = Password.GenSalt ();
 
 		public Service (string arg0, string arg1)
 		{
@@ -42,13 +41,13 @@ namespace PinCushion
 		}
 
 		public string Name {
-			get { return Program.SafePC ? this.servicename : Crypto.Decrypt (this.servicename, this.internalpassword, this.internalsalt); }
-			set { this.servicename = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.servicename, this.internalpassword); }
+			set { this.servicename = Crypto.Encrypt (value, this.internalpassword); }
 		}
 
 		public string Command {
-			get { return Program.SafePC ? this.servicecommand : Crypto.Decrypt (this.servicecommand, this.internalpassword, this.internalsalt); }
-			set { this.servicecommand = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.servicecommand, this.internalpassword); }
+			set { this.servicecommand = Crypto.Encrypt (value, this.internalpassword); }
 		}
 	}
 }

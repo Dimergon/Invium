@@ -29,12 +29,11 @@ namespace PinCushion
 	public class PinCushionPassword_Class
 	{
 		private string pincushionpassword = string.Empty;
-		private string internalpassword = Program.SafePC ? string.Empty : PinCushion.Password.GenSalt ();
-		private string internalsalt = Program.SafePC ? string.Empty : PinCushion.Password.GenSalt ();
+		private string internalpassword = PinCushion.Password.GenSalt ();
 
 		public string Password {
-			get { return Program.SafePC ? this.pincushionpassword : Crypto.Decrypt (this.pincushionpassword, this.internalpassword, this.internalsalt); }
-			set { this.pincushionpassword = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.pincushionpassword, this.internalpassword); }
+			set { this.pincushionpassword = Crypto.Encrypt (value, this.internalpassword); }
 		}
 	}
 }

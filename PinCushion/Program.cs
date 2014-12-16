@@ -34,7 +34,6 @@ namespace PinCushion
 	{
 		// Commandline parameters
 		public static string ManualLanguage = string.Empty;
-		public static bool SafePC = false;
 
 		// Store the active language
 		public static LanguageClass Language;
@@ -81,22 +80,6 @@ namespace PinCushion
 				*/
 			}
 
-			/*
-			 * Default to SafePC = true in case of *nix (unlikely to have a ram scraper running)
-			 *
-			 * What SafePC = true will do is disabling the in-memory encryption of each and every
-			 * object (Profiles, Services, Accounts and Passwords).
-			 */
-			switch ((int)Environment.OSVersion.Platform) {
-			case 4:
-			case 6:
-			case 128:
-				SafePC = true;
-				break;
-			default:
-				break;
-			}
-
 			/* Loop through all the specified commandline parameters */
 			foreach (string s in args) {
 				switch (s.ToLower ()) {
@@ -117,10 +100,6 @@ namespace PinCushion
 						Program.PinCushionExit ();
 					}
 
-					break;
-				case "-trust":
-					// Manually disabling the in-memory encryption...
-					SafePC = true;
 					break;
 				default:
 					// Whatever it is, it's not something we're interested in.
@@ -146,7 +125,7 @@ namespace PinCushion
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 				#else
-				System.Windows.Forms.Clipboard.Clear();
+				System.Windows.Forms.Clipboard.Clear ();
 				#endif
 			}
 

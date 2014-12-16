@@ -31,8 +31,7 @@ namespace PinCushion
 	{
 		private string accountname = string.Empty;
 		private string accountpassword = string.Empty;
-		private string internalpassword = Program.SafePC ? string.Empty : PinCushion.Password.GenSalt ();
-		private string internalsalt = Program.SafePC ? string.Empty : PinCushion.Password.GenSalt ();
+		private string internalpassword = PinCushion.Password.GenSalt ();
 
 		public Account (string arg, string arg2)
 		{
@@ -41,13 +40,13 @@ namespace PinCushion
 		}
 
 		public string Name {
-			get { return Program.SafePC ? this.accountname : Crypto.Decrypt (this.accountname, this.internalpassword, this.internalsalt); }
-			set { this.accountname = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.accountname, this.internalpassword); }
+			set { this.accountname = Crypto.Encrypt (value, this.internalpassword); }
 		}
 
 		public string Password {
-			get { return Program.SafePC ? this.accountpassword : Crypto.Decrypt (this.accountpassword, this.internalpassword, this.internalsalt); }
-			set { this.accountpassword = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.accountpassword, this.internalpassword); }
+			set { this.accountpassword = Crypto.Encrypt (value, this.internalpassword); }
 		}
 	}
 }

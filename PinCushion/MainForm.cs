@@ -191,7 +191,7 @@ namespace PinCushion
 			foreach (XmlNode profile_node in document.SelectNodes(string.Format("{0}::{1}", XMLDescendant, XMLProfile))) {
 				p_count++;
 				XmlNode profile_name_node = profile_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
-				string profile_name = do_decrypt ? Crypto.Decrypt (profile_name_node.InnerText, input_password, salt) : profile_name_node.InnerText;
+				string profile_name = do_decrypt ? Crypto.Decrypt (profile_name_node.InnerText, input_password) : profile_name_node.InnerText;
 
 				// Check for duplicates, importing requires this step.
 				if (this.profiles.Find (delegate(Profile x) {
@@ -205,10 +205,10 @@ namespace PinCushion
 					s_count++;
 					XmlNode service_name_node = service_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
 					XmlNode service_command_node = service_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLCommand));
-					string service_name = do_decrypt ? Crypto.Decrypt (service_name_node.InnerText, input_password, salt) : service_name_node.InnerText;
+					string service_name = do_decrypt ? Crypto.Decrypt (service_name_node.InnerText, input_password) : service_name_node.InnerText;
 					string service_command = string.Empty;
 					if (service_command_node != null) {
-						service_command = do_decrypt ? Crypto.Decrypt (service_command_node.InnerText, input_password, salt) : service_command_node.InnerText;
+						service_command = do_decrypt ? Crypto.Decrypt (service_command_node.InnerText, input_password) : service_command_node.InnerText;
 					}
 
 					Service s = new Service (service_name, service_command);
@@ -216,8 +216,8 @@ namespace PinCushion
 						a_count++;
 						XmlNode account_name_node = account_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLName));
 						XmlNode account_password_node = account_node.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
-						string account_name = do_decrypt ? Crypto.Decrypt (account_name_node.InnerText, input_password, salt) : account_name_node.InnerText;
-						string account_password = do_decrypt ? Crypto.Decrypt (account_password_node.InnerText, input_password, salt) : account_password_node.InnerText;
+						string account_name = do_decrypt ? Crypto.Decrypt (account_name_node.InnerText, input_password) : account_name_node.InnerText;
+						string account_password = do_decrypt ? Crypto.Decrypt (account_password_node.InnerText, input_password) : account_password_node.InnerText;
 						Account a = new Account (account_name, account_password);
 						s.ServiceAccounts.Add (a);
 					}
@@ -265,21 +265,21 @@ namespace PinCushion
 				 */
 				foreach (Profile p in this.profiles) {
 					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password, salt) : p.Name;
+					string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
 					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
 						document_writer.WriteStartElement (XMLService);
-						string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password, salt) : s.Name;
+						string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
 						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password, salt) : s.Command;
+							string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
 							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
 							document_writer.WriteStartElement (XMLAccount);
-							string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password, salt) : a.Name;
-							string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password, salt) : a.Password;
+							string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
+							string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
 							document_writer.WriteElementString (XMLName, account_name);
 							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();
@@ -887,7 +887,7 @@ namespace PinCushion
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 				#else
-				System.Windows.Forms.Clipboard.Clear();
+				System.Windows.Forms.Clipboard.Clear ();
 				#endif
 				Program.ClipboardClearEnabled = false;
 			}
@@ -1123,7 +1123,7 @@ namespace PinCushion
 			((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Text = message;
 			((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 			#else
-			System.Windows.Forms.Clipboard.SetText(message);
+			System.Windows.Forms.Clipboard.SetText (message);
 			#endif
 			Program.ClipboardClearEnabled = true;
 			this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);

@@ -34,40 +34,60 @@ namespace PinCushion
 	{
 		/*
 		 * Encryption/Decryption is in AES-256 bit.
+		 * 
+		 * Rfc2898DeriveBytes may be far more secure but it is also
+		 * horrendously slow. Increasing the loading time by a factor
+		 * of 80 for my relatively small personal data file.
+		 * 
+		 * Sorry, not using it.
 		 */
-		public static string Encrypt (string plainText, string passPhrase, string salt)
+		public static string Encrypt (string plainText, string passPhrase)
 		{
-			using (MemoryStream memoryStream = new MemoryStream ()) {
-				byte[] saltBytes = Encoding.UTF8.GetBytes (salt);
-				byte[] plainTextBytes = Encoding.UTF8.GetBytes (plainText);
-				PasswordDeriveBytes password = new PasswordDeriveBytes (passPhrase, null);
-				byte[] keyBytes = password.GetBytes (32);
-				RijndaelManaged symmetricKey = new RijndaelManaged ();
-				symmetricKey.Mode = CipherMode.CBC;
-				ICryptoTransform encryptor = symmetricKey.CreateEncryptor (keyBytes, saltBytes);
-				CryptoStream cryptoStream = new CryptoStream (memoryStream, encryptor, CryptoStreamMode.Write);
-				cryptoStream.Write (plainTextBytes, 0, plainTextBytes.Length);
-				cryptoStream.FlushFinalBlock ();
-				byte[] cipherTextBytes = memoryStream.ToArray ();
-				return Convert.ToBase64String (cipherTextBytes);
+			string result;
+			using (Rijndael algR = Rijndael.Create ()) {
+				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
+				byte[] iv = new byte[16];
+				rngC.GetBytes (iv);
+				PasswordDeriveBytes derived = new PasswordDeriveBytes (passPhrase, iv);
+				byte[] key = derived.GetBytes (32);
+				algR.Key = key;
+				algR.IV = iv;
+				using (MemoryStream memoryStream = new MemoryStream ()) {
+					memoryStream.Write (iv, 0, 16);
+					using (CryptoStream cryptoStreamEncrypt = new CryptoStream (memoryStream, algR.CreateEncryptor (algR.Key, algR.IV), CryptoStreamMode.Write)) {
+						using (StreamWriter streamWriterEncrypt = new StreamWriter (cryptoStreamEncrypt)) {
+							streamWriterEncrypt.Write (plainText);
+						}
+					}
+
+					result = Convert.ToBase64String (memoryStream.ToArray ());
+				}
 			}
+
+			return result;
 		}
 
-		public static string Decrypt (string cipherText, string passPhrase, string salt)
+		public static string Decrypt (string cipherText, string passPhrase)
 		{
-			using (MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (cipherText))) {
-				byte[] saltBytes = Encoding.UTF8.GetBytes (salt);
-				byte[] cipherTextBytes = Convert.FromBase64String (cipherText);
-				PasswordDeriveBytes password = new PasswordDeriveBytes (passPhrase, null);
-				byte[] keyBytes = password.GetBytes (32);
-				RijndaelManaged symmetricKey = new RijndaelManaged ();
-				symmetricKey.Mode = CipherMode.CBC;
-				ICryptoTransform decryptor = symmetricKey.CreateDecryptor (keyBytes, saltBytes);
-				CryptoStream cryptoStream = new CryptoStream (memoryStream, decryptor, CryptoStreamMode.Read);
-				byte[] plainTextBytes = new byte[cipherTextBytes.Length];
-				int decryptedByteCount = cryptoStream.Read (plainTextBytes, 0, plainTextBytes.Length);
-				return Encoding.UTF8.GetString (plainTextBytes, 0, decryptedByteCount);
+			string result;
+			using (Rijndael algR = Rijndael.Create ()) {
+				byte[] cipherBytes = Convert.FromBase64String (cipherText);
+				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
+					byte[] iv = new byte[16];
+					memoryStream.Read (iv, 0, 16);
+					PasswordDeriveBytes derived = new PasswordDeriveBytes (passPhrase, iv);
+					byte[] key = derived.GetBytes (32);
+					algR.Key = key;
+					algR.IV = iv;
+					using (CryptoStream cryptoStreamDecrypt = new CryptoStream (memoryStream, algR.CreateDecryptor (algR.Key, algR.IV), CryptoStreamMode.Read)) {
+						using (StreamReader streamReaderDecrypt = new StreamReader (cryptoStreamDecrypt)) {
+							result = streamReaderDecrypt.ReadToEnd ();
+						}
+					}
+				}
 			}
+
+			return result;
 		}
 
 		/*

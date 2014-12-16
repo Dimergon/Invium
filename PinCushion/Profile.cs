@@ -32,8 +32,7 @@ namespace PinCushion
 	{
 		public List<Service> Profileservices = new List<Service> ();
 		private string profilename = string.Empty;
-		private string internalpassword = Program.SafePC ? string.Empty : Password.GenSalt ();
-		private string internalsalt = Program.SafePC ? string.Empty : Password.GenSalt ();
+		private string internalpassword = Password.GenSalt ();
 
 		public Profile (string arg)
 		{
@@ -41,8 +40,8 @@ namespace PinCushion
 		}
 
 		public string Name {
-			get { return Program.SafePC ? this.profilename : Crypto.Decrypt (this.profilename, this.internalpassword, this.internalsalt); }
-			set { this.profilename = Program.SafePC ? value : Crypto.Encrypt (value, this.internalpassword, this.internalsalt); }
+			get { return Crypto.Decrypt (this.profilename, this.internalpassword); }
+			set { this.profilename = Crypto.Encrypt (value, this.internalpassword); }
 		}
 	}
 }

@@ -135,6 +135,10 @@ namespace PinCushion
 				return false;
 			}
 
+			if (!Regex.IsMatch (password, "[" + csetsymbolextreme + "]", RegexOptions.None) && password_strength > 5) {
+				return false;
+			}
+
 			// Check for doubles across all profiles, services and accounts
 			foreach (Profile p in profiles) {
 				foreach (Service s in p.Profileservices) {

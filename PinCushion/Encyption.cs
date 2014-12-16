@@ -40,7 +40,7 @@ namespace PinCushion
 			using (MemoryStream memoryStream = new MemoryStream ()) {
 				byte[] saltBytes = Encoding.UTF8.GetBytes (salt);
 				byte[] plainTextBytes = Encoding.UTF8.GetBytes (plainText);
-				PasswordDeriveBytes password = new PasswordDeriveBytes (passPhrase, null);
+				Rfc2898DeriveBytes password = new Rfc2898DeriveBytes (passPhrase, saltBytes);
 				byte[] keyBytes = password.GetBytes (32);
 				RijndaelManaged symmetricKey = new RijndaelManaged ();
 				symmetricKey.Mode = CipherMode.CBC;
@@ -58,7 +58,7 @@ namespace PinCushion
 			using (MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (cipherText))) {
 				byte[] saltBytes = Encoding.UTF8.GetBytes (salt);
 				byte[] cipherTextBytes = Convert.FromBase64String (cipherText);
-				PasswordDeriveBytes password = new PasswordDeriveBytes (passPhrase, null);
+				Rfc2898DeriveBytes password = new Rfc2898DeriveBytes (passPhrase, saltBytes);
 				byte[] keyBytes = password.GetBytes (32);
 				RijndaelManaged symmetricKey = new RijndaelManaged ();
 				symmetricKey.Mode = CipherMode.CBC;

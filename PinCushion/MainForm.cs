@@ -191,7 +191,10 @@ namespace PinCushion
 				try {
 					System.Windows.Forms.Application.Run (loadingscreen);
 				} catch (ThreadAbortException) {
-					loadingscreen.Close ();
+					try {
+						loadingscreen.Close ();
+					} catch (Exception) {
+					}
 				}
 			});
 			Thread loadingscreen_thread = new Thread (loadingscreen_worker);

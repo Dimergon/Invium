@@ -185,25 +185,6 @@ namespace PinCushion
 				this.pinCushionPassword.Password = input_password;
 			}
 
-			/*
-			// Show the loading screen
-			ThreadStart loadingscreen_worker = new ThreadStart (delegate() {
-				Loadingscreen loadingscreen = new Loadingscreen ();
-				try {
-					System.Windows.Forms.Application.Run (loadingscreen);
-				} catch (ThreadAbortException) {
-					while (!loadingscreen.IsHandleCreated) {
-					}
-					loadingscreen.Close ();
-				}
-			});
-			Thread loadingscreen_thread = new Thread (loadingscreen_worker);
-			loadingscreen_thread.IsBackground = true;
-			loadingscreen_thread.Start ();
-			while (!loadingscreen_thread.IsAlive) {
-			}
-			*/
-
 			load_timer.Start ();
 			short p_count, s_count, a_count;
 			p_count = s_count = a_count = 0;
@@ -255,9 +236,6 @@ namespace PinCushion
 			if (do_recrypt_save) {
 				this.DoSave ();
 			}
-
-			// Kill the loading screen
-			// loadingscreen_thread.Abort ();
 
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
@@ -957,6 +935,7 @@ namespace PinCushion
 						this.DoSave ();
 					}
 				}
+
 				Program.PinCushionExit ();
 			}
 

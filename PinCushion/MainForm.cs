@@ -28,6 +28,7 @@ namespace PinCushion
 	using System.Diagnostics;
 	using System.IO;
 	using System.Text;
+	using System.Threading;
 	using System.Windows.Forms;
 	using System.Xml;
 
@@ -72,6 +73,9 @@ namespace PinCushion
 		// Remind the user of an unsaved password...
 		private bool unsavedPassword = false;
 		private int[] unsavedPasswordIndeces = { 0, 0, 0 };
+
+		// Prevent manipulation while saving
+		private bool savingData = false;
 
 		public MainForm ()
 		{
@@ -242,59 +246,75 @@ namespace PinCushion
 		/*
 		 * Save all data
 		 */
-		public void DoSave ()
+		public void DoSave (bool closingDown = false)
 		{
-			// Create the required streams and write the start
-			using (StreamWriter document = File.CreateText (Program.DataFile)) {
-				XmlWriterSettings settings = new XmlWriterSettings ();
-				settings.Encoding = Encoding.UTF8;
-				XmlWriter document_writer = XmlWriter.Create (document, settings);
-				document_writer.WriteStartElement (XMLBody);
+			ThreadStart save_worker = new ThreadStart (delegate() {
+				this.savingData = true;
 
-				// encryption releated data
-				string salt = Password.GenSalt ();
-				string password_hash = Crypto.Hash (this.pinCushionPassword.Password, salt);
-				if (this.encrypt.Checked) {
-					document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
-					document_writer.WriteElementString (XMLSalt, salt);
-					document_writer.WriteElementString (XMLPassword, password_hash);
-				}
+				// Create the required streams and write the start
+				using (StreamWriter document = File.CreateText (Program.DataFile)) {
+					XmlWriterSettings settings = new XmlWriterSettings ();
+					settings.Encoding = Encoding.UTF8;
+					XmlWriter document_writer = XmlWriter.Create (document, settings);
+					document_writer.WriteStartElement (XMLBody);
 
-				/*
-				 * Main Loop, will also encrypt if specified
-				 */
-				foreach (Profile p in this.profiles) {
-					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
-					document_writer.WriteElementString (XMLName, profile_name);
-					foreach (Service s in p.Profileservices) {
-						document_writer.WriteStartElement (XMLService);
-						string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
-						document_writer.WriteElementString (XMLName, service_name);
-						if (s.Command != string.Empty) {
-							string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
-							document_writer.WriteElementString (XMLCommand, service_command);
-						}
+					// encryption releated data
+					string salt = Password.GenSalt ();
+					string password_hash = Crypto.Hash (this.pinCushionPassword.Password, salt);
+					if (this.encrypt.Checked) {
+						document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
+						document_writer.WriteElementString (XMLSalt, salt);
+						document_writer.WriteElementString (XMLPassword, password_hash);
+					}
 
-						foreach (Account a in s.ServiceAccounts) {
-							document_writer.WriteStartElement (XMLAccount);
-							string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
-							string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
-							document_writer.WriteElementString (XMLName, account_name);
-							document_writer.WriteElementString (XMLPassword, account_password);
+					// Main Loop, will also encrypt if specified
+					foreach (Profile p in this.profiles) {
+						document_writer.WriteStartElement (XMLProfile);
+						string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
+						document_writer.WriteElementString (XMLName, profile_name);
+						foreach (Service s in p.Profileservices) {
+							document_writer.WriteStartElement (XMLService);
+							string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
+							document_writer.WriteElementString (XMLName, service_name);
+							if (s.Command != string.Empty) {
+								string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
+								document_writer.WriteElementString (XMLCommand, service_command);
+							}
+
+							foreach (Account a in s.ServiceAccounts) {
+								document_writer.WriteStartElement (XMLAccount);
+								string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
+								string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
+								document_writer.WriteElementString (XMLName, account_name);
+								document_writer.WriteElementString (XMLPassword, account_password);
+								document_writer.WriteEndElement ();
+							}
+
 							document_writer.WriteEndElement ();
 						}
 
 						document_writer.WriteEndElement ();
 					}
 
+					// Done
 					document_writer.WriteEndElement ();
+					document_writer.Close ();
+					document.Close ();
+					this.savingData = false;
 				}
+			});
+			Thread save_thread = new Thread (save_worker);
+			save_thread.IsBackground = true;
+			save_thread.Start ();
 
-				// Done
-				document_writer.WriteEndElement ();
-				document_writer.Close ();
-				document.Close ();
+			// wait for the thread to actually start.
+			while (!save_thread.IsAlive) {
+			}
+
+			// and now lock in case we're closing
+			if (closingDown) {
+				while (save_thread.IsAlive) {
+				}
 			}
 		}
 
@@ -339,6 +359,9 @@ namespace PinCushion
 		*/
 		private void AddProfile_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -373,6 +396,9 @@ namespace PinCushion
 		*/
 		private void RemoveProfile_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -401,6 +427,9 @@ namespace PinCushion
 		*/
 		private void RenameProfile_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -437,6 +466,9 @@ namespace PinCushion
 		*/
 		private void AddService_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -471,6 +503,9 @@ namespace PinCushion
 		*/
 		private void RemoveService_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -499,6 +534,9 @@ namespace PinCushion
 		*/
 		private void RenameService_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -535,6 +573,9 @@ namespace PinCushion
 		*/
 		private void AddAccount_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -573,6 +614,9 @@ namespace PinCushion
 		*/
 		private void RemoveAccount_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -601,6 +645,9 @@ namespace PinCushion
 		*/
 		private void RenameAccount_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -631,6 +678,9 @@ namespace PinCushion
 		*/
 		private void GeneratePassword_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -660,6 +710,9 @@ namespace PinCushion
 		*/
 		private void SetPassword_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			// this next call needs to be here to avoid an unnecessary popup (see NotIdle)
 			this.unsavedPassword = false;
 
@@ -998,6 +1051,9 @@ namespace PinCushion
 		*/
 		private void SetexecuteToolStripMenuItem_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -1018,6 +1074,9 @@ namespace PinCushion
 		 */
 		private void CloneServiceToolStripMenuItem_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			try {
@@ -1083,6 +1142,9 @@ namespace PinCushion
 		*/
 		private void ImportToolStripMenuItem_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			OpenFileDialog f = new OpenFileDialog ();
@@ -1105,6 +1167,9 @@ namespace PinCushion
 		*/
 		private void SetPinCushionPassword_Click (object sender, EventArgs e)
 		{
+			while (this.savingData) {
+			}
+
 			this.NotIdle ();
 
 			string input_password = string.Empty;
@@ -1146,12 +1211,12 @@ namespace PinCushion
 		{
 			if (!this.readOnly.Checked) {
 				if (this.unsavedPassword) {
-					// The call to NotIdle() is to invoke the prompt there...
-					this.NotIdle ();
-				} else {
-					// Seeing as how there is no unsaved password, just save.
-					this.DoSave ();
+					if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, this.profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						this.profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+					}
 				}
+
+				this.DoSave (true);
 			}
 		}
 	}

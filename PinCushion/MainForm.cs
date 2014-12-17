@@ -947,11 +947,12 @@ namespace PinCushion
 		{
 			// Check for maximum idle time, quit if it expired...
 			if (!this.notimeout && DateTime.Now >= this.timeout) {
-				/*
-				 * The call to NotIdle is just here to inform the user of an unsaved password.
-				 * See NotIdle();
-				 */
-				this.NotIdle ();
+				if (this.unsavedPassword) {
+					if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, this.profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						this.profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+						this.DoSave ();
+					}
+				}
 				Program.PinCushionExit ();
 			}
 

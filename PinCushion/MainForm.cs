@@ -248,6 +248,9 @@ namespace PinCushion
 		 */
 		public void DoSave (bool closingDown = false)
 		{
+			while (this.savingData) {
+			}
+
 			ThreadStart save_worker = new ThreadStart (delegate() {
 				this.savingData = true;
 

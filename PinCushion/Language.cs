@@ -115,6 +115,7 @@ namespace PinCushion
 		public string NoExecute;
 		public string SetExecute;
 		public string CloneService;
+		public string Loading;
 
 		/* etc... */
 		public string ConfirmQuestion;
@@ -231,6 +232,7 @@ namespace PinCushion
 				this.NoExecute = "No command specified to execute.";
 				this.CloneService = "Clone service";
 				this.SetExecute = "Set command to execute.";
+				this.Loading = "Loading, please wait.";
 				this.ConfirmQuestion = "Are you sure?";
 				this.ConfirmCaption = "Please confirm";
 				this.Stats = "Profile {0} contains {1} services.";

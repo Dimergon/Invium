@@ -186,11 +186,13 @@ namespace PinCushion
 			}
 
 			// Show the loading screen
-			Loadingscreen loadingscreen = new Loadingscreen ();
 			ThreadStart loadingscreen_worker = new ThreadStart (delegate() {
+				Loadingscreen loadingscreen = new Loadingscreen ();
 				try {
 					System.Windows.Forms.Application.Run (loadingscreen);
 				} catch (ThreadAbortException) {
+					while (!loadingscreen.IsHandleCreated) {
+					}
 					loadingscreen.Close ();
 				}
 			});

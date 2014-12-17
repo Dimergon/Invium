@@ -42,7 +42,7 @@ namespace PinCushion
 				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
-				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_encrypt ? 10 : 100);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_encrypt ? 10 : 1000);
 				byte[] key = derived.GetBytes (32);
 				algR.Key = key;
 				algR.IV = iv;
@@ -69,7 +69,7 @@ namespace PinCushion
 				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
-					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_decrypt ? 10 : 100);
+					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_decrypt ? 10 : 1000);
 					byte[] key = derived.GetBytes (32);
 					algR.Key = key;
 					algR.IV = iv;

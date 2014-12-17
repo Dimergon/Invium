@@ -37,17 +37,17 @@ namespace PinCushion
 		private void InitializeComponent ()
 		{
 			this.SuspendLayout ();
-			this.loadingScreenLabel = new Label ();
+			this.loadingScreenLabel = new System.Windows.Forms.Label ();
 			this.loadingScreenLabel.SuspendLayout ();
 			this.loadingScreenLabel.SetBounds (10, 10, 200, 20);
-			this.loadingScreenLabel.TextAlign = ContentAlignment.MiddleCenter;
+			this.loadingScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.loadingScreenLabel.Text = Program.Language.Loading;
-			this.FormBorderStyle = FormBorderStyle.None;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.ControlBox = false;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.ClientSize = new Size (this.loadingScreenLabel.Right + 10, this.loadingScreenLabel.Bottom + 10);
-			this.StartPosition = FormStartPosition.CenterScreen;
+			this.ClientSize = new System.Drawing.Size (this.loadingScreenLabel.Right + 10, this.loadingScreenLabel.Bottom + 10);
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.Release);
 			this.Controls.Add (this.loadingScreenLabel);
 			this.loadingScreenLabel.ResumeLayout (false);

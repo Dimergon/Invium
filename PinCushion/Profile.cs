@@ -40,8 +40,8 @@ namespace PinCushion
 		}
 
 		public string Name {
-			get { return Crypto.Decrypt (this.profilename, this.internalpassword); }
-			set { this.profilename = Crypto.Encrypt (value, this.internalpassword); }
+			get { return Crypto.Decrypt (this.profilename, this.internalpassword, true); }
+			set { this.profilename = Crypto.Encrypt (value, this.internalpassword, true); }
 		}
 	}
 }

@@ -32,8 +32,8 @@ namespace PinCushion
 		private string internalpassword = PinCushion.Password.GenSalt ();
 
 		public string Password {
-			get { return Crypto.Decrypt (this.pincushionpassword, this.internalpassword); }
-			set { this.pincushionpassword = Crypto.Encrypt (value, this.internalpassword); }
+			get { return Crypto.Decrypt (this.pincushionpassword, this.internalpassword, true); }
+			set { this.pincushionpassword = Crypto.Encrypt (value, this.internalpassword, true); }
 		}
 	}
 }

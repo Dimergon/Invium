@@ -34,21 +34,15 @@ namespace PinCushion
 	{
 		/*
 		 * Encryption/Decryption is in AES-256 bit.
-		 * 
-		 * Rfc2898DeriveBytes may be far more secure but it is also
-		 * horrendously slow. Increasing the loading time by a factor
-		 * of 80 for my relatively small personal data file.
-		 * 
-		 * Sorry, not using it.
 		 */
-		public static string Encrypt (string plainText, string passPhrase)
+		public static string Encrypt (string plainText, string passPhrase, bool fast_encrypt = false)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
 				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
-				PasswordDeriveBytes derived = new PasswordDeriveBytes (passPhrase, iv);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_encrypt ? 10 : 100);
 				byte[] key = derived.GetBytes (32);
 				algR.Key = key;
 				algR.IV = iv;
@@ -67,7 +61,7 @@ namespace PinCushion
 			return result;
 		}
 
-		public static string Decrypt (string cipherText, string passPhrase)
+		public static string Decrypt (string cipherText, string passPhrase, bool fast_decrypt = false)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
@@ -75,7 +69,7 @@ namespace PinCushion
 				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
-					PasswordDeriveBytes derived = new PasswordDeriveBytes (passPhrase, iv);
+					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_decrypt ? 10 : 100);
 					byte[] key = derived.GetBytes (32);
 					algR.Key = key;
 					algR.IV = iv;

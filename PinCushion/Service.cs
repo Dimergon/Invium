@@ -41,13 +41,13 @@ namespace PinCushion
 		}
 
 		public string Name {
-			get { return Crypto.Decrypt (this.servicename, this.internalpassword); }
-			set { this.servicename = Crypto.Encrypt (value, this.internalpassword); }
+			get { return Crypto.Decrypt (this.servicename, this.internalpassword, true); }
+			set { this.servicename = Crypto.Encrypt (value, this.internalpassword, true); }
 		}
 
 		public string Command {
-			get { return Crypto.Decrypt (this.servicecommand, this.internalpassword); }
-			set { this.servicecommand = Crypto.Encrypt (value, this.internalpassword); }
+			get { return Crypto.Decrypt (this.servicecommand, this.internalpassword, true); }
+			set { this.servicecommand = Crypto.Encrypt (value, this.internalpassword, true); }
 		}
 	}
 }

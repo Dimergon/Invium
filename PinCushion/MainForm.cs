@@ -164,11 +164,11 @@ namespace PinCushion
 			bool do_recrypt_save = false;
 
 			/*
-			* - Securely store the password in case of initial log on (for (auto)saving purposes)
-			* - Ask for a new password in case of an unencrypted main data file (to re-enable encryption)
-			*
-			* Skip if importing
-			*/
+			 * - Securely store the password in case of initial log on (for (auto)saving purposes)
+			 * - Ask for a new password in case of an unencrypted main data file (to re-enable encryption)
+			 *
+			 * Skip if importing
+			 */
 			if (!importing) {
 				if (!do_decrypt) {
 					if (this.Inputbox (InputBoxMode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.Cancel) {
@@ -228,20 +228,20 @@ namespace PinCushion
 				this.profiles.Add (p);
 			}
 
+			// Save all data in case data was unencrypted, to encrypt it again
+			if (do_recrypt_save) {
+				this.DoSave ();
+			}
+
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
 			this.tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
 			this.tray.ShowBalloonTip (int.MaxValue);
-
-			// and save all data in case data was unencrypted, to encrypt it again
-			if (do_recrypt_save) {
-				this.DoSave ();
-			}
 		}
 
 		/*
-		* Save all data
-		*/
+		 * Save all data
+		 */
 		public void DoSave ()
 		{
 			// Create the required streams and write the start

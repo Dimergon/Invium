@@ -111,7 +111,7 @@ namespace PinCushion
 				string profile_name = do_decrypt ? Crypto.Decrypt (profile_name_node.InnerText, input_password) : profile_name_node.InnerText;
 
 				// Check for duplicates, importing requires this step.
-				if (this.profiles.Find (delegate(Profile x) {
+				if (Program.Profiles.Find (delegate(Profile x) {
 					return x.Name == profile_name;
 				}) != null) {
 					profile_name += DateTime.Now.ToString ();
@@ -142,7 +142,7 @@ namespace PinCushion
 					p.Profileservices.Add (s);
 				}
 
-				this.profiles.Add (p);
+				Program.Profiles.Add (p);
 			}
 
 			// Save all data in case data was unencrypted, to encrypt it again
@@ -184,7 +184,7 @@ namespace PinCushion
 					}
 
 					// Main Loop, will also encrypt if specified
-					foreach (Profile p in this.profiles) {
+					foreach (Profile p in Program.Profiles) {
 						document_writer.WriteStartElement (XMLProfile);
 						string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
 						document_writer.WriteElementString (XMLName, profile_name);

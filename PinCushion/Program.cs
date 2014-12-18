@@ -25,6 +25,7 @@
 namespace PinCushion
 {
 	using System;
+	using System.Collections.Generic;
 	using System.Diagnostics;
 	using System.IO;
 	using System.Threading;
@@ -47,6 +48,9 @@ namespace PinCushion
 
 		// used to determine if we need to clear the clipboard; this sits here because of PinCushionExit()
 		public static bool ClipboardClearEnabled = false;
+
+		// Main container
+		public static List<Profile> Profiles = new List<Profile> ();
 
 		public static void Main (string[] args)
 		{
@@ -110,7 +114,6 @@ namespace PinCushion
 			Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
 			Application.SetCompatibleTextRenderingDefault (true);
 			Application.Run (new MainForm ());
-
 			PinCushionExit ();
 		}
 

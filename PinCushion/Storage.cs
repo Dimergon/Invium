@@ -31,6 +31,24 @@ namespace PinCushion
 
 	public partial class MainForm
 	{
+		// Used in loading and saving...
+		private const string XMLBody = "body";
+		private const string XMLencrypt = "encrypted";
+		private const string XMLSalt = "salt";
+		private const string XMLProfile = "profile";
+		private const string XMLService = "service";
+		private const string XMLAccount = "account";
+		private const string XMLName = "name";
+		private const string XMLPassword = "password";
+		private const string XMLCommand = "command";
+		private const string XMLDescendant = "descendant";
+
+		// Used in auto saving upon changes
+		private PinCushionPassword_Class pinCushionPassword = new PinCushionPassword_Class ();
+
+		// Prevent manipulation while saving
+		private bool savingData = false;
+
 		/*
 		* Load all data
 		*/

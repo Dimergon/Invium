@@ -42,18 +42,6 @@ namespace PinCushion
 		private const short MaxIdle = 300;
 		private const short CCTime = 120;
 
-		// Used in loading and saving...
-		private const string XMLBody = "body";
-		private const string XMLencrypt = "encrypted";
-		private const string XMLSalt = "salt";
-		private const string XMLProfile = "profile";
-		private const string XMLService = "service";
-		private const string XMLAccount = "account";
-		private const string XMLName = "name";
-		private const string XMLPassword = "password";
-		private const string XMLCommand = "command";
-		private const string XMLDescendant = "descendant";
-
 		// Used in the automatic timeout functionality, PinCushion will quit after a certain period of inactivity.
 		private DateTime timeout = DateTime.Now.AddSeconds (MaxIdle);
 		private bool notimeout = false;
@@ -61,15 +49,9 @@ namespace PinCushion
 		// Used to clear the clipboard after copying a password
 		private DateTime clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
 
-		// Used in auto saving upon changes
-		private PinCushionPassword_Class pinCushionPassword = new PinCushionPassword_Class ();
-
 		// Remind the user of an unsaved password...
 		private bool unsavedPassword = false;
 		private int[] unsavedPasswordIndeces = { 0, 0, 0 };
-
-		// Prevent manipulation while saving
-		private bool savingData = false;
 
 		public MainForm ()
 		{

@@ -141,7 +141,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.AddProfileTitle, Program.Language.AddProfilePrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.AddProfileTitle, Program.Language.AddProfilePrompt) == DialogResult.OK) {
 					if (Program.Profiles.Find (delegate(Profile p) {
 						return p.Name == userinput;
 					}) != null) {
@@ -209,7 +209,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameProfileTitle, Program.Language.RenameProfilePrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.RenameProfileTitle, Program.Language.RenameProfilePrompt) == DialogResult.OK) {
 					if (Program.Profiles.Find (delegate(Profile p) {
 						return p.Name == userinput;
 					}) != null) {
@@ -248,7 +248,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.AddServiceTitle, Program.Language.AddServicePrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.AddServiceTitle, Program.Language.AddServicePrompt) == DialogResult.OK) {
 					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
 						return s.Name == userinput;
 					}) != null) {
@@ -316,7 +316,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameServiceTitle, Program.Language.RenameServicePrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.RenameServiceTitle, Program.Language.RenameServicePrompt) == DialogResult.OK) {
 					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
 						return s.Name == userinput;
 					}) != null) {
@@ -356,8 +356,8 @@ namespace PinCushion
 			try {
 				string account = string.Empty;
 				string password = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref account, Program.Language.AddAccountTitle, Program.Language.AddAccountPrompt) == DialogResult.OK) {
-					if (this.Inputbox (InputBoxMode.Doublepassword, ref password, Program.Language.AddAccountPasswordTitle, Program.Language.AddAccountPasswordPrompt, Program.Language.AddAccountPasswordConfirmation) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref account, Program.Language.AddAccountTitle, Program.Language.AddAccountPrompt) == DialogResult.OK) {
+					if (InputBox.Show (InputBox.Mode.Doublepassword, ref password, Program.Language.AddAccountPasswordTitle, Program.Language.AddAccountPasswordPrompt, Program.Language.AddAccountPasswordConfirmation) == DialogResult.OK) {
 						if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
 							return a.Name == account;
 						}) != null) {
@@ -427,7 +427,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.RenameAccountTitle, Program.Language.RenameAccountPrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.RenameAccountTitle, Program.Language.RenameAccountPrompt) == DialogResult.OK) {
 					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
 						return a.Name == userinput;
 					}) != null) {
@@ -499,7 +499,7 @@ namespace PinCushion
 					 * Show the popup in case the shown password matches the listed password, implying we want to manually set a new password.
 					 */
 					string userinput = string.Empty;
-					if (this.Inputbox (InputBoxMode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
+					if (InputBox.Show (InputBox.Mode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
 						string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
 						this.DoSave ();
@@ -682,7 +682,7 @@ namespace PinCushion
 			} else {
 				// First run, let's grab a password for PinCushion before proceeding.
 				string input_password = string.Empty;
-				if (this.Inputbox (InputBoxMode.Doublepassword, ref input_password, string.Format (Program.Language.FirstRunTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.FirstRunPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionSaveConfirmation) == DialogResult.Cancel) {
+				if (InputBox.Show (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.FirstRunTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.FirstRunPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionSaveConfirmation) == DialogResult.Cancel) {
 					Program.PinCushionExit ();
 				}
 
@@ -835,7 +835,7 @@ namespace PinCushion
 
 			try {
 				string userinput = string.Empty;
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = userinput;
 					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Account);
@@ -859,7 +859,7 @@ namespace PinCushion
 			try {
 				string userinput = string.Empty;
 
-				if (this.Inputbox (InputBoxMode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
+				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
 					int destination_profile = Program.Profiles.FindIndex (delegate (Profile p) {
 						return p.Name == userinput;
 					});
@@ -950,7 +950,7 @@ namespace PinCushion
 			this.NotIdle ();
 
 			string input_password = string.Empty;
-			if (this.Inputbox (InputBoxMode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
+			if (InputBox.Show (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
 				this.pinCushionPassword.Password = input_password;
 				this.DoSave ();
 			}

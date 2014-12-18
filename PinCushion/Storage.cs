@@ -86,7 +86,7 @@ namespace PinCushion
 				string password_hash = password_node.InnerText;
 
 				// This InputBox will ask for the password, of either log on or of the import
-				if (this.Inputbox (InputBoxMode.Singlepassword, ref input_password, importing ? Program.Language.ImportAuth : Program.Language.Login, importing ? Program.Language.ImportPassword : Program.Language.AuthPassword) == DialogResult.Cancel) {
+				if (InputBox.Show (InputBox.Mode.Singlepassword, ref input_password, importing ? Program.Language.ImportAuth : Program.Language.Login, importing ? Program.Language.ImportPassword : Program.Language.AuthPassword) == DialogResult.Cancel) {
 					throw new PinCushionException (importing ? Program.Language.ImportCancel : Program.Language.AuthFailCancel);
 				}
 
@@ -106,7 +106,7 @@ namespace PinCushion
 			 */
 			if (!importing) {
 				if (!do_decrypt) {
-					if (this.Inputbox (InputBoxMode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.Cancel) {
+					if (InputBox.Show (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.Cancel) {
 						throw new PinCushionException (Program.Language.FatalNeedPasswordReencrypt);
 					} else {
 						do_recrypt_save = true;

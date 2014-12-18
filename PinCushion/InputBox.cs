@@ -30,16 +30,16 @@ namespace PinCushion
 	using System.Drawing;
 	using System.Windows.Forms;
 
-	public partial class MainForm : Form
+	public static class InputBox
 	{
-		public enum InputBoxMode
+		public enum Mode
 		{
 			Normal,
 			Singlepassword,
 			Doublepassword
 		}
 
-		public DialogResult Inputbox (InputBoxMode mode, ref string value, string title, string prompt, string prompt2 = null)
+		public static DialogResult Show (Mode mode, ref string value, string title, string prompt, string prompt2 = null)
 		{
 			Form form = new Form ();
 			Label label = new Label ();
@@ -59,14 +59,14 @@ namespace PinCushion
 			buttonCancel.DialogResult = DialogResult.Cancel;
 
 			switch (mode) {
-			case InputBoxMode.Normal:
-			case InputBoxMode.Singlepassword:
+			case Mode.Normal:
+			case Mode.Singlepassword:
 				label.SetBounds (9, 20, 372, 13);
 				textBox.SetBounds (12, 54, 372, 20);
 				buttonOk.SetBounds (228, 88, 75, 23);
 				buttonCancel.SetBounds (309, 88, 75, 23);
 				break;
-			case InputBoxMode.Doublepassword:
+			case Mode.Doublepassword:
 				label.SetBounds (9, 20, 372, 13);
 				textBox.SetBounds (12, 54, 372, 20);
 				buttonOk.SetBounds (228, 156, 75, 23);
@@ -78,9 +78,9 @@ namespace PinCushion
 				break;
 			}
 
-			textBox.UseSystemPasswordChar = textBox2.UseSystemPasswordChar = (mode == InputBoxMode.Normal) ? false : true;
+			textBox.UseSystemPasswordChar = textBox2.UseSystemPasswordChar = (mode == Mode.Normal) ? false : true;
 
-			if (mode == InputBoxMode.Doublepassword) {
+			if (mode == Mode.Doublepassword) {
 				textBox.TextChanged += new System.EventHandler (delegate {
 					buttonOk.Enabled = (textBox.Text == string.Empty) ? false : ((textBox.Text == textBox2.Text) ? true : false);
 				});
@@ -96,7 +96,7 @@ namespace PinCushion
 			}
 
 			form.ClientSize = new Size (buttonCancel.Right + 10, buttonCancel.Bottom + 10);
-			if (mode == InputBoxMode.Doublepassword) {
+			if (mode == Mode.Doublepassword) {
 				form.Controls.AddRange (new Control[] { label, label2, textBox, textBox2, buttonOk, buttonCancel });
 			} else {
 				form.Controls.AddRange (new Control[] { label, textBox, buttonOk, buttonCancel });

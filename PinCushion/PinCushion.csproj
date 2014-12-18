@@ -26,8 +26,6 @@
     <BootstrapperEnabled>false</BootstrapperEnabled>
     <TargetFrameworkProfile />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">dotNET</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dotNET|AnyCPU'">
     <DebugType>none</DebugType>

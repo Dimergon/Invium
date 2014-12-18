@@ -27,7 +27,6 @@ namespace PinCushion
 	using System.Diagnostics;
 	using System.IO;
 	using System.Windows.Forms;
-	using System.Xml;
 
 	#if BuildForMono
 	using Gtk;
@@ -677,7 +676,7 @@ namespace PinCushion
 					// We end up here in case of data corruption or in case an incorrect password was specified.
 					MessageBox.Show (ex.Message);
 					Program.PinCushionExit ();
-				} catch (XmlException) {
+				} catch (System.Xml.XmlException) {
 					// Most likely merely an empty XML file.
 				}
 			} else {
@@ -934,7 +933,7 @@ namespace PinCushion
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (PinCushionException ex) {
 					MessageBox.Show (ex.Message);
-				} catch (XmlException) {
+				} catch (System.Xml.XmlException) {
 					// Most likely an empty XML file, just ignore.
 				}
 			}

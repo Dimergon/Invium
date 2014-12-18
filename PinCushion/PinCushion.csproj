@@ -26,6 +26,8 @@
     <BootstrapperEnabled>false</BootstrapperEnabled>
     <TargetFrameworkProfile />
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">dotNET</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'dotNET|AnyCPU'">
     <DebugType>none</DebugType>
@@ -105,6 +107,7 @@
     <Compile Include="Profile.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Account.cs" />
+    <Compile Include="Storage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

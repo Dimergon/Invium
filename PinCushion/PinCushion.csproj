@@ -106,7 +106,6 @@
     <Compile Include="Service.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="Storage.cs" />
-    <Compile Include="Loadingscreen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

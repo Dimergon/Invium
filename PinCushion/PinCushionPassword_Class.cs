@@ -24,16 +24,16 @@
 namespace PinCushion
 {
 	using System;
+	using System.Net;
 	using System.Text;
 
 	public class PinCushionPassword_Class
 	{
-		private string pincushionpassword = string.Empty;
-		private string internalpassword = PinCushion.Password.GenSalt ();
+		private NetworkCredential data = new NetworkCredential ();
 
 		public string Password {
-			get { return Crypto.Decrypt (this.pincushionpassword, this.internalpassword, true); }
-			set { this.pincushionpassword = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.data.Password; }
+			set { this.data.Password = value; }
 		}
 	}
 }

@@ -35,14 +35,14 @@ namespace PinCushion
 		/*
 		 * Encryption/Decryption is in AES-256 bit.
 		 */
-		public static string Encrypt (string plainText, string passPhrase, bool fast_encrypt = false)
+		public static string Encrypt (string plainText, string passPhrase)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
 				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
-				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_encrypt ? 10 : 100);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 100);
 				byte[] key = derived.GetBytes (32);
 				algR.Key = key;
 				algR.IV = iv;
@@ -61,7 +61,7 @@ namespace PinCushion
 			return result;
 		}
 
-		public static string Decrypt (string cipherText, string passPhrase, bool fast_decrypt = false)
+		public static string Decrypt (string cipherText, string passPhrase)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
@@ -69,7 +69,7 @@ namespace PinCushion
 				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
-					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_decrypt ? 10 : 100);
+					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 100);
 					byte[] key = derived.GetBytes (32);
 					algR.Key = key;
 					algR.IV = iv;

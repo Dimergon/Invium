@@ -25,29 +25,29 @@ namespace PinCushion
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Net;
 	using System.Text;
 
 	public class Service
 	{
 		public List<Account> ServiceAccounts = new List<Account> ();
-		private string servicename = string.Empty;
-		private string servicecommand = string.Empty;
-		private string internalpassword = Password.GenSalt ();
+		private NetworkCredential name = new NetworkCredential ();
+		private NetworkCredential command = new NetworkCredential ();
 
-		public Service (string arg0, string arg1)
+		public Service (string arg, string arg2)
 		{
-			this.Name = arg0;
-			this.Command = arg1;
+			this.name.UserName = arg;
+			this.command.UserName = arg2;
 		}
 
 		public string Name {
-			get { return Crypto.Decrypt (this.servicename, this.internalpassword, true); }
-			set { this.servicename = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.name.UserName; }
+			set { this.name.UserName = value; }
 		}
 
 		public string Command {
-			get { return Crypto.Decrypt (this.servicecommand, this.internalpassword, true); }
-			set { this.servicecommand = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.command.UserName; }
+			set { this.command.UserName = value; }
 		}
 	}
 }

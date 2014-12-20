@@ -25,28 +25,27 @@ namespace PinCushion
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Net;
 	using System.Text;
 
 	public class Account
 	{
-		private string accountname = string.Empty;
-		private string accountpassword = string.Empty;
-		private string internalpassword = PinCushion.Password.GenSalt ();
+		private NetworkCredential data = new NetworkCredential ();
 
 		public Account (string arg, string arg2)
 		{
-			this.Name = arg;
-			this.Password = arg2;
+			this.data.UserName = arg;
+			this.data.Password = arg2;
 		}
 
 		public string Name {
-			get { return Crypto.Decrypt (this.accountname, this.internalpassword, true); }
-			set { this.accountname = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.data.UserName; }
+			set { this.data.UserName = value; }
 		}
 
 		public string Password {
-			get { return Crypto.Decrypt (this.accountpassword, this.internalpassword, true); }
-			set { this.accountpassword = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.data.Password; }
+			set { this.data.Password = value; }
 		}
 	}
 }

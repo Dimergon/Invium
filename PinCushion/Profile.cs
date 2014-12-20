@@ -26,22 +26,22 @@ namespace PinCushion
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Net;
 	using System.Text;
 
 	public class Profile
 	{
 		public List<Service> Profileservices = new List<Service> ();
-		private string profilename = string.Empty;
-		private string internalpassword = Password.GenSalt ();
+		private NetworkCredential data = new NetworkCredential ();
 
 		public Profile (string arg)
 		{
-			this.Name = arg;
+			this.data.UserName = arg;
 		}
 
 		public string Name {
-			get { return Crypto.Decrypt (this.profilename, this.internalpassword, true); }
-			set { this.profilename = Crypto.Encrypt (value, this.internalpassword, true); }
+			get { return this.data.UserName; }
+			set { this.data.UserName = value; }
 		}
 	}
 }

@@ -25,7 +25,6 @@ namespace PinCushion
 	using System.Diagnostics;
 	using System.IO;
 	using System.Text;
-	using System.Threading;
 	using System.Windows.Forms;
 	using System.Xml;
 

@@ -33,7 +33,7 @@ namespace PinCushion
 	public static class Crypto
 	{
 		/*
-		 * Encryption/Decryption is in AES-256 bit.
+		 * Encryption/Decryption, based on AES256 and PBKDF2
 		 */
 		public static string Encrypt (string plainText, string passPhrase)
 		{
@@ -95,6 +95,7 @@ namespace PinCushion
 				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (input, salt_bytes, 10000);
 				result = Convert.ToBase64String (sha512.ComputeHash (derived.GetBytes (64)));
 			}
+
 			return result;
 		}
 	}

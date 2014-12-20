@@ -46,9 +46,6 @@ namespace PinCushion
 		// Used in auto saving upon changes
 		private PinCushionPassword_Class pinCushionPassword = new PinCushionPassword_Class ();
 
-		// Prevent manipulation while saving
-		private bool savingData = false;
-
 		/*
 		* Load all data
 		*/
@@ -177,78 +174,57 @@ namespace PinCushion
 		/*
 		 * Save all data
 		 */
-		public void DoSave (bool closingDown = false)
+		public void DoSave ()
 		{
-			while (this.savingData) {
-			}
+			// Create the required streams and write the start
+			using (StreamWriter document = File.CreateText (Program.DataFile)) {
+				XmlWriterSettings settings = new XmlWriterSettings ();
+				settings.Encoding = Encoding.UTF8;
+				XmlWriter document_writer = XmlWriter.Create (document, settings);
+				document_writer.WriteStartElement (XMLBody);
 
-			ThreadStart save_worker = new ThreadStart (delegate() {
-				this.savingData = true;
+				// encryption releated data
+				string salt = Password.GenSalt ();
+				string password_hash = Crypto.Hash (this.pinCushionPassword.Password, salt);
+				if (this.encrypt.Checked) {
+					document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
+					document_writer.WriteElementString (XMLSalt, salt);
+					document_writer.WriteElementString (XMLPassword, password_hash);
+				}
 
-				// Create the required streams and write the start
-				using (StreamWriter document = File.CreateText (Program.DataFile)) {
-					XmlWriterSettings settings = new XmlWriterSettings ();
-					settings.Encoding = Encoding.UTF8;
-					XmlWriter document_writer = XmlWriter.Create (document, settings);
-					document_writer.WriteStartElement (XMLBody);
+				// Main Loop, will also encrypt if specified
+				foreach (Profile p in Program.Profiles) {
+					document_writer.WriteStartElement (XMLProfile);
+					string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
+					document_writer.WriteElementString (XMLName, profile_name);
+					foreach (Service s in p.Profileservices) {
+						document_writer.WriteStartElement (XMLService);
+						string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
+						document_writer.WriteElementString (XMLName, service_name);
+						if (s.Command != string.Empty) {
+							string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
+							document_writer.WriteElementString (XMLCommand, service_command);
+						}
 
-					// encryption releated data
-					string salt = Password.GenSalt ();
-					string password_hash = Crypto.Hash (this.pinCushionPassword.Password, salt);
-					if (this.encrypt.Checked) {
-						document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
-						document_writer.WriteElementString (XMLSalt, salt);
-						document_writer.WriteElementString (XMLPassword, password_hash);
-					}
-
-					// Main Loop, will also encrypt if specified
-					foreach (Profile p in Program.Profiles) {
-						document_writer.WriteStartElement (XMLProfile);
-						string profile_name = this.encrypt.Checked ? Crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
-						document_writer.WriteElementString (XMLName, profile_name);
-						foreach (Service s in p.Profileservices) {
-							document_writer.WriteStartElement (XMLService);
-							string service_name = this.encrypt.Checked ? Crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
-							document_writer.WriteElementString (XMLName, service_name);
-							if (s.Command != string.Empty) {
-								string service_command = this.encrypt.Checked ? Crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
-								document_writer.WriteElementString (XMLCommand, service_command);
-							}
-
-							foreach (Account a in s.ServiceAccounts) {
-								document_writer.WriteStartElement (XMLAccount);
-								string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
-								string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
-								document_writer.WriteElementString (XMLName, account_name);
-								document_writer.WriteElementString (XMLPassword, account_password);
-								document_writer.WriteEndElement ();
-							}
-
+						foreach (Account a in s.ServiceAccounts) {
+							document_writer.WriteStartElement (XMLAccount);
+							string account_name = this.encrypt.Checked ? Crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
+							string account_password = this.encrypt.Checked ? Crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
+							document_writer.WriteElementString (XMLName, account_name);
+							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();
 						}
 
 						document_writer.WriteEndElement ();
 					}
 
-					// Done
 					document_writer.WriteEndElement ();
-					document_writer.Close ();
-					document.Close ();
-					this.savingData = false;
 				}
-			});
-			Thread save_thread = new Thread (save_worker);
-			save_thread.IsBackground = true;
-			save_thread.Start ();
 
-			// wait for the thread to actually start.
-			while (!save_thread.IsAlive) {
-			}
-
-			// and now lock in case we're closing
-			if (closingDown) {
-				while (save_thread.IsAlive) {
-				}
+				// Done
+				document_writer.WriteEndElement ();
+				document_writer.Close ();
+				document.Close ();
 			}
 		}
 	}

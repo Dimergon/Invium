@@ -134,9 +134,6 @@ namespace PinCushion
 		*/
 		private void AddProfile_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -151,7 +148,6 @@ namespace PinCushion
 						Program.Profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
@@ -171,9 +167,6 @@ namespace PinCushion
 		*/
 		private void RemoveProfile_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -182,7 +175,6 @@ namespace PinCushion
 					Program.Profiles.Sort (delegate(Profile p, Profile q) {
 						return p.Name.CompareTo (q.Name);
 					});
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Profile);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -202,9 +194,6 @@ namespace PinCushion
 		*/
 		private void RenameProfile_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -219,7 +208,6 @@ namespace PinCushion
 						Program.Profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
@@ -241,9 +229,6 @@ namespace PinCushion
 		*/
 		private void AddService_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -258,7 +243,6 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
@@ -278,9 +262,6 @@ namespace PinCushion
 		*/
 		private void RemoveService_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -289,7 +270,6 @@ namespace PinCushion
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 						return s.Name.CompareTo (t.Name);
 					});
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Service);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -309,9 +289,6 @@ namespace PinCushion
 		*/
 		private void RenameService_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -326,7 +303,6 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
@@ -348,9 +324,6 @@ namespace PinCushion
 		*/
 		private void AddAccount_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -367,7 +340,6 @@ namespace PinCushion
 							Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 								return a.Name.CompareTo (b.Name);
 							});
-							this.DoSave ();
 							this.RefreshControls (RefreshLevel.Account);
 							this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (account, 0);
 						}
@@ -389,9 +361,6 @@ namespace PinCushion
 		*/
 		private void RemoveAccount_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -400,7 +369,6 @@ namespace PinCushion
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 						return a.Name.CompareTo (b.Name);
 					});
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Account);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -420,9 +388,6 @@ namespace PinCushion
 		*/
 		private void RenameAccount_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -437,7 +402,6 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 							return a.Name.CompareTo (b.Name);
 						});
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (userinput, 0);
 					}
@@ -453,9 +417,6 @@ namespace PinCushion
 		*/
 		private void GeneratePassword_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -485,9 +446,6 @@ namespace PinCushion
 		*/
 		private void SetPassword_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			// this next call needs to be here to avoid an unnecessary popup (see NotIdle)
 			this.unsavedPassword = false;
 
@@ -502,7 +460,6 @@ namespace PinCushion
 					if (InputBox.Show (InputBox.Mode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
 						string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
-						this.DoSave ();
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 					}
@@ -512,7 +469,6 @@ namespace PinCushion
 					 */
 					string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = this.accountPassword.Text;
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Account);
 					this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 				}
@@ -704,7 +660,6 @@ namespace PinCushion
 				if (this.unsavedPassword) {
 					if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 						Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-						this.DoSave ();
 					}
 				}
 
@@ -740,7 +695,6 @@ namespace PinCushion
 			if (this.unsavedPassword) {
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-					this.DoSave ();
 				}
 			}
 
@@ -828,16 +782,12 @@ namespace PinCushion
 		*/
 		private void SetexecuteToolStripMenuItem_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
 				string userinput = string.Empty;
 				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = userinput;
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Account);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -851,9 +801,6 @@ namespace PinCushion
 		 */
 		private void CloneServiceToolStripMenuItem_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			try {
@@ -884,7 +831,6 @@ namespace PinCushion
 						Program.Profiles [destination_profile].Profileservices.Sort (delegate (Service a, Service b) {
 							return a.Name.CompareTo (b.Name);
 						});
-						this.DoSave ();
 						if (renamed) {
 							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
 						}
@@ -919,9 +865,6 @@ namespace PinCushion
 		*/
 		private void ImportToolStripMenuItem_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			OpenFileDialog f = new OpenFileDialog ();
@@ -929,7 +872,6 @@ namespace PinCushion
 			if (f.ShowDialog () == DialogResult.OK) {
 				try {
 					this.DoLoad (f.FileName, true);
-					this.DoSave ();
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (PinCushionException ex) {
 					MessageBox.Show (ex.Message);
@@ -944,15 +886,11 @@ namespace PinCushion
 		*/
 		private void SetPinCushionPassword_Click (object sender, EventArgs e)
 		{
-			while (this.savingData) {
-			}
-
 			this.NotIdle ();
 
 			string input_password = string.Empty;
 			if (InputBox.Show (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
 				this.pinCushionPassword.Password = input_password;
-				this.DoSave ();
 			}
 		}
 
@@ -986,15 +924,12 @@ namespace PinCushion
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
-			if (!this.readOnly.Checked) {
-				if (this.unsavedPassword) {
-					if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-						Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-					}
+			if (this.unsavedPassword) {
+				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
 				}
-
-				this.DoSave (true);
 			}
+			this.DoSave ();
 		}
 	}
 }

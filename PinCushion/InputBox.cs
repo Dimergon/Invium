@@ -18,20 +18,22 @@
 * along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-* This will draw a form with either 1 or 2 text fields to fill out.
-* 1 -- Used for singular password entry, (re)naming profiles, services
-* or accounts and other such uses.
-* 2 -- Used to enter a new password for either an account or PinCushion itself.
-*/
+// Inputbox, used in various places.
 namespace PinCushion
 {
 	using System;
 	using System.Drawing;
 	using System.Windows.Forms;
 
-	public static class InputBox
+	public class InputBox : Form
 	{
+		private Label label;
+		private Label label2;
+		private TextBox textBox;
+		private TextBox textBox2;
+		private Button buttonOk;
+		private Button buttonCancel;
+
 		public enum Mode
 		{
 			Normal,
@@ -39,77 +41,95 @@ namespace PinCushion
 			Doublepassword
 		}
 
-		public static DialogResult Show (Mode mode, ref string value, string title, string prompt, string prompt2 = null)
+		public DialogResult ShowMe (Mode mode, ref string value, string title, string prompt, string prompt2 = null)
 		{
-			Form form = new Form ();
-			Label label = new Label ();
-			Label label2 = new Label ();
-			TextBox textBox = new TextBox ();
-			TextBox textBox2 = new TextBox ();
-			Button buttonOk = new Button ();
-			Button buttonCancel = new Button ();
-
-			form.Text = title;
-			label.Text = prompt;
-			label2.Text = prompt2;
-
-			buttonOk.Text = Program.Language.OK;
-			buttonCancel.Text = Program.Language.Cancel;
-			buttonOk.DialogResult = DialogResult.OK;
-			buttonCancel.DialogResult = DialogResult.Cancel;
-
+			this.label = new Label ();
+			this.label2 = new Label ();
+			this.textBox = new TextBox ();
+			this.textBox2 = new TextBox ();
+			this.buttonOk = new Button ();
+			this.buttonCancel = new Button ();
+			this.label.SuspendLayout ();
+			this.label2.SuspendLayout ();
+			this.textBox.SuspendLayout ();
+			this.textBox2.SuspendLayout ();
+			this.buttonOk.SuspendLayout ();
+			this.buttonCancel.SuspendLayout ();
+			this.label.Text = prompt;
+			this.label2.Text = prompt2;
+			this.Text = title;
+			this.buttonOk.Text = Program.Language.OK;
+			this.buttonCancel.Text = Program.Language.Cancel;
+			this.buttonOk.DialogResult = DialogResult.OK;
+			this.buttonCancel.DialogResult = DialogResult.Cancel;
 			switch (mode) {
 			case Mode.Normal:
 			case Mode.Singlepassword:
-				label.SetBounds (9, 20, 372, 13);
-				textBox.SetBounds (12, 54, 372, 20);
-				buttonOk.SetBounds (228, 88, 75, 23);
-				buttonCancel.SetBounds (309, 88, 75, 23);
+				this.label.SetBounds (9, 20, 372, 13);
+				this.textBox.SetBounds (12, 54, 372, 20);
+				this.buttonOk.SetBounds (228, 88, 75, 23);
+				this.buttonCancel.SetBounds (309, 88, 75, 23);
 				break;
 			case Mode.Doublepassword:
-				label.SetBounds (9, 20, 372, 13);
-				textBox.SetBounds (12, 54, 372, 20);
-				buttonOk.SetBounds (228, 156, 75, 23);
-				buttonCancel.SetBounds (309, 156, 75, 23);
-				label2.SetBounds (9, 88, 372, 13);
-				textBox2.SetBounds (12, 122, 372, 20);
+				this.label.SetBounds (9, 20, 372, 13);
+				this.textBox.SetBounds (12, 54, 372, 20);
+				this.buttonOk.SetBounds (228, 156, 75, 23);
+				this.buttonCancel.SetBounds (309, 156, 75, 23);
+				this.label2.SetBounds (9, 88, 372, 13);
+				this.textBox2.SetBounds (12, 122, 372, 20);
 				break;
 			default:
 				break;
 			}
 
-			textBox.UseSystemPasswordChar = textBox2.UseSystemPasswordChar = (mode == Mode.Normal) ? false : true;
+			this.textBox.UseSystemPasswordChar = this.textBox2.UseSystemPasswordChar = (mode == Mode.Normal) ? false : true;
 
 			if (mode == Mode.Doublepassword) {
-				textBox.TextChanged += new System.EventHandler (delegate {
-					buttonOk.Enabled = (textBox.Text == string.Empty) ? false : ((textBox.Text == textBox2.Text) ? true : false);
+				this.textBox.TextChanged += new System.EventHandler (delegate {
+					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : ((this.textBox.Text == this.textBox2.Text) ? true : false);
 				});
-				textBox2.TextChanged += new System.EventHandler (delegate {
-					buttonOk.Enabled = (textBox.Text == string.Empty) ? false : ((textBox.Text == textBox2.Text) ? true : false);
+				this.textBox2.TextChanged += new System.EventHandler (delegate {
+					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : ((this.textBox.Text == this.textBox2.Text) ? true : false);
 				});
-				buttonOk.Enabled = false;
+				this.buttonOk.Enabled = false;
 			} else {
-				textBox.TextChanged += new System.EventHandler (delegate {
-					buttonOk.Enabled = (textBox.Text == string.Empty) ? false : true;
+				this.textBox.TextChanged += new System.EventHandler (delegate {
+					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : true;
 				});
-				buttonOk.Enabled = false;
+				this.buttonOk.Enabled = false;
 			}
 
-			form.ClientSize = new Size (buttonCancel.Right + 10, buttonCancel.Bottom + 10);
+			this.ClientSize = new Size (this.buttonCancel.Right + 10, this.buttonCancel.Bottom + 10);
 			if (mode == Mode.Doublepassword) {
-				form.Controls.AddRange (new Control[] { label, label2, textBox, textBox2, buttonOk, buttonCancel });
+				this.Controls.AddRange (new Control[] {
+					this.label,
+					this.label2,
+					this.textBox,
+					this.textBox2,
+					this.buttonOk,
+					this.buttonCancel
+				});
 			} else {
-				form.Controls.AddRange (new Control[] { label, textBox, buttonOk, buttonCancel });
+				this.Controls.AddRange (new Control[] { this.label, this.textBox, this.buttonOk, this.buttonCancel });
 			}
 
-			form.FormBorderStyle = FormBorderStyle.FixedDialog;
-			form.StartPosition = FormStartPosition.CenterScreen;
-			form.MinimizeBox = form.MaximizeBox = false;
-			form.AcceptButton = buttonOk;
-			form.CancelButton = buttonCancel;
+			this.FormBorderStyle = FormBorderStyle.FixedDialog;
+			this.StartPosition = FormStartPosition.CenterScreen;
+			this.ControlBox = this.MinimizeBox = this.MaximizeBox = false;
+			this.AcceptButton = this.buttonOk;
+			this.CancelButton = this.buttonCancel;
 
-			DialogResult dialogResult = form.ShowDialog ();
-			value = textBox.Text;
+			this.label.ResumeLayout (false);
+			this.label2.ResumeLayout (false);
+			this.textBox.ResumeLayout (false);
+			this.textBox2.ResumeLayout (false);
+			this.buttonOk.ResumeLayout (false);
+			this.buttonCancel.ResumeLayout (false);
+			this.ResumeLayout (false);
+			this.PerformLayout ();
+
+			DialogResult dialogResult = this.ShowDialog ();
+			value = this.textBox.Text;
 			return dialogResult;
 		}
 	}

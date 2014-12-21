@@ -25,6 +25,7 @@ namespace PinCushion
 	using System.Diagnostics;
 	using System.IO;
 	using System.Text;
+	using System.Threading;
 	using System.Windows.Forms;
 	using System.Xml;
 
@@ -118,7 +119,7 @@ namespace PinCushion
 
 			// Create and load the loadingscreen
 			SplashScreen loadingscreen = new SplashScreen (Program.Language.Loading);
-			System.Threading.Thread loadingscreen_thread = new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+			Thread loadingscreen_thread = new Thread (new ThreadStart (delegate() {
 				loadingscreen.ShowDialog ();
 			}));
 			loadingscreen_thread.IsBackground = true;
@@ -126,7 +127,7 @@ namespace PinCushion
 			while (!loadingscreen_thread.IsAlive) {
 			}
 			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
-			System.Threading.Thread.Sleep (1000);
+			Thread.Sleep (1000);
 
 			/*
 			 * Main Loop, will also decrypt if data is encrypted
@@ -192,7 +193,7 @@ namespace PinCushion
 		{
 			// Create and load the savingscreen
 			SplashScreen savingscreen = new SplashScreen (Program.Language.Saving);
-			System.Threading.Thread savingscreen_thread = new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+			Thread savingscreen_thread = new Thread (new ThreadStart (delegate() {
 				savingscreen.ShowDialog ();
 			}));
 			savingscreen_thread.IsBackground = true;
@@ -200,7 +201,7 @@ namespace PinCushion
 			while (!savingscreen_thread.IsAlive) {
 			}
 			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
-			System.Threading.Thread.Sleep (1000);
+			Thread.Sleep (1000);
 
 			// Create the required streams and write the start
 			using (StreamWriter document = File.CreateText (Program.DataFile)) {

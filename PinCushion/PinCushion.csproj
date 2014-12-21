@@ -75,9 +75,6 @@
     <Reference Condition=" '$(Configuration)|$(Platform)' == 'Mono64|x64' Or '$(Configuration)|$(Platform)' == 'Mono|AnyCPU' " Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-2.0</Package>
     </Reference>
-    <Reference Condition=" '$(Configuration)|$(Platform)' == 'Mono64|x64' Or '$(Configuration)|$(Platform)' == 'Mono|AnyCPU' " Include="MonoDevelop.GtkCore, Version=2.6.0.0, Culture=neutral">
-      <Package>monodevelop-core-addins</Package>
-    </Reference>
     <Reference Condition=" '$(Configuration)|$(Platform)' == 'Mono64|x64' Or '$(Configuration)|$(Platform)' == 'Mono|AnyCPU' " Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-2.0</Package>
     </Reference>

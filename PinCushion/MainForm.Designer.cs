@@ -266,7 +266,7 @@ namespace PinCushion
 			this.encrypt.Margin = new System.Windows.Forms.Padding (4);
 			this.encrypt.Size = new System.Drawing.Size (112, 21);
 			this.encrypt.TabStop = false;
-			this.encrypt.CheckedChanged += new System.EventHandler (this.NotIdle);
+			this.encrypt.CheckedChanged += new System.EventHandler (this.Encrypt_CheckedChanged);
 			this.idleTimer.Enabled = true;
 			this.idleTimer.Interval = 1000;
 			this.idleTimer.Tick += new System.EventHandler (this.IdleTimer_Tick);

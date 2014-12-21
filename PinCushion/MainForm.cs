@@ -623,6 +623,18 @@ namespace PinCushion
 		}
 
 		/*
+		 * This event is raised whenever the encryption checkbox is changed
+		 *
+		 * In that case, let's just assume we're going to want to save.
+		 */
+		private void Encrypt_CheckedChanged (object sender, EventArgs e)
+		{
+			this.NotIdle ();
+
+			this.saveOnClose = true;
+		}
+
+		/*
 		* Load the data.
 		*
 		* Steps:

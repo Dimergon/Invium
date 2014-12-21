@@ -113,7 +113,6 @@ namespace PinCushion
 				this.pinCushionPassword.Password = input_password;
 			}
 
-			load_timer.Start ();
 			short p_count, s_count, a_count;
 			p_count = s_count = a_count = 0;
 
@@ -128,6 +127,8 @@ namespace PinCushion
 			}
 			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
 			Thread.Sleep (1000);
+
+			load_timer.Start ();
 
 			/*
 			 * Main Loop, will also decrypt if data is encrypted

@@ -185,6 +185,7 @@ namespace PinCushion
 			load_timer.Stop ();
 			this.tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
 			this.tray.ShowBalloonTip (int.MaxValue);
+			input_password = string.Empty;
 		}
 
 		/*

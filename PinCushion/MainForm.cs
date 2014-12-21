@@ -154,6 +154,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -216,6 +217,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -252,6 +254,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -314,6 +317,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -352,6 +356,7 @@ namespace PinCushion
 							this.saveOnClose = true;
 							this.RefreshControls (RefreshLevel.Account);
 							this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (account, 0);
+							account = password = string.Empty;
 						}
 					}
 				}
@@ -416,6 +421,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (userinput, 0);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -475,6 +481,7 @@ namespace PinCushion
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
+						userinput = string.Empty;
 					}
 				} else {
 					/*
@@ -669,6 +676,7 @@ namespace PinCushion
 				}
 
 				this.pinCushionPassword.Password = input_password;
+				input_password = string.Empty;
 			}
 
 			// Done
@@ -819,6 +827,7 @@ namespace PinCushion
 					int currentAccount = this.accountSelection.SelectedIndex;
 					this.RefreshControls (RefreshLevel.Account);
 					this.accountSelection.SelectedIndex = currentAccount;
+					userinput = string.Empty;
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.SetExecuteError);
@@ -867,6 +876,7 @@ namespace PinCushion
 
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
+						userinput = string.Empty;
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -924,6 +934,7 @@ namespace PinCushion
 			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
 				this.pinCushionPassword.Password = input_password;
 				this.saveOnClose = true;
+				input_password = string.Empty;
 			}
 		}
 

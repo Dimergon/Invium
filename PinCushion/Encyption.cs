@@ -30,12 +30,12 @@ namespace PinCushion
 	using System.Security.Cryptography;
 	using System.Text;
 
-	public static class Crypto
+	public class PinCushionCryptography
 	{
 		/*
 		 * Encryption/Decryption, based on AES256 and PBKDF2
 		 */
-		public static string Encrypt (string plainText, string passPhrase)
+		public string Encrypt (string plainText, string passPhrase)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
@@ -61,7 +61,7 @@ namespace PinCushion
 			return result;
 		}
 
-		public static string Decrypt (string cipherText, string passPhrase)
+		public string Decrypt (string cipherText, string passPhrase)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
@@ -87,7 +87,7 @@ namespace PinCushion
 		/*
 		 * Generates the hash, based on SHA512 and PBKDF2
 		 */
-		public static string Hash (string input, string salt)
+		public string Hash (string input, string salt)
 		{
 			string result;
 			using (SHA512Managed sha512 = new SHA512Managed ()) {

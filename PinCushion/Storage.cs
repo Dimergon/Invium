@@ -116,6 +116,18 @@ namespace PinCushion
 			short p_count, s_count, a_count;
 			p_count = s_count = a_count = 0;
 
+			// Create and load the loadingscreen
+			SplashScreen loadingscreen = new SplashScreen (Program.Language.Loading);
+			System.Threading.Thread loadingscreen_thread = new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+				loadingscreen.ShowDialog ();
+			}));
+			loadingscreen_thread.IsBackground = true;
+			loadingscreen_thread.Start ();
+			while (!loadingscreen_thread.IsAlive) {
+			}
+			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
+			System.Threading.Thread.Sleep (1000);
+
 			/*
 			 * Main Loop, will also decrypt if data is encrypted
 			 */
@@ -164,6 +176,9 @@ namespace PinCushion
 				this.saveOnClose = true;
 			}
 
+			// and close the loading screen, which should close the thread as well.
+			loadingscreen.Close ();
+
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
 			this.tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
@@ -175,6 +190,18 @@ namespace PinCushion
 		 */
 		public void DoSave ()
 		{
+			// Create and load the savingscreen
+			SplashScreen savingscreen = new SplashScreen (Program.Language.Saving);
+			System.Threading.Thread savingscreen_thread = new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+				savingscreen.ShowDialog ();
+			}));
+			savingscreen_thread.IsBackground = true;
+			savingscreen_thread.Start ();
+			while (!savingscreen_thread.IsAlive) {
+			}
+			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
+			System.Threading.Thread.Sleep (1000);
+
 			// Create the required streams and write the start
 			using (StreamWriter document = File.CreateText (Program.DataFile)) {
 				XmlWriterSettings settings = new XmlWriterSettings ();
@@ -225,6 +252,9 @@ namespace PinCushion
 				document_writer.Close ();
 				document.Close ();
 			}
+
+			// really done!
+			savingscreen.Close ();
 		}
 	}
 }

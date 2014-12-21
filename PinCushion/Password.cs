@@ -29,22 +29,22 @@ namespace PinCushion
 	using System.Security.Cryptography;
 	using System.Text.RegularExpressions;
 
-	public static class Password
+	public class Password
 	{
 		/*
 		* Change these in case password requirements need to be altered.
 		*/
-		public static short[] PasswordLength = { 6, 10, 16, 20, 24, 32, 64, 128 };
-		private static string csetlower = "abcdefghijklmnopqrstuvwxyz";
-		private static string csetupper = csetlower.ToUpper ();
-		private static string csetdigit = "0123456789";
-		private static string csetsymbol = "!";
-		private static string csetsymbolextreme = "@#$%^&*().";
+		public short[] PasswordLength = { 6, 10, 16, 20, 24, 32, 64, 128 };
+		private string csetlower = "abcdefghijklmnopqrstuvwxyz";
+		private string csetupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		private string csetdigit = "0123456789";
+		private string csetsymbol = "!";
+		private string csetsymbolextreme = "@#$%^&*().";
 
 		/*
 		* Generate a seed (based on cryptography)
 		*/
-		public static int CryptoSeed ()
+		public int CryptoSeed ()
 		{
 			RNGCryptoServiceProvider rng_crypto = new RNGCryptoServiceProvider ();
 			byte[] rng_crypto_array = new byte[4];
@@ -59,19 +59,19 @@ namespace PinCushion
 		/*
 		* Generate a password.
 		*/
-		public static string Generate (ref List<Profile> profiles, int password_strength)
+		public string Generate (ref List<Profile> profiles, int password_strength)
 		{
-			Random rng = new Random (CryptoSeed ());
-			string[] character_set = CharacterSet (password_strength);
+			Random rng = new Random (this.CryptoSeed ());
+			string[] character_set = this.CharacterSet (password_strength);
 			string output = null;
 			do {
 				string password = null;
-				for (short i = 0; i < PasswordLength [password_strength]; i++) {
+				for (short i = 0; i < this.PasswordLength [password_strength]; i++) {
 					password += character_set [rng.Next (character_set.GetLowerBound (0), character_set.GetUpperBound (0))];
 				}
 
 				output = password;
-			} while (!EvaluatePassword (ref profiles, output, password_strength));
+			} while (!this.EvaluatePassword (ref profiles, output, password_strength));
 
 			return output;
 		}
@@ -79,10 +79,10 @@ namespace PinCushion
 		/*
 		* Generate a salt
 		*/
-		public static string GenSalt ()
+		public string GenSalt ()
 		{
-			Random rng = new Random (CryptoSeed ());
-			string[] character_set = CharacterSet (2);
+			Random rng = new Random (this.CryptoSeed ());
+			string[] character_set = this.CharacterSet (2);
 			string output = null;
 			do {
 				string password = null;
@@ -103,7 +103,7 @@ namespace PinCushion
 		* - Check for requirements
 		* - Check for doubles across all accounts, services, profiles
 		*/
-		public static bool EvaluatePassword (ref List<Profile> profiles, string password, int password_strength)
+		public bool EvaluatePassword (ref List<Profile> profiles, string password, int password_strength)
 		{
 			/*
 			 * Nasty hack
@@ -114,28 +114,28 @@ namespace PinCushion
 			 * As stated, this next check is a nasty hack to avoid accepting such
 			 * a malformed password.
 			 */
-			if (password.Length < PasswordLength [password_strength]) {
+			if (password.Length < this.PasswordLength [password_strength]) {
 				return false;
 			}
 
 			// Check for characters
-			if (!Regex.IsMatch (password, "[" + csetlower + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, "[" + this.csetlower + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + csetupper + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, "[" + this.csetupper + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + csetdigit + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, "[" + this.csetdigit + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + csetsymbol + "]", RegexOptions.None) && password_strength > 1) {
+			if (!Regex.IsMatch (password, "[" + this.csetsymbol + "]", RegexOptions.None) && password_strength > 1) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + csetsymbolextreme + "]", RegexOptions.None) && password_strength > 5) {
+			if (!Regex.IsMatch (password, "[" + this.csetsymbolextreme + "]", RegexOptions.None) && password_strength > 5) {
 				return false;
 			}
 
@@ -163,19 +163,19 @@ namespace PinCushion
 		*
 		* This is based on the passwordStrength control.
 		*/
-		public static string[] CharacterSet (int password_strength)
+		public string[] CharacterSet (int password_strength)
 		{
 			string character_set = string.Empty;
 
-			character_set += csetlower;
-			character_set += csetupper;
-			character_set += csetdigit;
+			character_set += this.csetlower;
+			character_set += this.csetupper;
+			character_set += this.csetdigit;
 			if (password_strength > 1) {
-				character_set += csetsymbol;
+				character_set += this.csetsymbol;
 			}
 
 			if (password_strength > 5) {
-				character_set += csetsymbolextreme;
+				character_set += this.csetsymbolextreme;
 			}
 
 			return Regex.Split (character_set, string.Empty);

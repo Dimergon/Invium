@@ -215,10 +215,10 @@ namespace PinCushion
 				document_writer.WriteStartElement (XMLBody);
 
 				// encryption releated data
-				string salt = Password.GenSalt ();
+				string salt = new Password ().GenSalt ();
 				string password_hash = crypto.Hash (this.pinCushionPassword.Password, salt);
 				if (this.encrypt.Checked) {
-					document_writer.WriteElementString (XMLencrypt, Password.GenSalt ());
+					document_writer.WriteElementString (XMLencrypt, new Password ().GenSalt ());
 					document_writer.WriteElementString (XMLSalt, salt);
 					document_writer.WriteElementString (XMLPassword, password_hash);
 				}

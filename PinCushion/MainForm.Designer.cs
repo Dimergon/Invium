@@ -248,7 +248,7 @@ namespace PinCushion
 			this.passwordLabel.Size = new System.Drawing.Size (73, 17);
 			this.passwordStrength.Location = new System.Drawing.Point (498, 284);
 			this.passwordStrength.Margin = new System.Windows.Forms.Padding (4);
-			this.passwordStrength.Maximum = Password.PasswordLength.GetLength (0) - 1;
+			this.passwordStrength.Maximum = new Password ().PasswordLength.GetLength (0) - 1;
 			this.passwordStrength.Size = new System.Drawing.Size (153, 56);
 			this.passwordStrength.TabStop = false;
 			this.passwordStrength.Value = 2;

@@ -438,7 +438,7 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				string password = Password.Generate (ref Program.Profiles, this.passwordStrength.Value);
+				string password = new Password ().Generate (ref Program.Profiles, this.passwordStrength.Value);
 				this.accountPassword.Text = password;
 				this.Copy2Clipboard (password);
 				this.unsavedPassword = true;
@@ -594,7 +594,7 @@ namespace PinCushion
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.mainFormRightclick.Items [2].Enabled = !this.readOnly.Checked;
 				this.setPinCushionPassword.Enabled = !this.readOnly.Checked;
-				this.passwordStrengthDescription.Text = Password.PasswordLength [this.passwordStrength.Value].ToString ();
+				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
 				this.copyTextToClipboardRightclick.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
 				if (this.passwordStrength.Value > 1) {

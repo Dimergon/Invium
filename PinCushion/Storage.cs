@@ -161,7 +161,7 @@ namespace PinCushion
 
 			// Save all data in case data was unencrypted, to encrypt it again
 			if (do_recrypt_save) {
-				this.DoSave ();
+				this.saveOnClose = true;
 			}
 
 			// Done, inform user of the time it took to load all data

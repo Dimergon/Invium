@@ -52,6 +52,9 @@ namespace PinCushion
 		private bool unsavedPassword = false;
 		private int[] unsavedPasswordIndeces = { 0, 0, 0 };
 
+		// Make sure we save in case there is data to save
+		private bool saveOnClose = false;
+
 		public MainForm ()
 		{
 			this.InitializeComponent ();
@@ -148,6 +151,7 @@ namespace PinCushion
 						Program.Profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
@@ -175,6 +179,7 @@ namespace PinCushion
 					Program.Profiles.Sort (delegate(Profile p, Profile q) {
 						return p.Name.CompareTo (q.Name);
 					});
+					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Profile);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -208,6 +213,7 @@ namespace PinCushion
 						Program.Profiles.Sort (delegate(Profile p, Profile q) {
 							return p.Name.CompareTo (q.Name);
 						});
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 					}
@@ -243,6 +249,7 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
@@ -270,6 +277,7 @@ namespace PinCushion
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 						return s.Name.CompareTo (t.Name);
 					});
+					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Service);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -303,6 +311,7 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 					}
@@ -340,6 +349,7 @@ namespace PinCushion
 							Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 								return a.Name.CompareTo (b.Name);
 							});
+							this.saveOnClose = true;
 							this.RefreshControls (RefreshLevel.Account);
 							this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (account, 0);
 						}
@@ -369,6 +379,7 @@ namespace PinCushion
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 						return a.Name.CompareTo (b.Name);
 					});
+					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Account);
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -402,6 +413,7 @@ namespace PinCushion
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
 							return a.Name.CompareTo (b.Name);
 						});
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (userinput, 0);
 					}
@@ -460,6 +472,7 @@ namespace PinCushion
 					if (InputBox.Show (InputBox.Mode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
 						string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 					}
@@ -469,6 +482,7 @@ namespace PinCushion
 					 */
 					string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = this.accountPassword.Text;
+					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Account);
 					this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 				}
@@ -695,6 +709,7 @@ namespace PinCushion
 			if (this.unsavedPassword) {
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+					this.saveOnClose = true;
 				}
 			}
 
@@ -788,7 +803,10 @@ namespace PinCushion
 				string userinput = string.Empty;
 				if (InputBox.Show (InputBox.Mode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = userinput;
+					this.saveOnClose = true;
+					int currentAccount = this.accountSelection.SelectedIndex;
 					this.RefreshControls (RefreshLevel.Account);
+					this.accountSelection.SelectedIndex = currentAccount;
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.SetExecuteError);
@@ -835,6 +853,7 @@ namespace PinCushion
 							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
 						}
 
+						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 					}
 				}
@@ -872,6 +891,7 @@ namespace PinCushion
 			if (f.ShowDialog () == DialogResult.OK) {
 				try {
 					this.DoLoad (f.FileName, true);
+					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (PinCushionException ex) {
 					MessageBox.Show (ex.Message);
@@ -891,6 +911,7 @@ namespace PinCushion
 			string input_password = string.Empty;
 			if (InputBox.Show (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
 				this.pinCushionPassword.Password = input_password;
+				this.saveOnClose = true;
 			}
 		}
 
@@ -927,9 +948,13 @@ namespace PinCushion
 			if (this.unsavedPassword) {
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+					this.saveOnClose = true;
 				}
 			}
-			this.DoSave ();
+
+			if (this.saveOnClose) {
+				this.DoSave ();
+			}
 		}
 	}
 }

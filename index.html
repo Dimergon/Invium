@@ -49,7 +49,7 @@
 <li>Data is encrypted both on disk and in memory with AES 256-bit in conjunction with SHA-512 hashes.</li>
 <li>Support for on-the-fly language switching; although currently no translations exist yet but these are easy to implement.</li>
 <li>Very intuitive, easy to use interface.</li>
-<li>Incredibly small; PinCushion itself is a single-file product. One executable that is a little over 50Kb in size, not counting the data file which is generated and which holds the actual data.</li>
+<li>Incredibly small; PinCushion itself is a single-file product. One executable that is a less than 60Kb in size, not counting the data file which is generated and which holds the actual data.</li>
 </ul>
 
 <h3>
@@ -65,43 +65,6 @@
 <li>(Optional) Create a shortcut for it in whatever way you feel comfortable with.</li>
 <li>Start using it, you're done!</li>
 </ol>
-
-<h3>
-<a id="how-to-use-pincushion" class="anchor" href="#how-to-use-pincushion" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use PinCushion</h3>
-
-<p>PinCushion has a very intuitive, easy to use interface so it should be self-explanatory for the most part but in case it is not, I'll quickly go through it now.</p>
-
-<p>First of all, when you launch it for the first time it will confront you with a password entry screen; this password is for PinCushion itself, you are prompted to enter its master password. Simply enter the password it, confirm it and click OK (or hit Enter).</p>
-
-<p>Next thing you will see is PinCushion's main screen; there is nothing more to PinCushion but the window you see before you now. Everything it can do and that you want it to do is from within this window. As I said, it's a very easy to use interface.</p>
-
-<p>In this window you will see various types of objects, Profiles, Services, Accounts and Passwords.</p>
-
-<p>Profiles are what they are, profiles. You could use these to have multiple people make use of the same PinCushion (for example, on shared PC in a household) or you could use it to distinguish your own private passwords from your professional ones.</p>
-
-<p>Services are what you have accounts with and what you will need the password management for; so, services like Facebook, Google, Microsoft, Battle.net and so forth and so on. For each profile, you can have as many services as you like.</p>
-
-<p>Accounts should be obvious; you probably just added your first service to PinCushion, next you will need to tell PinCushion what your account name and password for that service are. For each service, you can have as many accounts as you like; for example, let's say you're a World of Warcraft multiboxer. You could use PinCushion to store the account details of each of your, oh, say, 36 accounts.</p>
-
-<p>You probably have yourself a profile, at least 1 service and an account for each and every service you just added. You should know that data is saved with every form of data manipulation you perform; so each time you add a new profile, service or account. Or rename one or remove one or change a password.</p>
-
-<p>There are a few additional things of note in the interface; first of all, the 3 check boxes in the lower left hand corner.</p>
-
-<p>The top one (Show Password) will do what it says; it will disable the use of asterisk characters for the account's password and simply show you the actual password.</p>
-
-<p>The next one, Read Only also does what it says. Normally, when there actually was data to load (so, when starting the program the 2nd, 3rd and so forth time), PinCushion will be in Read Only mode. To prevent you from accidentally messing things up. Simply uncheck Read Only to start manipulating data again.</p>
-
-<p>The bottom one, Encrypt also does what it says, it governs whether or not PinCushion will actually store the data in an encrypted fashion. By default it does but there may be times when you need to store it unencrypted. Use this checkbox to accomplish that.</p>
-
-<p>Next, the bottom button, Set PinCushion Password. Use this to change PinCushion's master password.</p>
-
-<p>There are a few buttons remaining, first of all is Set, the left button below the password field. Use this to manually set a new password for that account or to store a generated password (see below).</p>
-
-<p>Now for the final one, Generate and the closely linked password strength slider in the bottom right hand corner. PinCushion will allow you to generate passwords for the accounts you added to your services. From as small as 6 characters consisting of just lower-, uppercase and digits all the way up to 128 characters consisting of lower-, uppercase, digits and complex symbols. Generate will generate a password of the strength specified using the slider. It will copy this password to the clipboard but it will not automatically store it yet. This is to allow you to ensure that the service you generated the password for will actually accept the password. Once you have confirmed this, simply click Set and it has been stored.</p>
-
-<p>A few additional things of note -- Services, Accounts and Passwords and PinCushion's main window have a rightclick menu. Accounts and Passwords simply have a Copy to Clipboard function there but Services have a different menu here; PinCushion can be told to launch a program or a website for a specific service. Use the Service's rightclick menu to do this. For a website, simply enter its URL and it should allow PinCushion to launch that website in your default browser. But you can launch anything with this field, including, for example, Steam or the Battle.net Application or a specific game or program. The main window's rightclick menu will allow you to disable PinCushion's idle timeout functionality (PinCushion will quit after 5 minutes of not being used), change the language (once more translations have been made available, see bottom of this page) or let you import a data file (use this to, say, merge the PinCushion data files of 2 different PCs).</p>
-
-<p>Now you know all there is to know about using PinCushion.</p>
 
 <h3>
 <a id="compiling-pincushion" class="anchor" href="#compiling-pincushion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiling PinCushion</h3>

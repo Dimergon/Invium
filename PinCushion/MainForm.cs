@@ -99,36 +99,6 @@ namespace PinCushion
 		}
 
 		/*
-		 * This event is raised whenever a different profile is selected.
-		 */
-		private void ProfileSelection_SelectedIndexChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.RefreshControls (RefreshLevel.Service);
-		}
-
-		/*
-		 * This event is raised whenever a different service is selected.
-		 */
-		private void ServiceSelection_SelectedIndexChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.RefreshControls (RefreshLevel.Account);
-		}
-
-		/*
-		 * This event is raised whenever a different account is selected.
-		 */
-		private void AccountSelection_SelectedIndexChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.RefreshControls (RefreshLevel.Password);
-		}
-
-		/*
 		* Add a profile.
 		*
 		* Steps:

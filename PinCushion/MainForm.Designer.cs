@@ -131,7 +131,10 @@ namespace PinCushion
 			this.profileSelection.Margin = new System.Windows.Forms.Padding (4);
 			this.profileSelection.Size = new System.Drawing.Size (508, 24);
 			this.profileSelection.TabIndex = 0;
-			this.profileSelection.SelectedIndexChanged += new System.EventHandler (this.ProfileSelection_SelectedIndexChanged);
+			this.profileSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.RefreshControls (RefreshLevel.Service);
+			};
 			this.profileSelection.TextUpdate += new System.EventHandler (this.NotIdle);
 			this.serviceSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.serviceSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -142,7 +145,10 @@ namespace PinCushion
 			this.serviceSelection.Margin = new System.Windows.Forms.Padding (4);
 			this.serviceSelection.Size = new System.Drawing.Size (508, 24);
 			this.serviceSelection.TabIndex = 1;
-			this.serviceSelection.SelectedIndexChanged += new System.EventHandler (this.ServiceSelection_SelectedIndexChanged);
+			this.serviceSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.RefreshControls (RefreshLevel.Account);
+			};
 			this.serviceSelection.TextUpdate += new System.EventHandler (this.NotIdle);
 			this.profileLabel.Location = new System.Drawing.Point (12, 18);
 			this.profileLabel.Margin = new System.Windows.Forms.Padding (4, 0, 4, 0);
@@ -187,7 +193,10 @@ namespace PinCushion
 			this.accountSelection.Margin = new System.Windows.Forms.Padding (4);
 			this.accountSelection.Size = new System.Drawing.Size (508, 24);
 			this.accountSelection.TabIndex = 2;
-			this.accountSelection.SelectedIndexChanged += new System.EventHandler (this.AccountSelection_SelectedIndexChanged);
+			this.accountSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.RefreshControls (RefreshLevel.Password);
+			};
 			this.accountSelection.TextUpdate += new System.EventHandler (this.NotIdle);
 			this.accountLabel.Location = new System.Drawing.Point (12, 178);
 			this.accountLabel.Margin = new System.Windows.Forms.Padding (4, 0, 4, 0);

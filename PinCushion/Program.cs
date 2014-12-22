@@ -43,15 +43,37 @@ namespace PinCushion
 		public static string ImportFilter = "n_data.xml";
 		public static string DataFile = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + ImportFilter;
 
-		// used to prevent multiple instances
-		private static string LockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
-
 		// used to determine if we need to clear the clipboard; this sits here because of PinCushionExit()
 		public static bool ClipboardClearEnabled = false;
 
 		// Main container
 		public static List<Profile> Profiles = new List<Profile> ();
 
+		// used to prevent multiple instances
+		private static string lockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
+
+		// Custom exit
+		public static void PinCushionExit ()
+		{
+			// Clear the clipboard but only if we placed something on it...
+			if (ClipboardClearEnabled) {
+				#if BuildForMono
+				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
+				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
+				#else
+				System.Windows.Forms.Clipboard.Clear ();
+				#endif
+			}
+
+			// Release the lock, so we may again start someday!
+			if (File.Exists (lockFile)) {
+				File.Delete (lockFile);
+			}
+
+			Environment.Exit (0);
+		}
+
+		// Main entry point
 		private static void Main (string[] args)
 		{
 			// Unhandled exception...
@@ -63,14 +85,14 @@ namespace PinCushion
 			Language = new LanguageClass ();
 
 			// multiple instances lock...
-			if (File.Exists (LockFile)) {
+			if (File.Exists (lockFile)) {
 				MessageBox.Show (Language.FatalSingleInstance, string.Empty, MessageBoxButtons.OK);
 				Environment.Exit (0);
 			}
 
 			// first instance, so let's create the lock...
 			try {
-				using (StreamWriter f = File.CreateText (LockFile)) {
+				using (StreamWriter f = File.CreateText (lockFile)) {
 					f.WriteLine ((string)DateTime.UtcNow.ToLongTimeString ());
 					f.Close ();
 				}
@@ -115,29 +137,6 @@ namespace PinCushion
 			Application.SetCompatibleTextRenderingDefault (true);
 			Application.Run (new MainForm ());
 			PinCushionExit ();
-		}
-
-		/*
-		* PinCushion's exit routine...
-		*/
-		public static void PinCushionExit ()
-		{
-			// Clear the clipboard but only if we placed something on it...
-			if (ClipboardClearEnabled) {
-				#if BuildForMono
-				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
-				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
-				#else
-				System.Windows.Forms.Clipboard.Clear ();
-				#endif
-			}
-
-			// Release the lock, so we may again start someday!
-			if (File.Exists (LockFile)) {
-				File.Delete (LockFile);
-			}
-
-			Environment.Exit (0);
 		}
 
 		private static void Pincushion_ThreadException (object sender, ThreadExceptionEventArgs e)

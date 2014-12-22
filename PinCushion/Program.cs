@@ -44,7 +44,7 @@ namespace PinCushion
 		public static string DataFile = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + ImportFilter;
 
 		// used to prevent multiple instances
-		public static string LockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
+		private static string LockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
 
 		// used to determine if we need to clear the clipboard; this sits here because of PinCushionExit()
 		public static bool ClipboardClearEnabled = false;
@@ -52,7 +52,7 @@ namespace PinCushion
 		// Main container
 		public static List<Profile> Profiles = new List<Profile> ();
 
-		public static void Main (string[] args)
+		private static void Main (string[] args)
 		{
 			// Unhandled exception...
 			Application.ThreadException += new System.Threading.ThreadExceptionEventHandler (Pincushion_ThreadException);
@@ -140,13 +140,13 @@ namespace PinCushion
 			Environment.Exit (0);
 		}
 
-		public static void Pincushion_ThreadException (object sender, ThreadExceptionEventArgs e)
+		private static void Pincushion_ThreadException (object sender, ThreadExceptionEventArgs e)
 		{
 			MessageBox.Show (e.Exception.ToString (), Language.ThreadException, MessageBoxButtons.OK);
 			PinCushionExit ();
 		}
 
-		public static void PinCushion_UnhandledException (object sender, UnhandledExceptionEventArgs e)
+		private static void PinCushion_UnhandledException (object sender, UnhandledExceptionEventArgs e)
 		{
 			MessageBox.Show (((Exception)e.ExceptionObject).InnerException.ToString (), Language.UnhandledException, MessageBoxButtons.OK);
 			PinCushionExit ();

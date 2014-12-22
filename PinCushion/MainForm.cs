@@ -35,11 +35,13 @@ namespace PinCushion
 	public partial class MainForm : Form
 	{
 		/* 
-		 * Quit after Max_Idle seconds when idle...
-		 * Clear clipboard after CC_Time seconds...
+		 * Quit after Max_Idle seconds when idle.
+		 * Clear clipboard after CC_Time seconds.
+		 * Autosave (if applicable) after (MaxIdle - AutoSave) seconds of idle.
 		 */
 		private const short MaxIdle = 300;
 		private const short CCTime = 120;
+		private const short AutoSave = 180;
 
 		// Used in the automatic timeout functionality, PinCushion will quit after a certain period of inactivity.
 		private DateTime timeout = DateTime.Now.AddSeconds (MaxIdle);
@@ -698,6 +700,14 @@ namespace PinCushion
 				}
 
 				Program.PinCushionExit ();
+			}
+
+			// Auto-save if needed, after a period of inactivity.
+			if (this.saveOnClose) {
+				if (DateTime.Now >= this.timeout.AddSeconds (-AutoSave)) {
+					this.DoSave ();
+					this.saveOnClose = false;
+				}
 			}
 
 			// Clear the clipboard but only if we placed something on it.

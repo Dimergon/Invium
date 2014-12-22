@@ -28,4 +28,4 @@ using System.Reflection;
 [assembly: AssemblyCopyright ("Copyright ©  2013, 2014 Armin Altorffer")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
-[assembly: AssemblyVersion ("0.39.2")]
+[assembly: AssemblyVersion ("0.39.*")]

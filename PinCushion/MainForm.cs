@@ -879,6 +879,20 @@ namespace PinCushion
 		}
 
 		/*
+		 * Capture CTRL+C, to copy without having to rightclick.
+		 */
+		protected override bool ProcessCmdKey (ref Message msg, Keys keydata)
+		{
+			if (keydata == (Keys.Control | Keys.C)) {
+				this.NotIdle ();
+				this.Copy2Clipboard (this.ActiveControl.Text);
+				return true;
+			} else {
+				return base.ProcessCmdKey (ref msg, keydata);
+			}
+		}
+
+		/*
 		 * Closing the form, let's save the data...
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)

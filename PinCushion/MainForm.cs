@@ -104,24 +104,24 @@ namespace PinCushion
 		protected override bool ProcessCmdKey (ref Message msg, Keys keydata)
 		{
 			switch (keydata) {
-			case (Keys.Control | Keys.Q):
-			case (Keys.Control | Keys.Shift | Keys.W):
-			case (Keys.Alt | Keys.F4):
-			case (Keys.Control | Keys.Shift | Keys.X):
+			case Keys.Control | Keys.Q:
+			case Keys.Control | Keys.Shift | Keys.W:
+			case Keys.Alt | Keys.F4:
+			case Keys.Control | Keys.Shift | Keys.X:
 				// Some common Quit combinations
 				this.NotIdle ();
 				this.Close ();
 				return true;
-			case (Keys.Control | Keys.R):
+			case Keys.Control | Keys.R:
 				// Run the command of the selected service
 				this.ExecuteToolStripMenuItem_Click ();
 				return true;
-			case (Keys.Control | Keys.Shift | Keys.S):
+			case Keys.Control | Keys.Shift | Keys.S:
 				// Hard save
 				this.NotIdle ();
 				this.DoSave ();
 				return true;
-			case (Keys.Control | Keys.C):
+			case Keys.Control | Keys.C:
 				// Copy contents of current control to clipboard
 				this.NotIdle ();
 				this.Copy2Clipboard (this.ActiveControl.Text);

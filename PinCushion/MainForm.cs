@@ -120,6 +120,7 @@ namespace PinCushion
 				// Hard save
 				this.NotIdle ();
 				this.DoSave ();
+				this.saveOnClose = false;
 				return true;
 			case Keys.Control | Keys.C:
 				// Copy contents of current control to clipboard

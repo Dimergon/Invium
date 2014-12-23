@@ -99,15 +99,31 @@ namespace PinCushion
 		}
 
 		/*
-		 * Capture CTRL+C, to copy without having to rightclick.
+		 * Capture key combinations
 		 */
 		protected override bool ProcessCmdKey (ref Message msg, Keys keydata)
 		{
-			if (keydata == (Keys.Control | Keys.C)) {
+			switch (keydata) {
+			case (Keys.Control | Keys.Q):
+			case (Keys.Control | Keys.Shift | Keys.W):
+			case (Keys.Alt | Keys.F4):
+			case (Keys.Control | Keys.Shift | Keys.X):
+				// Some common Quit combinations
+				this.NotIdle ();
+				this.Close ();
+				return true;
+			case (Keys.Control | Keys.Shift | Keys.S):
+				// Hard save
+				this.NotIdle ();
+				this.DoSave ();
+				return true;
+			case (Keys.Control | Keys.C):
+				// Copy contents of current control to clipboard
 				this.NotIdle ();
 				this.Copy2Clipboard (this.ActiveControl.Text);
 				return true;
-			} else {
+			default:
+				// anything else gets processed normally.
 				return base.ProcessCmdKey (ref msg, keydata);
 			}
 		}
@@ -893,7 +909,7 @@ namespace PinCushion
 		}
 
 		/*
-		 * Closing the form, let's save the data...
+		 * Closing the form
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{

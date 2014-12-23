@@ -229,7 +229,10 @@ namespace PinCushion
 				this.copyTextToClipboardToolStripMenuItem
 			});
 			this.copyTextToClipboardToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.copyTextToClipboardToolStripMenuItem.Click += new System.EventHandler (this.CopyTextToClipboardToolStripMenuItem_Click);
+			this.copyTextToClipboardToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.Copy2Clipboard (((System.Windows.Forms.Control)((System.Windows.Forms.ContextMenuStrip)((System.Windows.Forms.ToolStripMenuItem)sender).Owner).SourceControl).Text);
+			};
 			this.serviceRightclick.Size = new System.Drawing.Size (199, 28);
 			this.serviceRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
 				this.executeToolStripMenuItem,
@@ -261,28 +264,40 @@ namespace PinCushion
 			this.passwordStrength.Size = new System.Drawing.Size (153, 56);
 			this.passwordStrength.TabStop = false;
 			this.passwordStrength.Value = 2;
-			this.passwordStrength.ValueChanged += new System.EventHandler (this.PasswordStrength_ValueChanged);
+			this.passwordStrength.ValueChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.RefreshControls (RefreshLevel.None);
+			};
 			this.readOnly.Checked = true;
 			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.readOnly.Location = new System.Drawing.Point (15, 324);
 			this.readOnly.Margin = new System.Windows.Forms.Padding (4);
 			this.readOnly.Size = new System.Drawing.Size (97, 21);
 			this.readOnly.TabStop = false;
-			this.readOnly.CheckedChanged += new System.EventHandler (this.ReadOnly_CheckedChanged);
+			this.readOnly.CheckedChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.RefreshControls (RefreshLevel.None);
+			};
 			this.encrypt.Checked = true;
 			this.encrypt.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.encrypt.Location = new System.Drawing.Point (15, 353);
 			this.encrypt.Margin = new System.Windows.Forms.Padding (4);
 			this.encrypt.Size = new System.Drawing.Size (112, 21);
 			this.encrypt.TabStop = false;
-			this.encrypt.CheckedChanged += new System.EventHandler (this.Encrypt_CheckedChanged);
+			this.encrypt.CheckedChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.saveOnClose = true;
+			};
 			this.idleTimer.Enabled = true;
 			this.idleTimer.Interval = 1000;
 			this.idleTimer.Tick += new System.EventHandler (this.IdleTimer_Tick);
 			this.showPassword.Location = new System.Drawing.Point (15, 294);
 			this.showPassword.Size = new System.Drawing.Size (129, 21);
 			this.showPassword.TabStop = false;
-			this.showPassword.CheckedChanged += new System.EventHandler (this.ShowPassword_CheckedChanged);
+			this.showPassword.CheckedChanged += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.accountPassword.UseSystemPasswordChar = !this.showPassword.Checked;
+			};
 			this.passwordStrengthLabel.Location = new System.Drawing.Point (496, 330);
 			this.passwordStrengthLabel.Size = new System.Drawing.Size (127, 17);
 			this.tray.ContextMenu = null;
@@ -295,7 +310,11 @@ namespace PinCushion
 			});
 			this.mainFormRightclick.Size = new System.Drawing.Size (214, 76);
 			this.disableIdleTimeoutToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.disableIdleTimeoutToolStripMenuItem.Click += new System.EventHandler (this.DisableIdleTimeoutToolStripMenuItem_Click);
+			this.disableIdleTimeoutToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				this.notimeout = !this.notimeout;
+				((System.Windows.Forms.ToolStripMenuItem)this.mainFormRightclick.Items [0]).Checked = this.notimeout;
+			};
 			this.languageToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.importToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.importToolStripMenuItem.Click += new System.EventHandler (this.ImportToolStripMenuItem_Click);

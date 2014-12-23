@@ -590,30 +590,6 @@ namespace PinCushion
 		}
 
 		/*
-		* This event is raised whenever the read only checkbox is changed.
-		*
-		* Refresh controls if this happens.
-		*/
-		private void ReadOnly_CheckedChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.RefreshControls (RefreshLevel.None);
-		}
-
-		/*
-		 * This event is raised whenever the encryption checkbox is changed
-		 *
-		 * In that case, let's just assume we're going to want to save.
-		 */
-		private void Encrypt_CheckedChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.saveOnClose = true;
-		}
-
-		/*
 		* Load the data.
 		*
 		* Steps:
@@ -742,37 +718,6 @@ namespace PinCushion
 			this.mainFormRightclick.Items [0].Text = Program.Language.DisableIdleTimeout;
 			this.mainFormRightclick.Items [1].Text = Program.Language.Language;
 			this.mainFormRightclick.Items [2].Text = Program.Language.Import;
-		}
-
-		/*
-		* Copy the control's text to the clipboard...
-		*/
-		private void CopyTextToClipboardToolStripMenuItem_Click (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.Copy2Clipboard (((Control)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Text);
-		}
-
-		/*
-		* Toggle the password characters
-		*/
-		private void ShowPassword_CheckedChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.accountPassword.UseSystemPasswordChar = !this.showPassword.Checked;
-		}
-
-		/*
-		* Toggle the timeout
-		*/
-		private void DisableIdleTimeoutToolStripMenuItem_Click (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.notimeout = !this.notimeout;
-			((ToolStripMenuItem)this.mainFormRightclick.Items [0]).Checked = this.notimeout;
 		}
 
 		/*
@@ -931,16 +876,6 @@ namespace PinCushion
 			#endif
 			Program.ClipboardClearEnabled = true;
 			this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
-		}
-
-		/*
-		* Update the password strength description
-		*/
-		private void PasswordStrength_ValueChanged (object sender, EventArgs e)
-		{
-			this.NotIdle ();
-
-			this.RefreshControls (RefreshLevel.None);
 		}
 
 		/*

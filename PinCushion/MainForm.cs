@@ -112,6 +112,10 @@ namespace PinCushion
 				this.NotIdle ();
 				this.Close ();
 				return true;
+			case (Keys.Control | Keys.R):
+				// Run the command of the selected service
+				this.ExecuteToolStripMenuItem_Click ();
+				return true;
 			case (Keys.Control | Keys.Shift | Keys.S):
 				// Hard save
 				this.NotIdle ();
@@ -753,7 +757,7 @@ namespace PinCushion
 		/*
 		* Execute the specified command for the selected service
 		*/
-		private void ExecuteToolStripMenuItem_Click (object sender, EventArgs e)
+		private void ExecuteToolStripMenuItem_Click (object sender = null, EventArgs e = null)
 		{
 			this.NotIdle ();
 

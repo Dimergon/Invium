@@ -44,6 +44,8 @@ namespace PinCushion
 				rngC.GetBytes (iv);
 				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 1000);
 				byte[] key = derived.GetBytes (32);
+				algR.KeySize = 256;
+				algR.BlockSize = 128;
 				algR.Key = key;
 				algR.IV = iv;
 				using (MemoryStream memoryStream = new MemoryStream ()) {
@@ -71,6 +73,8 @@ namespace PinCushion
 					memoryStream.Read (iv, 0, 16);
 					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 1000);
 					byte[] key = derived.GetBytes (32);
+					algR.KeySize = 256;
+					algR.BlockSize = 128;
 					algR.Key = key;
 					algR.IV = iv;
 					using (CryptoStream cryptoStreamDecrypt = new CryptoStream (memoryStream, algR.CreateDecryptor (algR.Key, algR.IV), CryptoStreamMode.Read)) {

@@ -99,6 +99,20 @@ namespace PinCushion
 		}
 
 		/*
+		 * Capture CTRL+C, to copy without having to rightclick.
+		 */
+		protected override bool ProcessCmdKey (ref Message msg, Keys keydata)
+		{
+			if (keydata == (Keys.Control | Keys.C)) {
+				this.NotIdle ();
+				this.Copy2Clipboard (this.ActiveControl.Text);
+				return true;
+			} else {
+				return base.ProcessCmdKey (ref msg, keydata);
+			}
+		}
+
+		/*
 		* Add a profile.
 		*
 		* Steps:
@@ -876,20 +890,6 @@ namespace PinCushion
 			#endif
 			Program.ClipboardClearEnabled = true;
 			this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
-		}
-
-		/*
-		 * Capture CTRL+C, to copy without having to rightclick.
-		 */
-		protected override bool ProcessCmdKey (ref Message msg, Keys keydata)
-		{
-			if (keydata == (Keys.Control | Keys.C)) {
-				this.NotIdle ();
-				this.Copy2Clipboard (this.ActiveControl.Text);
-				return true;
-			} else {
-				return base.ProcessCmdKey (ref msg, keydata);
-			}
 		}
 
 		/*

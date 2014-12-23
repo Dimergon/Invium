@@ -118,7 +118,7 @@ namespace PinCushion
 			p_count = s_count = a_count = 0;
 
 			// Create and load the loadingscreen
-			SplashScreen loadingscreen = new SplashScreen (Program.Language.Loading);
+			StorageSplash loadingscreen = new StorageSplash (Program.Language.Loading);
 			Thread loadingscreen_thread = new Thread (new ThreadStart (delegate() {
 				loadingscreen.ShowDialog ();
 			}));
@@ -196,7 +196,7 @@ namespace PinCushion
 		{
 			PinCushionCryptography crypto = new PinCushionCryptography ();
 			// Create and load the savingscreen
-			SplashScreen savingscreen = new SplashScreen (Program.Language.Saving);
+			StorageSplash savingscreen = new StorageSplash (Program.Language.Saving);
 			Thread savingscreen_thread = new Thread (new ThreadStart (delegate() {
 				savingscreen.ShowDialog ();
 			}));

@@ -25,11 +25,11 @@ namespace PinCushion
 	using System.Drawing;
 	using System.Windows.Forms;
 
-	public class SplashScreen : Form
+	public class StorageSplash : Form
 	{
 		private Label promptLabel;
 
-		public SplashScreen (string prompt)
+		public StorageSplash (string prompt)
 		{
 			this.promptLabel = new Label ();
 			this.promptLabel.SuspendLayout ();

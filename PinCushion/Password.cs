@@ -42,38 +42,23 @@ namespace PinCushion
 		private string csetsymbolextreme = "@#$%^&*().";
 
 		/*
-		* Generate a seed (based on cryptography)
-		*/
-		public int CryptoSeed ()
-		{
-			RNGCryptoServiceProvider rng_crypto = new RNGCryptoServiceProvider ();
-			byte[] rng_crypto_array = new byte[4];
-			rng_crypto.GetBytes (rng_crypto_array);
-			if (BitConverter.IsLittleEndian) {
-				Array.Reverse (rng_crypto_array);
-			}
-
-			return BitConverter.ToInt32 (rng_crypto_array, 0);
-		}
-
-		/*
 		* Generate a password.
 		*/
 		public string Generate (ref List<Profile> profiles, int password_strength)
 		{
-			Random rng = new Random (this.CryptoSeed ());
+			RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider ();
+			byte[] buffer = new byte[this.PasswordLength [password_strength]];
 			string[] character_set = this.CharacterSet (password_strength);
-			string output = null;
+			string password = null;
 			do {
-				string password = null;
+				password = null;
+				rng.GetBytes (buffer);
 				for (short i = 0; i < this.PasswordLength [password_strength]; i++) {
-					password += character_set [rng.Next (character_set.GetLowerBound (0), character_set.GetUpperBound (0))];
+					password += character_set [buffer [i] % character_set.Length];
 				}
+			} while (!this.EvaluatePassword (ref profiles, password, string.Join (string.Empty, character_set)));
 
-				output = password;
-			} while (!this.EvaluatePassword (ref profiles, output, password_strength));
-
-			return output;
+			return password;
 		}
 
 		/*
@@ -81,18 +66,13 @@ namespace PinCushion
 		*/
 		public string GenSalt ()
 		{
-			Random rng = new Random (this.CryptoSeed ());
-			string[] character_set = this.CharacterSet (2);
+			byte[] buffer = new byte[16];
+			string[] character_set = this.CharacterSet (this.PasswordLength.GetUpperBound (0));
+			new RNGCryptoServiceProvider ().GetBytes (buffer);
 			string output = null;
-			do {
-				string password = null;
-				for (short i = 0; i < 16; i++) {
-					password += character_set [rng.Next (character_set.GetLowerBound (0), character_set.GetUpperBound (0))];
-				}
-
-				output = password;
-			} while (output.Length != 16);
-
+			for (short i = 0; i < 16; i++) {
+				output += character_set [buffer [i] % character_set.Length];
+			}
 			return output;
 		}
 
@@ -103,21 +83,8 @@ namespace PinCushion
 		* - Check for requirements
 		* - Check for doubles across all accounts, services, profiles
 		*/
-		public bool EvaluatePassword (ref List<Profile> profiles, string password, int password_strength)
+		public bool EvaluatePassword (ref List<Profile> profiles, string password, string character_set)
 		{
-			/*
-			 * Nasty hack
-			 *
-			 * Sometimes, completely unexpectedly the loop to add characters to
-			 * a password ends early, giving us a password shorter than we want.
-			 *
-			 * As stated, this next check is a nasty hack to avoid accepting such
-			 * a malformed password.
-			 */
-			if (password.Length < this.PasswordLength [password_strength]) {
-				return false;
-			}
-
 			// Check for characters
 			if (!Regex.IsMatch (password, "[" + this.csetlower + "]", RegexOptions.None)) {
 				return false;
@@ -131,11 +98,11 @@ namespace PinCushion
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetsymbol + "]", RegexOptions.None) && password_strength > 1) {
+			if (!Regex.IsMatch (password, "[" + this.csetsymbol + "]", RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbol + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetsymbolextreme + "]", RegexOptions.None) && password_strength > 5) {
+			if (!Regex.IsMatch (password, "[" + this.csetsymbolextreme + "]", RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbolextreme + "]", RegexOptions.None)) {
 				return false;
 			}
 
@@ -178,7 +145,11 @@ namespace PinCushion
 				character_set += this.csetsymbolextreme;
 			}
 
-			return Regex.Split (character_set, string.Empty);
+			List<string> l = new List<string> ();
+			l.AddRange (Regex.Split (character_set, string.Empty));
+			l.RemoveAll (x => x == string.Empty);
+
+			return l.ToArray ();
 		}
 	}
 }

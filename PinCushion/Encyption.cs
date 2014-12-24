@@ -42,7 +42,7 @@ namespace PinCushion
 				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
-				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 1000);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
 				byte[] key = derived.GetBytes (32);
 				algR.KeySize = 256;
 				algR.BlockSize = 128;
@@ -71,7 +71,7 @@ namespace PinCushion
 				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
-					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 1000);
+					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
 					byte[] key = derived.GetBytes (32);
 					algR.KeySize = 256;
 					algR.BlockSize = 128;
@@ -96,7 +96,7 @@ namespace PinCushion
 			string result;
 			using (SHA512Managed sha512 = new SHA512Managed ()) {
 				byte[] salt_bytes = Encoding.UTF8.GetBytes (salt);
-				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (input, salt_bytes, 10000);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (input, salt_bytes, 1000);
 				result = Convert.ToBase64String (sha512.ComputeHash (derived.GetBytes (64)));
 			}
 

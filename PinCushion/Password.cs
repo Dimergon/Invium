@@ -40,6 +40,11 @@ namespace PinCushion
 		private string csetdigit = "0123456789";
 		private string csetsymbol = "!";
 		private string csetsymbolextreme = "@#$%^&*().";
+		private string csetlower_regex = "[a-z]";
+		private string csetupper_regex = "[A-Z]";
+		private string csetdigit_regex = "[0-9]";
+		private string csetsymbol_regex = "[\\!]";
+		private string csetsymbolextreme_regex = "[\\@\\#\\$\\%\\^\\&\\*\\(\\)\\.]";
 
 		/*
 		* Generate a password.
@@ -87,23 +92,23 @@ namespace PinCushion
 		public bool EvaluatePassword (ref List<Profile> profiles, string password, string character_set)
 		{
 			// Check for characters
-			if (!Regex.IsMatch (password, "[" + this.csetlower + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetlower_regex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetupper + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetupper_regex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetdigit + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetdigit_regex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetsymbol + "]", RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbol + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetsymbol_regex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbol + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, "[" + this.csetsymbolextreme + "]", RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbolextreme + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetsymbolextreme_regex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbolextreme + "]", RegexOptions.None)) {
 				return false;
 			}
 

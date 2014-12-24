@@ -115,6 +115,14 @@ namespace PinCushion
 			// Check for doubles across all profiles, services and accounts
 			foreach (Profile p in profiles) {
 				foreach (Service s in p.Profileservices) {
+					/*
+					 * The following alternative seems more eloquant but after careful
+					 * measurement, it was found to be at best on-par in terms of performance
+					 * and in practice more erratic performance wise.
+					 * if (s.ServiceAccounts.Find (x => (x.Name == password) || (x.Password == password)) != null) {
+					 * return false;
+					 * }
+					 */
 					foreach (Account a in s.ServiceAccounts) {
 						if (password == a.Password) {
 							return false;

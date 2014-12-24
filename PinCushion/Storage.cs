@@ -133,6 +133,9 @@ namespace PinCushion
 
 			short p_count, s_count, a_count;
 			p_count = s_count = a_count = 0;
+			if (!load_timer.IsRunning) {
+				load_timer.Start ();
+			}
 
 			/*
 			* Main Loop, will also decrypt if data is encrypted

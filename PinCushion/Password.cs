@@ -89,7 +89,7 @@ namespace PinCushion
 		* - Check for requirements
 		* - Check for doubles across all accounts, services, profiles
 		*/
-		public bool EvaluatePassword (ref List<Profile> profiles, string password, string character_set)
+		private bool EvaluatePassword (ref List<Profile> profiles, string password, string character_set)
 		{
 			// Check for characters
 			if (!Regex.IsMatch (password, this.csetlowerregex, RegexOptions.None)) {
@@ -144,7 +144,7 @@ namespace PinCushion
 		*
 		* This is based on the passwordStrength control.
 		*/
-		public string[] CharacterSet (int password_strength)
+		private string[] CharacterSet (int password_strength)
 		{
 			string character_set = string.Empty;
 

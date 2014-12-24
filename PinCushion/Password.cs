@@ -40,11 +40,11 @@ namespace PinCushion
 		private string csetdigit = "0123456789";
 		private string csetsymbol = "!";
 		private string csetsymbolextreme = "@#$%^&*().";
-		private string csetlower_regex = "[a-z]";
-		private string csetupper_regex = "[A-Z]";
-		private string csetdigit_regex = "[0-9]";
-		private string csetsymbol_regex = "[\\!]";
-		private string csetsymbolextreme_regex = "[\\@\\#\\$\\%\\^\\&\\*\\(\\)\\.]";
+		private string csetlowerregex = "[a-z]";
+		private string csetupperregex = "[A-Z]";
+		private string csetdigitregex = "[0-9]";
+		private string csetsymbolregex = "[\\!]";
+		private string csetsymbolextremeregex = "[\\@\\#\\$\\%\\^\\&\\*\\(\\)\\.]";
 
 		/*
 		* Generate a password.
@@ -92,23 +92,23 @@ namespace PinCushion
 		public bool EvaluatePassword (ref List<Profile> profiles, string password, string character_set)
 		{
 			// Check for characters
-			if (!Regex.IsMatch (password, this.csetlower_regex, RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetlowerregex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, this.csetupper_regex, RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetupperregex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, this.csetdigit_regex, RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetdigitregex, RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, this.csetsymbol_regex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbol + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetsymbolregex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbol + "]", RegexOptions.None)) {
 				return false;
 			}
 
-			if (!Regex.IsMatch (password, this.csetsymbolextreme_regex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbolextreme + "]", RegexOptions.None)) {
+			if (!Regex.IsMatch (password, this.csetsymbolextremeregex, RegexOptions.None) && Regex.IsMatch (character_set, "[" + this.csetsymbolextreme + "]", RegexOptions.None)) {
 				return false;
 			}
 

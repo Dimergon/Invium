@@ -60,6 +60,13 @@ namespace PinCushion
 			XmlDocument document = new XmlDocument ();
 			document.Load (file);
 
+			// Create the loadingscreen
+			StorageSplash loadingscreen = new StorageSplash (Program.Language.Loading);
+			Thread loadingscreen_thread = new Thread (new ThreadStart (delegate() {
+				loadingscreen.ShowDialog ();
+			}));
+			loadingscreen_thread.IsBackground = true;
+
 			// Check for encryption
 			bool do_decrypt = true;
 			if (document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLencrypt)) == null) {
@@ -87,6 +94,15 @@ namespace PinCushion
 				if (new InputBox ().ShowMe (InputBox.Mode.Singlepassword, ref input_password, importing ? Program.Language.ImportAuth : Program.Language.Login, importing ? Program.Language.ImportPassword : Program.Language.AuthPassword) == DialogResult.Cancel) {
 					throw new PinCushionException (importing ? Program.Language.ImportCancel : Program.Language.AuthFailCancel);
 				}
+
+				// Start the loading screen
+				loadingscreen_thread.Start ();
+				while (!loadingscreen_thread.IsAlive) {
+				}
+				// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
+				Thread.Sleep (1000);
+
+				load_timer.Start ();
 
 				if (crypto.Hash (input_password, salt) != password_hash) {
 					throw new PinCushionException (Program.Language.AuthFailIncorrect);
@@ -116,20 +132,6 @@ namespace PinCushion
 
 			short p_count, s_count, a_count;
 			p_count = s_count = a_count = 0;
-
-			// Create and load the loadingscreen
-			StorageSplash loadingscreen = new StorageSplash (Program.Language.Loading);
-			Thread loadingscreen_thread = new Thread (new ThreadStart (delegate() {
-				loadingscreen.ShowDialog ();
-			}));
-			loadingscreen_thread.IsBackground = true;
-			loadingscreen_thread.Start ();
-			while (!loadingscreen_thread.IsAlive) {
-			}
-			// this next call is a nasty hack to avoid a possible Fatal IO error in *nix's window manager(s)
-			Thread.Sleep (1000);
-
-			load_timer.Start ();
 
 			/*
 			* Main Loop, will also decrypt if data is encrypted

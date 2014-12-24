@@ -73,6 +73,7 @@ namespace PinCushion
 			for (short i = 0; i < 16; i++) {
 				output += character_set [buffer [i] % character_set.Length];
 			}
+
 			return output;
 		}
 

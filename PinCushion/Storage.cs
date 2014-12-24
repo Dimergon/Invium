@@ -105,6 +105,7 @@ namespace PinCushion
 				load_timer.Start ();
 
 				if (crypto.Hash (input_password, salt) != password_hash) {
+					loadingscreen.Close ();
 					throw new PinCushionException (Program.Language.AuthFailIncorrect);
 				}
 			}
@@ -181,7 +182,7 @@ namespace PinCushion
 				this.saveOnClose = true;
 			}
 
-			// and close the loading screen, which should close the thread as well.
+			// and close the loading screen
 			loadingscreen.Close ();
 
 			// Done, inform user of the time it took to load all data

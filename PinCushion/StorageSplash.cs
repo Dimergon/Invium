@@ -43,6 +43,7 @@ namespace PinCushion
 			this.FormBorderStyle = FormBorderStyle.None;
 			this.ClientSize = new Size (this.promptLabel.Right + 10, this.promptLabel.Bottom + 10);
 			this.StartPosition = FormStartPosition.CenterScreen;
+			this.AutoScaleMode = AutoScaleMode.None;
 			this.Controls.Add (this.promptLabel);
 			this.promptLabel.ResumeLayout (false);
 			this.ResumeLayout (false);

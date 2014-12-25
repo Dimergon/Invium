@@ -115,6 +115,7 @@ namespace PinCushion
 
 			this.FormBorderStyle = FormBorderStyle.FixedDialog;
 			this.StartPosition = FormStartPosition.CenterScreen;
+			this.AutoScaleMode = AutoScaleMode.None;
 			this.ControlBox = this.MinimizeBox = this.MaximizeBox = false;
 			this.AcceptButton = this.buttonOk;
 			this.CancelButton = this.buttonCancel;

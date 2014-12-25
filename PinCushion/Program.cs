@@ -81,8 +81,38 @@ namespace PinCushion
 			Application.SetUnhandledExceptionMode (UnhandledExceptionMode.CatchException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler (PinCushion_UnhandledException);
 
-			/* Initialize the localization */
+			// Initialize the localization
 			Language = new LanguageClass ();
+
+			// Loop through all the specified commandline parameters
+			foreach (string s in args) {
+				switch (s.ToLower ()) {
+				case "-language":
+					// Manually specifying a language...
+					try {
+						ManualLanguage = args [Array.IndexOf (args, s) + 1];
+						// Re-Initialize the localization
+						Language = null;
+						Language = new LanguageClass ();
+					} catch (Exception) {
+						// Probably no language code specified.
+					}
+
+					break;
+				case "-load":
+					// Manually specifying the data file to load...
+					DataFile = args [Array.IndexOf (args, s) + 1];
+					if (!File.Exists (DataFile)) {
+						MessageBox.Show (string.Format (Language.CustomLoadFail, DataFile));
+						PinCushionExit ();
+					}
+
+					break;
+				default:
+					// Whatever it is, it's not something we're interested in.
+					break;
+				}
+			}
 
 			// multiple instances lock...
 			if (File.Exists (lockFile)) {
@@ -104,33 +134,6 @@ namespace PinCushion
 				* the unhandled exception handlers would catch it and prevent the application
 				* from running... at all.
 				*/
-			}
-
-			/* Loop through all the specified commandline parameters */
-			foreach (string s in args) {
-				switch (s.ToLower ()) {
-				case "-language":
-					// Manually specifying a language...
-					try {
-						ManualLanguage = args [Array.IndexOf (args, s) + 1];
-					} catch (Exception) {
-						// Probably no language code specified.
-					}
-
-					break;
-				case "-load":
-					// Manually specifying the data file to load...
-					DataFile = args [Array.IndexOf (args, s) + 1];
-					if (!File.Exists (DataFile)) {
-						MessageBox.Show (string.Format (Language.CustomLoadFail, DataFile));
-						PinCushionExit ();
-					}
-
-					break;
-				default:
-					// Whatever it is, it's not something we're interested in.
-					break;
-				}
 			}
 
 			Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;

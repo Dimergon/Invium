@@ -140,7 +140,12 @@ namespace PinCushion
 		public string ThreadException;
 		public string UnhandledException;
 
-		// Used in the rightclick menu
+		/*
+		 * Explanation on adding translations:
+		 * add a full translation in LoadLocalization(string lang) and
+		 * then add a name for that into this array (Traylangs)
+		 * public string[] Traylangs = { "English", "Nederlands", "Example" };
+		 */
 		public string[] Traylangs = { "English" };
 		public string Trayfeedback;
 
@@ -159,6 +164,16 @@ namespace PinCushion
 		public void LoadLocalization (string lang)
 		{
 			switch (lang) {
+			/*
+			case "Example":
+			case "xx-YY":
+			case "xx-ZZ":
+				this.ExampleLanguageEntry = "Example translation";
+				break;
+			*/
+			case "English":
+			case "en-GB":
+			case "en-US":
 			default:
 				this.LoadStats = "Loaded {0} profiles, {1} services and {2} accounts in {3:0.##} ms.";
 				this.ProfileExists = "There already is a profile with that name.";

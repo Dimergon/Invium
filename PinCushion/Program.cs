@@ -123,7 +123,7 @@ namespace PinCushion
 					DataFile = args [Array.IndexOf (args, s) + 1];
 					if (!File.Exists (DataFile)) {
 						MessageBox.Show (string.Format (Language.CustomLoadFail, DataFile));
-						Program.PinCushionExit ();
+						PinCushionExit ();
 					}
 
 					break;

@@ -146,7 +146,7 @@ namespace PinCushion
 		 * then add a name for that into this array (Traylangs)
 		 * public string[] Traylangs = { "English", "Nederlands", "Example" };
 		 */
-		public string[] Traylangs = { "English" };
+		public string[] Traylangs = { "English", "Nederlands" };
 		public string Trayfeedback;
 
 		/*

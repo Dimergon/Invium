@@ -22,10 +22,6 @@ using System.Reflection;
 
 [assembly: AssemblyTitle ("PinCushion")]
 [assembly: AssemblyDescription ("A password manager in C#")]
-[assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("PinCushion")]
 [assembly: AssemblyCopyright ("Copyright ©  2013, 2014 Armin Altorffer")]
-[assembly: AssemblyTrademark ("")]
-[assembly: AssemblyCulture ("")]
 [assembly: AssemblyVersion ("0.39.*")]

@@ -65,20 +65,8 @@ namespace PinCushion
 		private System.Windows.Forms.Button setPinCushionPassword;
 		private System.Windows.Forms.Label passwordStrengthDescription;
 
-		private System.ComponentModel.IContainer components = null;
-
-		protected override void Dispose (bool disposing)
-		{
-			if (disposing && (this.components != null)) {
-				this.components.Dispose ();
-			}
-
-			base.Dispose (disposing);
-		}
-
 		private void InitializeComponent ()
 		{
-			this.components = new System.ComponentModel.Container ();
 			this.profileSelection = new System.Windows.Forms.ComboBox ();
 			this.serviceSelection = new System.Windows.Forms.ComboBox ();
 			this.profileLabel = new System.Windows.Forms.Label ();
@@ -95,9 +83,9 @@ namespace PinCushion
 			this.removeAccount = new System.Windows.Forms.Button ();
 			this.renameAccount = new System.Windows.Forms.Button ();
 			this.accountPassword = new System.Windows.Forms.TextBox ();
-			this.copyTextToClipboardRightclick = new System.Windows.Forms.ContextMenuStrip (this.components);
+			this.copyTextToClipboardRightclick = new System.Windows.Forms.ContextMenuStrip ();
 			this.copyTextToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.serviceRightclick = new System.Windows.Forms.ContextMenuStrip (this.components);
+			this.serviceRightclick = new System.Windows.Forms.ContextMenuStrip ();
 			this.executeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setexecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.cloneServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
@@ -107,11 +95,11 @@ namespace PinCushion
 			this.passwordStrength = new System.Windows.Forms.TrackBar ();
 			this.readOnly = new System.Windows.Forms.CheckBox ();
 			this.encrypt = new System.Windows.Forms.CheckBox ();
-			this.idleTimer = new System.Windows.Forms.Timer (this.components);
+			this.idleTimer = new System.Windows.Forms.Timer ();
 			this.showPassword = new System.Windows.Forms.CheckBox ();
 			this.passwordStrengthLabel = new System.Windows.Forms.Label ();
-			this.tray = new System.Windows.Forms.NotifyIcon (this.components);
-			this.mainFormRightclick = new System.Windows.Forms.ContextMenuStrip (this.components);
+			this.tray = new System.Windows.Forms.NotifyIcon ();
+			this.mainFormRightclick = new System.Windows.Forms.ContextMenuStrip ();
 			this.disableIdleTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
@@ -119,7 +107,6 @@ namespace PinCushion
 			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
 			this.copyTextToClipboardRightclick.SuspendLayout ();
 			this.serviceRightclick.SuspendLayout ();
-			((System.ComponentModel.ISupportInitialize)this.passwordStrength).BeginInit ();
 			this.mainFormRightclick.SuspendLayout ();
 			this.SuspendLayout ();
 			this.profileSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -128,7 +115,6 @@ namespace PinCushion
 			this.profileSelection.ContextMenuStrip = this.copyTextToClipboardRightclick;
 			this.profileSelection.FormattingEnabled = true;
 			this.profileSelection.Location = new System.Drawing.Point (143, 15);
-			this.profileSelection.Margin = new System.Windows.Forms.Padding (0);
 			this.profileSelection.Size = new System.Drawing.Size (508, 24);
 			this.profileSelection.TabIndex = 0;
 			this.profileSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
@@ -142,7 +128,6 @@ namespace PinCushion
 			this.serviceSelection.ContextMenuStrip = this.serviceRightclick;
 			this.serviceSelection.FormattingEnabled = true;
 			this.serviceSelection.Location = new System.Drawing.Point (143, 96);
-			this.serviceSelection.Margin = new System.Windows.Forms.Padding (0);
 			this.serviceSelection.Size = new System.Drawing.Size (508, 24);
 			this.serviceSelection.TabIndex = 1;
 			this.serviceSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
@@ -151,38 +136,30 @@ namespace PinCushion
 			};
 			this.serviceSelection.TextUpdate += new System.EventHandler (this.NotIdle);
 			this.profileLabel.Location = new System.Drawing.Point (12, 18);
-			this.profileLabel.Margin = new System.Windows.Forms.Padding (0, 0, 0, 0);
 			this.profileLabel.Size = new System.Drawing.Size (52, 17);
 			this.serviceLabel.Location = new System.Drawing.Point (12, 99);
-			this.serviceLabel.Margin = new System.Windows.Forms.Padding (0, 0, 0, 0);
 			this.serviceLabel.Size = new System.Drawing.Size (59, 17);
 			this.addProfile.Location = new System.Drawing.Point (179, 47);
-			this.addProfile.Margin = new System.Windows.Forms.Padding (0);
 			this.addProfile.Size = new System.Drawing.Size (152, 41);
 			this.addProfile.TabStop = false;
 			this.addProfile.Click += new System.EventHandler (this.AddProfile_Click);
 			this.removeProfile.Location = new System.Drawing.Point (339, 47);
-			this.removeProfile.Margin = new System.Windows.Forms.Padding (0);
 			this.removeProfile.Size = new System.Drawing.Size (152, 41);
 			this.removeProfile.TabStop = false;
 			this.removeProfile.Click += new System.EventHandler (this.RemoveProfile_Click);
 			this.renameProfile.Location = new System.Drawing.Point (499, 47);
-			this.renameProfile.Margin = new System.Windows.Forms.Padding (0);
 			this.renameProfile.Size = new System.Drawing.Size (152, 41);
 			this.renameProfile.TabStop = false;
 			this.renameProfile.Click += new System.EventHandler (this.RenameProfile_Click);
 			this.addService.Location = new System.Drawing.Point (179, 128);
-			this.addService.Margin = new System.Windows.Forms.Padding (0);
 			this.addService.Size = new System.Drawing.Size (152, 39);
 			this.addService.TabStop = false;
 			this.addService.Click += new System.EventHandler (this.AddService_Click);
 			this.removeService.Location = new System.Drawing.Point (339, 128);
-			this.removeService.Margin = new System.Windows.Forms.Padding (0);
 			this.removeService.Size = new System.Drawing.Size (152, 39);
 			this.removeService.TabStop = false;
 			this.removeService.Click += new System.EventHandler (this.RemoveService_Click);
 			this.renameService.Location = new System.Drawing.Point (499, 128);
-			this.renameService.Margin = new System.Windows.Forms.Padding (0);
 			this.renameService.Size = new System.Drawing.Size (152, 39);
 			this.renameService.TabStop = false;
 			this.renameService.Click += new System.EventHandler (this.RenameService_Click);
@@ -190,7 +167,6 @@ namespace PinCushion
 			this.accountSelection.ContextMenu = null;
 			this.accountSelection.ContextMenuStrip = this.copyTextToClipboardRightclick;
 			this.accountSelection.Location = new System.Drawing.Point (143, 175);
-			this.accountSelection.Margin = new System.Windows.Forms.Padding (0);
 			this.accountSelection.Size = new System.Drawing.Size (508, 24);
 			this.accountSelection.TabIndex = 2;
 			this.accountSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
@@ -199,27 +175,22 @@ namespace PinCushion
 			};
 			this.accountSelection.TextUpdate += new System.EventHandler (this.NotIdle);
 			this.accountLabel.Location = new System.Drawing.Point (12, 178);
-			this.accountLabel.Margin = new System.Windows.Forms.Padding (0, 0, 0, 0);
 			this.accountLabel.Size = new System.Drawing.Size (63, 17);
 			this.addAccount.Location = new System.Drawing.Point (180, 207);
-			this.addAccount.Margin = new System.Windows.Forms.Padding (0);
 			this.addAccount.Size = new System.Drawing.Size (152, 39);
 			this.addAccount.TabStop = false;
 			this.addAccount.Click += new System.EventHandler (this.AddAccount_Click);
 			this.removeAccount.Location = new System.Drawing.Point (340, 207);
-			this.removeAccount.Margin = new System.Windows.Forms.Padding (0);
 			this.removeAccount.Size = new System.Drawing.Size (152, 39);
 			this.removeAccount.TabStop = false;
 			this.removeAccount.Click += new System.EventHandler (this.RemoveAccount_Click);
 			this.renameAccount.Location = new System.Drawing.Point (498, 207);
-			this.renameAccount.Margin = new System.Windows.Forms.Padding (0);
 			this.renameAccount.Size = new System.Drawing.Size (153, 39);
 			this.renameAccount.TabStop = false;
 			this.renameAccount.Click += new System.EventHandler (this.RenameAccount_Click);
 			this.accountPassword.ContextMenu = null;
 			this.accountPassword.ContextMenuStrip = this.copyTextToClipboardRightclick;
 			this.accountPassword.Location = new System.Drawing.Point (143, 254);
-			this.accountPassword.Margin = new System.Windows.Forms.Padding (0);
 			this.accountPassword.ReadOnly = true;
 			this.accountPassword.Size = new System.Drawing.Size (508, 22);
 			this.accountPassword.TabIndex = 3;
@@ -246,20 +217,16 @@ namespace PinCushion
 			this.cloneServiceToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
 			this.cloneServiceToolStripMenuItem.Click += new System.EventHandler (this.CloneServiceToolStripMenuItem_Click);
 			this.setPassword.Location = new System.Drawing.Point (180, 284);
-			this.setPassword.Margin = new System.Windows.Forms.Padding (0);
 			this.setPassword.Size = new System.Drawing.Size (152, 39);
 			this.setPassword.TabStop = false;
 			this.setPassword.Click += new System.EventHandler (this.SetPassword_Click);
 			this.generatePassword.Location = new System.Drawing.Point (340, 284);
-			this.generatePassword.Margin = new System.Windows.Forms.Padding (0);
 			this.generatePassword.Size = new System.Drawing.Size (152, 39);
 			this.generatePassword.TabStop = false;
 			this.generatePassword.Click += new System.EventHandler (this.GeneratePassword_Click);
 			this.passwordLabel.Location = new System.Drawing.Point (12, 257);
-			this.passwordLabel.Margin = new System.Windows.Forms.Padding (0, 0, 0, 0);
 			this.passwordLabel.Size = new System.Drawing.Size (73, 17);
 			this.passwordStrength.Location = new System.Drawing.Point (498, 284);
-			this.passwordStrength.Margin = new System.Windows.Forms.Padding (0);
 			this.passwordStrength.Maximum = new Password ().PasswordLength.GetLength (0) - 1;
 			this.passwordStrength.Size = new System.Drawing.Size (153, 56);
 			this.passwordStrength.TabStop = false;
@@ -271,7 +238,6 @@ namespace PinCushion
 			this.readOnly.Checked = true;
 			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.readOnly.Location = new System.Drawing.Point (15, 324);
-			this.readOnly.Margin = new System.Windows.Forms.Padding (0);
 			this.readOnly.Size = new System.Drawing.Size (97, 21);
 			this.readOnly.TabStop = false;
 			this.readOnly.CheckedChanged += (object sender, System.EventArgs e) => {
@@ -281,7 +247,6 @@ namespace PinCushion
 			this.encrypt.Checked = true;
 			this.encrypt.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.encrypt.Location = new System.Drawing.Point (15, 353);
-			this.encrypt.Margin = new System.Windows.Forms.Padding (0);
 			this.encrypt.Size = new System.Drawing.Size (112, 21);
 			this.encrypt.TabStop = false;
 			this.encrypt.CheckedChanged += (object sender, System.EventArgs e) => {
@@ -355,7 +320,6 @@ namespace PinCushion
 			this.Controls.Add (this.profileLabel);
 			this.Controls.Add (this.serviceSelection);
 			this.Controls.Add (this.profileSelection);
-			this.Margin = new System.Windows.Forms.Padding (0);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -363,7 +327,6 @@ namespace PinCushion
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.MainForm_Closing);
 			this.copyTextToClipboardRightclick.ResumeLayout (false);
 			this.serviceRightclick.ResumeLayout (false);
-			((System.ComponentModel.ISupportInitialize)this.passwordStrength).EndInit ();
 			this.mainFormRightclick.ResumeLayout (false);
 			this.ResumeLayout (false);
 			this.PerformLayout ();

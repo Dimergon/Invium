@@ -169,6 +169,9 @@ namespace PinCushion
 			case "xx-YY":
 			case "xx-ZZ":
 				this.ExampleLanguageEntry = "Example translation";
+				// this.Trayfeedback needs to be set to the exact entry that was added
+				// to string[] Traylangs.
+				this.Trayfeedback = "Example";
 				break;
 			*/
 			case "Nederlands":

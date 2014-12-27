@@ -84,8 +84,11 @@ namespace PinCushion
 				}
 			}
 
-			// import functionality...
+			// import functionality
 			((ToolStripMenuItem)this.mainFormRightclick.Items [2]).Enabled = false;
+
+			// merge functionality
+			((ToolStripMenuItem)this.mainFormRightclick.Items [3]).Enabled = false;
 		}
 
 		// Used in refreshing
@@ -600,6 +603,7 @@ namespace PinCushion
 				this.encrypt.Enabled = !this.readOnly.Checked;
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.mainFormRightclick.Items [2].Enabled = !this.readOnly.Checked;
+				this.mainFormRightclick.Items [3].Enabled = !this.readOnly.Checked;
 				this.setPinCushionPassword.Enabled = !this.readOnly.Checked;
 				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
@@ -753,6 +757,7 @@ namespace PinCushion
 			this.mainFormRightclick.Items [0].Text = Program.Language.DisableIdleTimeout;
 			this.mainFormRightclick.Items [1].Text = Program.Language.Language;
 			this.mainFormRightclick.Items [2].Text = Program.Language.Import;
+			this.mainFormRightclick.Items [3].Text = Program.Language.ProfileMerge;
 		}
 
 		/*

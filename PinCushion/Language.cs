@@ -110,6 +110,7 @@ namespace PinCushion
 		public string DisableIdleTimeout;
 		public string Language;
 		public string Import;
+		public string ProfileMerge;
 		public string PinCushionPassword;
 		public string Execute;
 		public string NoExecute;
@@ -245,6 +246,7 @@ namespace PinCushion
 				this.DisableIdleTimeout = "Automatisch uitschakelen deactiveren.";
 				this.Language = "Taal";
 				this.Import = "Importeren";
+				this.ProfileMerge = "Profielen samenvoegen";
 				this.PinCushionPassword = "{0} wachtwoord instellen";
 				this.Execute = "{0} uitvoeren";
 				this.NoExecute = "Geen commando ingesteld om uit te voeren.";
@@ -346,6 +348,7 @@ namespace PinCushion
 				this.DisableIdleTimeout = "Disable idle timeout.";
 				this.Language = "Language";
 				this.Import = "Import";
+				this.ProfileMerge = "Merge profiles";
 				this.PinCushionPassword = "Set {0} password";
 				this.Execute = "Open {0}";
 				this.NoExecute = "No command specified to execute.";

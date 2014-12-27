@@ -62,6 +62,7 @@ namespace PinCushion
 		private System.Windows.Forms.ToolStripMenuItem disableIdleTimeoutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem mergeProfilesToolStripMenuItem;
 		private System.Windows.Forms.Button setPinCushionPassword;
 		private System.Windows.Forms.Label passwordStrengthDescription;
 
@@ -103,6 +104,7 @@ namespace PinCushion
 			this.disableIdleTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
+			this.mergeProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setPinCushionPassword = new System.Windows.Forms.Button ();
 			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
 			this.copyTextToClipboardRightclick.SuspendLayout ();
@@ -271,7 +273,8 @@ namespace PinCushion
 			this.mainFormRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
 				this.disableIdleTimeoutToolStripMenuItem,
 				this.languageToolStripMenuItem,
-				this.importToolStripMenuItem
+				this.importToolStripMenuItem,
+				this.mergeProfilesToolStripMenuItem
 			});
 			this.mainFormRightclick.Size = new System.Drawing.Size (214, 76);
 			this.disableIdleTimeoutToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
@@ -283,6 +286,11 @@ namespace PinCushion
 			this.languageToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.importToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.importToolStripMenuItem.Click += new System.EventHandler (this.ImportToolStripMenuItem_Click);
+			this.mergeProfilesToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
+			this.mergeProfilesToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+				System.Windows.Forms.MessageBox.Show ("Functionality not yet implemented.");
+			};
 			this.setPinCushionPassword.Location = new System.Drawing.Point (180, 330);
 			this.setPinCushionPassword.Size = new System.Drawing.Size (312, 39);
 			this.setPinCushionPassword.TabStop = false;

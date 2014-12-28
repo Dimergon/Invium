@@ -149,7 +149,7 @@ namespace PinCushion
 				if (Program.Profiles.Find (delegate(Profile x) {
 					return x.Name == profile_name;
 				}) != null) {
-					profile_name += DateTime.Now.ToString ();
+					profile_name += new Password ().GenSalt ();
 				}
 
 				Profile p = new Profile (profile_name);

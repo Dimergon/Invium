@@ -834,7 +834,7 @@ namespace PinCushion
 							return s.Name == destination_service;
 						}) != null) {
 							renamed = true;
-							destination_service += DateTime.Now.ToString ();
+							destination_service += new Password ().GenSalt ();
 						}
 
 						Service new_service = new Service (destination_service, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
@@ -884,30 +884,50 @@ namespace PinCushion
 			try {
 				Stack buffer = new Stack ();
 				List<string> profilestocopy = new List<string> ();
-				string userinput = string.Empty;
+				string userinput_source = string.Empty;
+				string userinput_destination = string.Empty;
 
-				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, "Program.Language.MergeProfiles_GetSourceProfilesTitle", "Program.Language.MergeProfiles_GetSourceProfilesPrompt") == DialogResult.OK) {
-					foreach (string s in userinput.Split (new char[] { ',' })) {
-						if (Program.Profiles.Find (x => x.Name == s.Trim ()) == null) {
-							MessageBox.Show ("Program.Language.MergeProfiles_SourceProfileNotFound");
+				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_source, "Program.Language.MergeProfiles_GetSourceProfilesTitle", "Program.Language.MergeProfiles_GetSourceProfilesPrompt") == DialogResult.OK) {
+					if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_destination, "Program.Language.MergeProfiles_GetDestinationProfileTitle", "Program.Language.MergeProfiles_GetDestinationProfilePrompt") == DialogResult.OK) {
+						if (Program.Profiles.Find (x => x.Name == userinput_destination) != null) {
+							MessageBox.Show ("Program.Language.MergeProfiles_DestinationAlreadyPresent");
 							return;
+						}
+						foreach (string s in userinput_source.Split (new char[] { ',' })) {
+							if (Program.Profiles.Find (x => x.Name == s.Trim ()) == null) {
+								MessageBox.Show ("Program.Language.MergeProfiles_SourceProfileNotFound");
+								return;
+							} else {
+								profilestocopy.Add (s.Trim ());
+							}
+						}
+						foreach (string profile in profilestocopy) {
+							foreach (Service service in Program.Profiles.Find(x => x.Name == profile).Profileservices) {
+								buffer.Push (service);
+							}
+						}
+						bool renamed = false;
+						Profile newprofile = new Profile (userinput_destination);
+						foreach (Service s in buffer) {
+							if (newprofile.Profileservices.Find (x => x.Name == s.Name) == null) {
+								newprofile.Profileservices.Add (s);
+							} else {
+								renamed = true;
+								s.Name += new Password ().GenSalt ();
+								newprofile.Profileservices.Add (s);
+							}
+						}
+						Program.Profiles.Add (newprofile);
+						this.RefreshControls (RefreshLevel.Profile);
+						this.saveOnClose = true;
+						userinput_source = string.Empty;
+						userinput_destination = string.Empty;
+						if (renamed) {
+							MessageBox.Show ("Program.Language.MergeProfiles_Done_Rename");
 						} else {
-							profilestocopy.Add (s.Trim ());
+							MessageBox.Show ("Program.Language.MergeProfiles_Done");
 						}
 					}
-					foreach (string profile in profilestocopy) {
-						foreach (Service service in Program.Profiles.Find(x => x.Name == profile).Profileservices) {
-							buffer.Push (service);
-						}
-					}
-					Profile newprofile = new Profile (DateTime.Now.ToString ());
-					foreach (Service s in buffer) {
-						newprofile.Profileservices.Add (s);
-					}
-					Program.Profiles.Add (newprofile);
-					this.RefreshControls (RefreshLevel.Profile);
-					this.saveOnClose = true;
-					MessageBox.Show ("Program.Language.MergeProfiles_Done");
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show ("Program.Language.MergeProfilesError");

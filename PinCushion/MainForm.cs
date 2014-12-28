@@ -905,8 +905,9 @@ namespace PinCushion
 						newprofile.Profileservices.Add (s);
 					}
 					Program.Profiles.Add (newprofile);
-					MessageBox.Show ("Program.Language.MergeProfiles_Done");
 					this.RefreshControls (RefreshLevel.Profile);
+					this.saveOnClose = true;
+					MessageBox.Show ("Program.Language.MergeProfiles_Done");
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show ("Program.Language.MergeProfilesError");

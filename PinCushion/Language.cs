@@ -58,6 +58,14 @@ namespace PinCushion
 		public string CloneServiceRename;
 		public string CloneServiceDone;
 		public string CloneServiceNoSuchProfile;
+		public string MergeProfilesSourceTitle;
+		public string MergeProfilesSourcePrompt;
+		public string MergeProfilesDestinationTitle;
+		public string MergeProfilesDestinationPrompt;
+		public string MergeProfilesDestinationExists;
+		public string MergeProfilesSourceDoesNotExist;
+		public string MergeProfilesDone;
+		public string MergeProfilesDoneRename;
 
 		/* New password input */
 		public string NewPasswordTitle;
@@ -133,6 +141,7 @@ namespace PinCushion
 		public string SetExecuteError;
 		public string RunExecuteError;
 		public string CloneServiceError;
+		public string MergeProfilesError;
 		public string AddAccountError;
 		public string RemoveAccountError;
 		public string RenameAccountError;
@@ -205,6 +214,14 @@ namespace PinCushion
 				this.CloneServiceRename = "Een dienst genaamd {0} bestaat al voor profiel {1}.\r\nDienst gekloond onder de naam: {2}";
 				this.CloneServiceDone = "De dienst {0} is geklooned naar {1}";
 				this.CloneServiceNoSuchProfile = "Er bestaat geen profiel met de opgegeven naam, probeer het nogmaals.";
+				this.MergeProfilesSourceTitle = "Profielen samenvoegen - Bron";
+				this.MergeProfilesSourcePrompt = "Geef de namen op van de profielen om samen te voegen, scheidt deze met een komma.";
+				this.MergeProfilesDestinationTitle = "Profielen samenvoegen - Doel";
+				this.MergeProfilesDestinationPrompt = "Geef de naam op voor het profiel om de genoemde profielen naar samen te voegen.";
+				this.MergeProfilesDestinationExists = "Een profiel met de opgegeven doelbestemmingsnaam bestaat al, geannuleerd.";
+				this.MergeProfilesSourceDoesNotExist = "Niet alle opgegeven bron profielen bestaan, geannuleerd.";
+				this.MergeProfilesDone = "Het samenvoegen van de opgegeven profielen is successvol verlopen.";
+				this.MergeProfilesDoneRename = "Het samenvoegen van de opgegeven profielen is successvol verlopen.\r\nEchter, er bestonden duplicaten binnen de opgegeven profielen, deze zijn hernoemd.";
 				this.NewPasswordTitle = "Wachtwoord";
 				this.NewPasswordPrompt = "Geef een nieuw wachtwoord op.";
 				this.NewPasswordConfirmation = "Bevestig het wachtwoord.";
@@ -268,6 +285,7 @@ namespace PinCushion
 				this.SetExecuteError = "Er is een fout opgetreden tijdens het instellen van een commando voor deze dienst, probeer het nogmaals.";
 				this.RunExecuteError = "Er is een fout opgetreden tijdens het uitvoeren van het commando voor deze dienst, probeer het nogmaals.";
 				this.CloneServiceError = "Er is een fout opgetreden tijdens het klonen van deze dienst, probeer het nogmaals.";
+				this.MergeProfilesError = "Er is een fout opgetreden tijdens het samenvoegen van de opgegeven profielen, probeer het nogmaals.";
 				this.AddAccountError = "Er is een fout opgetreden tijdens het toevoegen van een account, probeer het nogmaals.";
 				this.RemoveAccountError = "Er is een fout opgetreden tijdens het verwijderen van dit account, probeer het nogmaals.";
 				this.RenameAccountError = "Er is een fout opgetreden tijdens het hernoemen van dit account, probeer het nogmaals.";
@@ -308,6 +326,14 @@ namespace PinCushion
 				this.CloneServiceRename = "A service named {0} already exists in profile {1}.\r\nCloned it to a different name: {2}";
 				this.CloneServiceDone = "The service {0} has been cloned to {1}";
 				this.CloneServiceNoSuchProfile = "There is no profile with that name, please try again.";
+				this.MergeProfilesSourceTitle = "Merge profiles - Source";
+				this.MergeProfilesSourcePrompt = "Enter the names of the profiles to merge, separated by comma.";
+				this.MergeProfilesDestinationTitle = "Merge profiles - Destination";
+				this.MergeProfilesDestinationPrompt = "Enter the profile name to merge the specified profiles to.";
+				this.MergeProfilesDestinationExists = "A profile with the specified destination name already exists, aborted.";
+				this.MergeProfilesSourceDoesNotExist = "Not all the specified source profiles exist, aborted.";
+				this.MergeProfilesDone = "The merging process was completed successfully.";
+				this.MergeProfilesDoneRename = "The merging process was completed sucessfully.\r\nHowever, since duplicate services exist, these have been renamed.";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";
 				this.NewPasswordConfirmation = "Please confirm the password.";
@@ -371,6 +397,7 @@ namespace PinCushion
 				this.SetExecuteError = "An error occurred while trying to set a command for this service, please try again.";
 				this.RunExecuteError = "An error occurred while trying to launch the command for this service, please try again.";
 				this.CloneServiceError = "An error occurred while trying to clone this service, please try again.";
+				this.MergeProfilesError = "An error ocurred while trying to merge the specified profiles, please try again.";
 				this.AddAccountError = "An error occurred while trying to add an account, please try again.";
 				this.RemoveAccountError = "An error occurred while trying to remove this account, please try again.";
 				this.RenameAccountError = "An error occurred while trying to rename this account, please try again.";

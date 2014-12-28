@@ -887,16 +887,16 @@ namespace PinCushion
 				string userinput_source = string.Empty;
 				string userinput_destination = string.Empty;
 
-				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_source, "Program.Language.MergeProfiles_GetSourceProfilesTitle", "Program.Language.MergeProfiles_GetSourceProfilesPrompt") == DialogResult.OK) {
-					if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_destination, "Program.Language.MergeProfiles_GetDestinationProfileTitle", "Program.Language.MergeProfiles_GetDestinationProfilePrompt") == DialogResult.OK) {
+				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_source, Program.Language.MergeProfilesSourceTitle, Program.Language.MergeProfilesSourcePrompt) == DialogResult.OK) {
+					if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput_destination, Program.Language.MergeProfilesDestinationTitle, Program.Language.MergeProfilesDestinationPrompt) == DialogResult.OK) {
 						if (Program.Profiles.Find (x => x.Name == userinput_destination) != null) {
-							MessageBox.Show ("Program.Language.MergeProfiles_DestinationAlreadyPresent");
+							MessageBox.Show (Program.Language.MergeProfilesDestinationExists);
 							return;
 						}
 
 						foreach (string s in userinput_source.Split (new char[] { ',' })) {
 							if (Program.Profiles.Find (x => x.Name == s.Trim ()) == null) {
-								MessageBox.Show ("Program.Language.MergeProfiles_SourceProfileNotFound");
+								MessageBox.Show (Program.Language.MergeProfilesSourceDoesNotExist);
 								return;
 							} else {
 								profilestocopy.Add (s.Trim ());
@@ -932,14 +932,14 @@ namespace PinCushion
 						userinput_source = string.Empty;
 						userinput_destination = string.Empty;
 						if (renamed) {
-							MessageBox.Show ("Program.Language.MergeProfiles_Done_Rename");
+							MessageBox.Show (Program.Language.MergeProfilesDoneRename);
 						} else {
-							MessageBox.Show ("Program.Language.MergeProfiles_Done");
+							MessageBox.Show (Program.Language.MergeProfilesDone);
 						}
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
-				MessageBox.Show ("Program.Language.MergeProfilesError");
+				MessageBox.Show (Program.Language.MergeProfilesError);
 				this.RefreshControls (RefreshLevel.Profile);
 			}
 		}

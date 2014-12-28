@@ -864,8 +864,9 @@ namespace PinCushion
 		 *
 		 * Steps:
 		 * - Get a list of profiles to merge, from the user.
-		 * - Get a destination profile name from the user.
 		 * - Check existence of all of them, abort if not all exist.
+		 * - Get a destination profile name from the user.
+		 * - Check existence, abort if it exists.
 		 * - Build a list of service and accounts.
 		 * - Instance new profile.
 		 * - Add all services and accounts to new instance.

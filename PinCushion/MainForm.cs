@@ -921,7 +921,11 @@ namespace PinCushion
 							}
 						}
 
+						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
+							return s.Name.CompareTo (t.Name);
+						});
 						Program.Profiles.Add (newprofile);
+						this.RefreshControls (RefreshLevel.Profile);
 						this.saveOnClose = true;
 						userinput_destination = string.Empty;
 						userinput_source = string.Empty;

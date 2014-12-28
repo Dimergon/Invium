@@ -917,6 +917,9 @@ namespace PinCushion
 								newprofile.Profileservices.Add (s);
 							}
 						}
+						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
+							return s.Name.CompareTo (t.Name);
+						});
 						Program.Profiles.Add (newprofile);
 						this.RefreshControls (RefreshLevel.Profile);
 						this.saveOnClose = true;

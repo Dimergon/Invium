@@ -913,8 +913,10 @@ namespace PinCushion
 								newprofile.Profileservices.Add (s);
 							} else {
 								renamed = true;
+								string source_name = s.Name;
 								s.Name += new Password ().GenSalt ();
 								newprofile.Profileservices.Add (s);
+								s.Name = source_name;
 							}
 						}
 						newprofile.Profileservices.Sort (delegate(Service s, Service t) {

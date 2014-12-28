@@ -860,6 +860,26 @@ namespace PinCushion
 		}
 
 		/*
+		 * Merge profiles
+		 *
+		 * Steps:
+		 * - Get a list of profiles to merge, from the user.
+		 * - Get a destination profile name from the user.
+		 * - Check existence of all of them, abort if not all exist.
+		 * - Build a list of service and accounts.
+		 * - Instance new profile.
+		 * - Add all services and accounts to new instance.
+		 * - (renamed in case of duplicates)
+		 * - Add new instance to main container.
+		 */
+		private void MergeProfiles ()
+		{
+			this.NotIdle ();
+
+			MessageBox.Show ("Not yet implemented.");
+		}
+
+		/*
 		* Change the language
 		*/
 		private void ChangeLanguage (object sender, EventArgs e)

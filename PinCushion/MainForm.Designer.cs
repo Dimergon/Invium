@@ -326,8 +326,7 @@ namespace PinCushion
 			};
 			this.mainFormCMmergeProfiles.Size = new System.Drawing.Size (213, 24);
 			this.mainFormCMmergeProfiles.Click += (object sender, System.EventArgs e) => {
-				this.NotIdle ();
-				System.Windows.Forms.MessageBox.Show ("Functionality not yet implemented.");
+				this.MergeProfiles ();
 			};
 			this.setPinCushionPassword.Location = new System.Drawing.Point (180, 330);
 			this.setPinCushionPassword.Size = new System.Drawing.Size (312, 39);

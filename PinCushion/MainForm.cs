@@ -893,6 +893,7 @@ namespace PinCushion
 							MessageBox.Show ("Program.Language.MergeProfiles_DestinationAlreadyPresent");
 							return;
 						}
+
 						foreach (string s in userinput_source.Split (new char[] { ',' })) {
 							if (Program.Profiles.Find (x => x.Name == s.Trim ()) == null) {
 								MessageBox.Show ("Program.Language.MergeProfiles_SourceProfileNotFound");
@@ -901,11 +902,13 @@ namespace PinCushion
 								profilestocopy.Add (s.Trim ());
 							}
 						}
+
 						foreach (string profile in profilestocopy) {
 							foreach (Service service in Program.Profiles.Find(x => x.Name == profile).Profileservices) {
 								buffer.Push (service);
 							}
 						}
+
 						bool renamed = false;
 						Profile newprofile = new Profile (userinput_destination);
 						foreach (Service s in buffer) {
@@ -919,6 +922,7 @@ namespace PinCushion
 								s.Name = source_name;
 							}
 						}
+
 						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});

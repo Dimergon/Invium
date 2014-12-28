@@ -803,6 +803,14 @@ namespace PinCushion
 
 		/*
 		 * Clone a service to a different profile
+		 *
+		 * Steps:
+		 * - Get a destination profile from the user
+		 * - Check its existence
+		 * - Loop through all accounts of the source service
+		 * - Add them to a new service
+		 * - Add this new service to the destination profile
+		 * - (under a new name if destination profile already had a service of the same name)
 		 */
 		private void CloneService ()
 		{

@@ -148,27 +148,39 @@ namespace PinCushion
 			this.addProfile.Location = new System.Drawing.Point (179, 47);
 			this.addProfile.Size = new System.Drawing.Size (152, 41);
 			this.addProfile.TabStop = false;
-			this.addProfile.Click += new System.EventHandler (this.AddProfile_Click);
+			this.addProfile.Click += (object sender, System.EventArgs e) => {
+				this.AddProfile ();
+			};
 			this.removeProfile.Location = new System.Drawing.Point (339, 47);
 			this.removeProfile.Size = new System.Drawing.Size (152, 41);
 			this.removeProfile.TabStop = false;
-			this.removeProfile.Click += new System.EventHandler (this.RemoveProfile_Click);
+			this.removeProfile.Click += (object sender, System.EventArgs e) => {
+				this.RemoveProfile ();
+			};
 			this.renameProfile.Location = new System.Drawing.Point (499, 47);
 			this.renameProfile.Size = new System.Drawing.Size (152, 41);
 			this.renameProfile.TabStop = false;
-			this.renameProfile.Click += new System.EventHandler (this.RenameProfile_Click);
+			this.renameProfile.Click += (object sender, System.EventArgs e) => {
+				this.RenameProfile ();
+			};
 			this.addService.Location = new System.Drawing.Point (179, 128);
 			this.addService.Size = new System.Drawing.Size (152, 39);
 			this.addService.TabStop = false;
-			this.addService.Click += new System.EventHandler (this.AddService_Click);
+			this.addService.Click += (object sender, System.EventArgs e) => {
+				this.AddService ();
+			};
 			this.removeService.Location = new System.Drawing.Point (339, 128);
 			this.removeService.Size = new System.Drawing.Size (152, 39);
 			this.removeService.TabStop = false;
-			this.removeService.Click += new System.EventHandler (this.RemoveService_Click);
+			this.removeService.Click += (object sender, System.EventArgs e) => {
+				this.RemoveService ();
+			};
 			this.renameService.Location = new System.Drawing.Point (499, 128);
 			this.renameService.Size = new System.Drawing.Size (152, 39);
 			this.renameService.TabStop = false;
-			this.renameService.Click += new System.EventHandler (this.RenameService_Click);
+			this.renameService.Click += (object sender, System.EventArgs e) => {
+				this.RenameService ();
+			};
 			this.accountSelection.FormattingEnabled = true;
 			this.accountSelection.ContextMenu = null;
 			this.accountSelection.ContextMenuStrip = this.copyTextCM;
@@ -187,15 +199,21 @@ namespace PinCushion
 			this.addAccount.Location = new System.Drawing.Point (180, 207);
 			this.addAccount.Size = new System.Drawing.Size (152, 39);
 			this.addAccount.TabStop = false;
-			this.addAccount.Click += new System.EventHandler (this.AddAccount_Click);
+			this.addAccount.Click += (object sender, System.EventArgs e) => {
+				this.AddAccount ();
+			};
 			this.removeAccount.Location = new System.Drawing.Point (340, 207);
 			this.removeAccount.Size = new System.Drawing.Size (152, 39);
 			this.removeAccount.TabStop = false;
-			this.removeAccount.Click += new System.EventHandler (this.RemoveAccount_Click);
+			this.removeAccount.Click += (object sender, System.EventArgs e) => {
+				this.RemoveAccount ();
+			};
 			this.renameAccount.Location = new System.Drawing.Point (498, 207);
 			this.renameAccount.Size = new System.Drawing.Size (153, 39);
 			this.renameAccount.TabStop = false;
-			this.renameAccount.Click += new System.EventHandler (this.RenameAccount_Click);
+			this.renameAccount.Click += (object sender, System.EventArgs e) => {
+				this.RenameAccount ();
+			};
 			this.accountPassword.ContextMenu = null;
 			this.accountPassword.ContextMenuStrip = this.copyTextCM;
 			this.accountPassword.Location = new System.Drawing.Point (143, 254);
@@ -233,11 +251,15 @@ namespace PinCushion
 			this.setPassword.Location = new System.Drawing.Point (180, 284);
 			this.setPassword.Size = new System.Drawing.Size (152, 39);
 			this.setPassword.TabStop = false;
-			this.setPassword.Click += new System.EventHandler (this.SetPassword_Click);
+			this.setPassword.Click += (object sender, System.EventArgs e) => {
+				this.SetPassword ();
+			};
 			this.generatePassword.Location = new System.Drawing.Point (340, 284);
 			this.generatePassword.Size = new System.Drawing.Size (152, 39);
 			this.generatePassword.TabStop = false;
-			this.generatePassword.Click += new System.EventHandler (this.GeneratePassword_Click);
+			this.generatePassword.Click += (object sender, System.EventArgs e) => {
+				this.GeneratePassword ();
+			};
 			this.passwordLabel.Location = new System.Drawing.Point (12, 257);
 			this.passwordLabel.Size = new System.Drawing.Size (73, 17);
 			this.passwordStrength.Location = new System.Drawing.Point (498, 284);
@@ -310,7 +332,9 @@ namespace PinCushion
 			this.setPinCushionPassword.Location = new System.Drawing.Point (180, 330);
 			this.setPinCushionPassword.Size = new System.Drawing.Size (312, 39);
 			this.setPinCushionPassword.TabStop = false;
-			this.setPinCushionPassword.Click += new System.EventHandler (this.SetPinCushionPassword_Click);
+			this.setPinCushionPassword.Click += (object sender, System.EventArgs e) => {
+				this.SetPinCushionPassword ();
+			};
 			this.passwordStrengthDescription.Location = new System.Drawing.Point (585, 354);
 			this.passwordStrengthDescription.Size = new System.Drawing.Size (66, 17);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

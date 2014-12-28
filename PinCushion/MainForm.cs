@@ -145,7 +145,7 @@ namespace PinCushion
 		* - Create new instance.
 		* - Refresh controls.
 		*/
-		private void AddProfile_Click (object sender, EventArgs e)
+		private void AddProfile ()
 		{
 			this.NotIdle ();
 
@@ -180,7 +180,7 @@ namespace PinCushion
 		* - Remove the profile.
 		* - Refresh controls.
 		*/
-		private void RemoveProfile_Click (object sender, EventArgs e)
+		private void RemoveProfile ()
 		{
 			this.NotIdle ();
 
@@ -208,7 +208,7 @@ namespace PinCushion
 		* - Rename.
 		* - Refresh controls.
 		*/
-		private void RenameProfile_Click (object sender, EventArgs e)
+		private void RenameProfile ()
 		{
 			this.NotIdle ();
 
@@ -245,7 +245,7 @@ namespace PinCushion
 		* - Create new instance.
 		* - Refresh controls.
 		*/
-		private void AddService_Click (object sender, EventArgs e)
+		private void AddService ()
 		{
 			this.NotIdle ();
 
@@ -280,7 +280,7 @@ namespace PinCushion
 		* - Remove the service.
 		* - Refresh controls.
 		*/
-		private void RemoveService_Click (object sender, EventArgs e)
+		private void RemoveService ()
 		{
 			this.NotIdle ();
 
@@ -308,7 +308,7 @@ namespace PinCushion
 		* - Rename.
 		* - Refresh controls.
 		*/
-		private void RenameService_Click (object sender, EventArgs e)
+		private void RenameService ()
 		{
 			this.NotIdle ();
 
@@ -345,7 +345,7 @@ namespace PinCushion
 		* - Create new instance.
 		* - Refresh controls.
 		*/
-		private void AddAccount_Click (object sender, EventArgs e)
+		private void AddAccount ()
 		{
 			this.NotIdle ();
 
@@ -384,7 +384,7 @@ namespace PinCushion
 		* - Remove account.
 		* - Refresh controls.
 		*/
-		private void RemoveAccount_Click (object sender, EventArgs e)
+		private void RemoveAccount ()
 		{
 			this.NotIdle ();
 
@@ -412,7 +412,7 @@ namespace PinCushion
 		* - Rename.
 		* - Refresh controls.
 		*/
-		private void RenameAccount_Click (object sender, EventArgs e)
+		private void RenameAccount ()
 		{
 			this.NotIdle ();
 
@@ -443,7 +443,7 @@ namespace PinCushion
 		/*
 		* Generate a random password but do not store it yet. Just show it.
 		*/
-		private void GeneratePassword_Click (object sender, EventArgs e)
+		private void GeneratePassword ()
 		{
 			this.NotIdle ();
 
@@ -472,7 +472,7 @@ namespace PinCushion
 		* - Set the password or just stick it in the text box in case it's an account to be added.
 		* - Refresh.
 		*/
-		private void SetPassword_Click (object sender, EventArgs e)
+		private void SetPassword ()
 		{
 			// this next call needs to be here to avoid an unnecessary popup (see NotIdle)
 			this.unsavedPassword = false;
@@ -892,7 +892,7 @@ namespace PinCushion
 		/*
 		* Manually set a new password for PinCushion
 		*/
-		private void SetPinCushionPassword_Click (object sender, EventArgs e)
+		private void SetPinCushionPassword ()
 		{
 			this.NotIdle ();
 

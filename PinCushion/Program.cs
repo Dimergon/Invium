@@ -46,6 +46,9 @@ namespace PinCushion
 		// used to determine if we need to clear the clipboard; this sits here because of PinCushionExit()
 		public static bool ClipboardClearEnabled = false;
 
+		// forced read only state; useful in environments where access is shared
+		public static bool ForcedReadOnly = false;
+
 		// Main container
 		public static List<Profile> Profiles = new List<Profile> ();
 
@@ -98,6 +101,10 @@ namespace PinCushion
 						// Probably no language code specified.
 					}
 
+					break;
+				case "-forcedreadonly":
+					// Forcing the read only state
+					ForcedReadOnly = true;
 					break;
 				case "-load":
 					// Manually specifying the data file to load...

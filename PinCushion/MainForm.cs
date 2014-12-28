@@ -669,6 +669,7 @@ namespace PinCushion
 			// Done
 			this.RefreshControls (RefreshLevel.Profile);
 			this.readOnly.Checked = Program.Profiles.Count == 0 ? false : true;
+			this.readOnly.Enabled = !Program.ForcedReadOnly;
 		}
 
 		/*

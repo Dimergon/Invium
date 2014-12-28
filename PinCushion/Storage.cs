@@ -200,6 +200,11 @@ namespace PinCushion
 		 */
 		public void DoSave ()
 		{
+			// Refuse to save any data in case of a forced read only state.
+			if (Program.ForcedReadOnly) {
+				return;
+			}
+
 			PinCushionCryptography crypto = new PinCushionCryptography ();
 			// Create and load the savingscreen
 			StorageSplash savingscreen = new StorageSplash (Program.Language.Saving);

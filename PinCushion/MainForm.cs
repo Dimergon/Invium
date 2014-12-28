@@ -70,25 +70,25 @@ namespace PinCushion
 			 */
 
 			// disable timeout
-			((ToolStripMenuItem)this.mainFormRightclick.Items [0]).Checked = this.notimeout;
+			((ToolStripMenuItem)this.mainFormCM.Items [0]).Checked = this.notimeout;
 
 			// languages
 			foreach (string s in Program.Language.Traylangs) {
-				((ToolStripMenuItem)this.mainFormRightclick.Items [1]).DropDownItems.Add (s, null, this.ChangeLanguage);
+				((ToolStripMenuItem)this.mainFormCM.Items [1]).DropDownItems.Add (s, null, this.ChangeLanguage);
 			}
 
 			// Mark the active language
-			foreach (ToolStripMenuItem t in ((ToolStripMenuItem)this.mainFormRightclick.Items[1]).DropDownItems) {
+			foreach (ToolStripMenuItem t in ((ToolStripMenuItem)this.mainFormCM.Items[1]).DropDownItems) {
 				if (t.Text == Program.Language.Trayfeedback) {
 					t.Checked = true;
 				}
 			}
 
 			// import functionality
-			((ToolStripMenuItem)this.mainFormRightclick.Items [2]).Enabled = false;
+			((ToolStripMenuItem)this.mainFormCM.Items [2]).Enabled = false;
 
 			// merge functionality
-			((ToolStripMenuItem)this.mainFormRightclick.Items [3]).Enabled = false;
+			((ToolStripMenuItem)this.mainFormCM.Items [3]).Enabled = false;
 		}
 
 		// Used in refreshing
@@ -556,11 +556,11 @@ namespace PinCushion
 				case RefreshLevel.Account:
 					// Enable/disable the execute rightclick item
 					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty) {
-						this.serviceRightclick.Items [0].Text = Program.Language.NoExecute;
-						this.serviceRightclick.Items [0].Enabled = false;
+						this.serviceCM.Items [0].Text = Program.Language.NoExecute;
+						this.serviceCM.Items [0].Enabled = false;
 					} else {
-						this.serviceRightclick.Items [0].Text = string.Format (Program.Language.Execute, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
-						this.serviceRightclick.Items [0].Enabled = true;
+						this.serviceCM.Items [0].Text = string.Format (Program.Language.Execute, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
+						this.serviceCM.Items [0].Enabled = true;
 					}
 
 					this.accountSelection.Items.Clear ();
@@ -589,10 +589,10 @@ namespace PinCushion
 				this.addService.Enabled = this.profileSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.removeService.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.renameService.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
-				this.serviceRightclick.Items [0].Text = this.serviceSelection.SelectedItem == null ? Program.Language.NoExecute : this.serviceRightclick.Items [0].Text;
-				this.serviceRightclick.Items [0].Enabled = this.serviceSelection.SelectedItem == null ? false : this.serviceRightclick.Items [0].Enabled;
-				this.serviceRightclick.Items [1].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
-				this.serviceRightclick.Items [2].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
+				this.serviceCM.Items [0].Text = this.serviceSelection.SelectedItem == null ? Program.Language.NoExecute : this.serviceCM.Items [0].Text;
+				this.serviceCM.Items [0].Enabled = this.serviceSelection.SelectedItem == null ? false : this.serviceCM.Items [0].Enabled;
+				this.serviceCM.Items [1].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
+				this.serviceCM.Items [2].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.accountSelection.Enabled = this.serviceSelection.SelectedItem == null ? false : true;
 				this.accountPassword.TabStop = this.serviceSelection.SelectedItem == null ? false : true;
 				this.addAccount.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
@@ -602,12 +602,12 @@ namespace PinCushion
 				this.generatePassword.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.encrypt.Enabled = !this.readOnly.Checked;
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
-				this.mainFormRightclick.Items [2].Enabled = !this.readOnly.Checked;
-				this.mainFormRightclick.Items [3].Enabled = !this.readOnly.Checked;
+				this.mainFormCM.Items [2].Enabled = !this.readOnly.Checked;
+				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
 				this.setPinCushionPassword.Enabled = !this.readOnly.Checked;
 				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
-				this.copyTextToClipboardRightclick.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
+				this.copyTextCM.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
 				if (this.passwordStrength.Value > 1) {
 					this.passwordStrengthDescription.Text += "!";
 				}
@@ -744,21 +744,21 @@ namespace PinCushion
 			this.addProfile.Text = this.addService.Text = this.addAccount.Text = Program.Language.Add;
 			this.removeProfile.Text = this.removeService.Text = this.removeAccount.Text = Program.Language.Remove;
 			this.renameProfile.Text = this.renameService.Text = this.renameAccount.Text = Program.Language.Rename;
-			this.serviceRightclick.Items [0].Text = Program.Language.NoExecute;
-			this.serviceRightclick.Items [1].Text = Program.Language.SetExecute;
-			this.serviceRightclick.Items [2].Text = Program.Language.CloneService;
+			this.serviceCM.Items [0].Text = Program.Language.NoExecute;
+			this.serviceCM.Items [1].Text = Program.Language.SetExecute;
+			this.serviceCM.Items [2].Text = Program.Language.CloneService;
 			this.setPassword.Text = Program.Language.Set;
 			this.setPinCushionPassword.Text = string.Format (Program.Language.PinCushionPassword, System.Windows.Forms.Application.ProductName);
 			this.generatePassword.Text = Program.Language.Generate;
 			this.readOnly.Text = Program.Language.ReadOnly;
 			this.encrypt.Text = Program.Language.Encrypt;
-			this.copyTextToClipboardRightclick.Items [0].Text = Program.Language.CopyToClipboard;
+			this.copyTextCM.Items [0].Text = Program.Language.CopyToClipboard;
 			this.showPassword.Text = Program.Language.ShowPassword;
 			this.passwordStrengthLabel.Text = Program.Language.PasswordStrength;
-			this.mainFormRightclick.Items [0].Text = Program.Language.DisableIdleTimeout;
-			this.mainFormRightclick.Items [1].Text = Program.Language.Language;
-			this.mainFormRightclick.Items [2].Text = Program.Language.Import;
-			this.mainFormRightclick.Items [3].Text = Program.Language.ProfileMerge;
+			this.mainFormCM.Items [0].Text = Program.Language.DisableIdleTimeout;
+			this.mainFormCM.Items [1].Text = Program.Language.Language;
+			this.mainFormCM.Items [2].Text = Program.Language.Import;
+			this.mainFormCM.Items [3].Text = Program.Language.ProfileMerge;
 		}
 
 		/*
@@ -859,7 +859,7 @@ namespace PinCushion
 			this.NotIdle ();
 
 			Program.Language.LoadLocalization (sender.ToString ());
-			foreach (ToolStripMenuItem t in ((ToolStripMenuItem)this.mainFormRightclick.Items[1]).DropDownItems) {
+			foreach (ToolStripMenuItem t in ((ToolStripMenuItem)this.mainFormCM.Items[1]).DropDownItems) {
 				t.Checked = false;
 			}
 

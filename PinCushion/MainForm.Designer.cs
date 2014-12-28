@@ -49,20 +49,20 @@ namespace PinCushion
 		private System.Windows.Forms.CheckBox readOnly;
 		private System.Windows.Forms.CheckBox encrypt;
 		private System.Windows.Forms.Timer idleTimer;
-		private System.Windows.Forms.ContextMenuStrip copyTextToClipboardRightclick;
-		private System.Windows.Forms.ToolStripMenuItem copyTextToClipboardToolStripMenuItem;
-		private System.Windows.Forms.ContextMenuStrip serviceRightclick;
-		private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem setexecuteToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem cloneServiceToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip copyTextCM;
+		private System.Windows.Forms.ToolStripMenuItem copyTextCMMI;
+		private System.Windows.Forms.ContextMenuStrip serviceCM;
+		private System.Windows.Forms.ToolStripMenuItem serviceCMexecuteCommand;
+		private System.Windows.Forms.ToolStripMenuItem serviceCMsetCommand;
+		private System.Windows.Forms.ToolStripMenuItem serviceCMclone;
 		private System.Windows.Forms.CheckBox showPassword;
 		private System.Windows.Forms.Label passwordStrengthLabel;
 		private System.Windows.Forms.NotifyIcon tray;
-		private System.Windows.Forms.ContextMenuStrip mainFormRightclick;
-		private System.Windows.Forms.ToolStripMenuItem disableIdleTimeoutToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem mergeProfilesToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip mainFormCM;
+		private System.Windows.Forms.ToolStripMenuItem mainFormCMdisableTimeout;
+		private System.Windows.Forms.ToolStripMenuItem mainFormCMsetLanguage;
+		private System.Windows.Forms.ToolStripMenuItem mainFormCMimport;
+		private System.Windows.Forms.ToolStripMenuItem mainFormCMmergeProfiles;
 		private System.Windows.Forms.Button setPinCushionPassword;
 		private System.Windows.Forms.Label passwordStrengthDescription;
 
@@ -84,12 +84,12 @@ namespace PinCushion
 			this.removeAccount = new System.Windows.Forms.Button ();
 			this.renameAccount = new System.Windows.Forms.Button ();
 			this.accountPassword = new System.Windows.Forms.TextBox ();
-			this.copyTextToClipboardRightclick = new System.Windows.Forms.ContextMenuStrip ();
-			this.copyTextToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.serviceRightclick = new System.Windows.Forms.ContextMenuStrip ();
-			this.executeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.setexecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.cloneServiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
+			this.copyTextCM = new System.Windows.Forms.ContextMenuStrip ();
+			this.copyTextCMMI = new System.Windows.Forms.ToolStripMenuItem ();
+			this.serviceCM = new System.Windows.Forms.ContextMenuStrip ();
+			this.serviceCMexecuteCommand = new System.Windows.Forms.ToolStripMenuItem ();
+			this.serviceCMsetCommand = new System.Windows.Forms.ToolStripMenuItem ();
+			this.serviceCMclone = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setPassword = new System.Windows.Forms.Button ();
 			this.generatePassword = new System.Windows.Forms.Button ();
 			this.passwordLabel = new System.Windows.Forms.Label ();
@@ -100,21 +100,21 @@ namespace PinCushion
 			this.showPassword = new System.Windows.Forms.CheckBox ();
 			this.passwordStrengthLabel = new System.Windows.Forms.Label ();
 			this.tray = new System.Windows.Forms.NotifyIcon ();
-			this.mainFormRightclick = new System.Windows.Forms.ContextMenuStrip ();
-			this.disableIdleTimeoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
-			this.mergeProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem ();
+			this.mainFormCM = new System.Windows.Forms.ContextMenuStrip ();
+			this.mainFormCMdisableTimeout = new System.Windows.Forms.ToolStripMenuItem ();
+			this.mainFormCMsetLanguage = new System.Windows.Forms.ToolStripMenuItem ();
+			this.mainFormCMimport = new System.Windows.Forms.ToolStripMenuItem ();
+			this.mainFormCMmergeProfiles = new System.Windows.Forms.ToolStripMenuItem ();
 			this.setPinCushionPassword = new System.Windows.Forms.Button ();
 			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
-			this.copyTextToClipboardRightclick.SuspendLayout ();
-			this.serviceRightclick.SuspendLayout ();
-			this.mainFormRightclick.SuspendLayout ();
+			this.copyTextCM.SuspendLayout ();
+			this.serviceCM.SuspendLayout ();
+			this.mainFormCM.SuspendLayout ();
 			this.SuspendLayout ();
 			this.profileSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.profileSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.profileSelection.ContextMenu = null;
-			this.profileSelection.ContextMenuStrip = this.copyTextToClipboardRightclick;
+			this.profileSelection.ContextMenuStrip = this.copyTextCM;
 			this.profileSelection.FormattingEnabled = true;
 			this.profileSelection.Location = new System.Drawing.Point (143, 15);
 			this.profileSelection.Size = new System.Drawing.Size (508, 24);
@@ -129,7 +129,7 @@ namespace PinCushion
 			this.serviceSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.serviceSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.serviceSelection.ContextMenu = null;
-			this.serviceSelection.ContextMenuStrip = this.serviceRightclick;
+			this.serviceSelection.ContextMenuStrip = this.serviceCM;
 			this.serviceSelection.FormattingEnabled = true;
 			this.serviceSelection.Location = new System.Drawing.Point (143, 96);
 			this.serviceSelection.Size = new System.Drawing.Size (508, 24);
@@ -171,7 +171,7 @@ namespace PinCushion
 			this.renameService.Click += new System.EventHandler (this.RenameService_Click);
 			this.accountSelection.FormattingEnabled = true;
 			this.accountSelection.ContextMenu = null;
-			this.accountSelection.ContextMenuStrip = this.copyTextToClipboardRightclick;
+			this.accountSelection.ContextMenuStrip = this.copyTextCM;
 			this.accountSelection.Location = new System.Drawing.Point (143, 175);
 			this.accountSelection.Size = new System.Drawing.Size (508, 24);
 			this.accountSelection.TabIndex = 2;
@@ -197,37 +197,37 @@ namespace PinCushion
 			this.renameAccount.TabStop = false;
 			this.renameAccount.Click += new System.EventHandler (this.RenameAccount_Click);
 			this.accountPassword.ContextMenu = null;
-			this.accountPassword.ContextMenuStrip = this.copyTextToClipboardRightclick;
+			this.accountPassword.ContextMenuStrip = this.copyTextCM;
 			this.accountPassword.Location = new System.Drawing.Point (143, 254);
 			this.accountPassword.ReadOnly = true;
 			this.accountPassword.Size = new System.Drawing.Size (508, 22);
 			this.accountPassword.TabIndex = 3;
 			this.accountPassword.UseSystemPasswordChar = true;
-			this.copyTextToClipboardRightclick.Size = new System.Drawing.Size (199, 28);
-			this.copyTextToClipboardRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
-				this.copyTextToClipboardToolStripMenuItem
+			this.copyTextCM.Size = new System.Drawing.Size (199, 28);
+			this.copyTextCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+				this.copyTextCMMI
 			});
-			this.copyTextToClipboardToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.copyTextToClipboardToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.copyTextCMMI.Size = new System.Drawing.Size (198, 24);
+			this.copyTextCMMI.Click += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				this.Copy2Clipboard (((System.Windows.Forms.Control)((System.Windows.Forms.ContextMenuStrip)((System.Windows.Forms.ToolStripMenuItem)sender).Owner).SourceControl).Text);
 			};
-			this.serviceRightclick.Size = new System.Drawing.Size (199, 28);
-			this.serviceRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
-				this.executeToolStripMenuItem,
-				this.setexecuteToolStripMenuItem,
-				this.cloneServiceToolStripMenuItem
+			this.serviceCM.Size = new System.Drawing.Size (199, 28);
+			this.serviceCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+				this.serviceCMexecuteCommand,
+				this.serviceCMsetCommand,
+				this.serviceCMclone
 			});
-			this.executeToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.executeToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMexecuteCommand.Size = new System.Drawing.Size (198, 24);
+			this.serviceCMexecuteCommand.Click += (object sender, System.EventArgs e) => {
 				this.ExecuteCommand ();
 			};
-			this.setexecuteToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.setexecuteToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMsetCommand.Size = new System.Drawing.Size (198, 24);
+			this.serviceCMsetCommand.Click += (object sender, System.EventArgs e) => {
 				this.SetCommand ();
 			};
-			this.cloneServiceToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.cloneServiceToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMclone.Size = new System.Drawing.Size (198, 24);
+			this.serviceCMclone.Click += (object sender, System.EventArgs e) => {
 				this.CloneService ();
 			};
 			this.setPassword.Location = new System.Drawing.Point (180, 284);
@@ -284,26 +284,26 @@ namespace PinCushion
 			this.tray.ContextMenu = null;
 			this.tray.ContextMenuStrip = null;
 			this.tray.Visible = false;
-			this.mainFormRightclick.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
-				this.disableIdleTimeoutToolStripMenuItem,
-				this.languageToolStripMenuItem,
-				this.importToolStripMenuItem,
-				this.mergeProfilesToolStripMenuItem
+			this.mainFormCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+				this.mainFormCMdisableTimeout,
+				this.mainFormCMsetLanguage,
+				this.mainFormCMimport,
+				this.mainFormCMmergeProfiles
 			});
-			this.mainFormRightclick.Size = new System.Drawing.Size (214, 76);
-			this.disableIdleTimeoutToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.disableIdleTimeoutToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCM.Size = new System.Drawing.Size (214, 76);
+			this.mainFormCMdisableTimeout.Size = new System.Drawing.Size (213, 24);
+			this.mainFormCMdisableTimeout.Click += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				this.notimeout = !this.notimeout;
-				((System.Windows.Forms.ToolStripMenuItem)this.mainFormRightclick.Items [0]).Checked = this.notimeout;
+				((System.Windows.Forms.ToolStripMenuItem)this.mainFormCM.Items [0]).Checked = this.notimeout;
 			};
-			this.languageToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.importToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.importToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCMsetLanguage.Size = new System.Drawing.Size (213, 24);
+			this.mainFormCMimport.Size = new System.Drawing.Size (213, 24);
+			this.mainFormCMimport.Click += (object sender, System.EventArgs e) => {
 				this.Import ();
 			};
-			this.mergeProfilesToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.mergeProfilesToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCMmergeProfiles.Size = new System.Drawing.Size (213, 24);
+			this.mainFormCMmergeProfiles.Click += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				System.Windows.Forms.MessageBox.Show ("Functionality not yet implemented.");
 			};
@@ -317,7 +317,7 @@ namespace PinCushion
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.ClientSize = new System.Drawing.Size (this.passwordStrengthDescription.Right + 20, this.passwordStrengthDescription.Bottom + 10);
 			this.ContextMenu = null;
-			this.ContextMenuStrip = this.mainFormRightclick;
+			this.ContextMenuStrip = this.mainFormCM;
 			this.Controls.Add (this.passwordStrengthDescription);
 			this.Controls.Add (this.setPinCushionPassword);
 			this.Controls.Add (this.passwordStrengthLabel);
@@ -349,9 +349,9 @@ namespace PinCushion
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Load += new System.EventHandler (this.MainForm_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.MainForm_Closing);
-			this.copyTextToClipboardRightclick.ResumeLayout (false);
-			this.serviceRightclick.ResumeLayout (false);
-			this.mainFormRightclick.ResumeLayout (false);
+			this.copyTextCM.ResumeLayout (false);
+			this.serviceCM.ResumeLayout (false);
+			this.mainFormCM.ResumeLayout (false);
 			this.ResumeLayout (false);
 			this.PerformLayout ();
 		}

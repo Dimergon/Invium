@@ -56,6 +56,7 @@ namespace PinCushion
 		public string CloneServiceTitle;
 		public string CloneServicePrompt;
 		public string CloneServiceRename;
+		public string CloneServiceDone;
 		public string CloneServiceNoSuchProfile;
 
 		/* New password input */
@@ -202,6 +203,7 @@ namespace PinCushion
 				this.CloneServiceTitle = "Geef doelbestemming op";
 				this.CloneServicePrompt = "Geef de naam van het profiel op om {0} naar te klonen.";
 				this.CloneServiceRename = "Een dienst genaamd {0} bestaat al voor profiel {1}.\r\nDienst gekloond onder de naam: {2}";
+				this.CloneServiceDone = "De dienst {0} is geklooned naar {1}";
 				this.CloneServiceNoSuchProfile = "Er bestaat geen profiel met de opgegeven naam, probeer het nogmaals.";
 				this.NewPasswordTitle = "Wachtwoord";
 				this.NewPasswordPrompt = "Geef een nieuw wachtwoord op.";
@@ -304,6 +306,7 @@ namespace PinCushion
 				this.CloneServiceTitle = "Specify the destination profile";
 				this.CloneServicePrompt = "Please specify the profile to clone {0} to.";
 				this.CloneServiceRename = "A service named {0} already exists in profile {1}.\r\nCloned it to a different name: {2}";
+				this.CloneServiceDone = "The service {0} has been cloned to {1}";
 				this.CloneServiceNoSuchProfile = "There is no profile with that name, please try again.";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";

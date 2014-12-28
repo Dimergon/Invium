@@ -24,6 +24,8 @@
 namespace PinCushion
 {
 	using System;
+	using System.Collections;
+	using System.Collections.Generic;
 	using System.Diagnostics;
 	using System.IO;
 	using System.Windows.Forms;
@@ -844,13 +846,15 @@ namespace PinCushion
 						Program.Profiles [destination_profile].Profileservices.Sort (delegate (Service a, Service b) {
 							return a.Name.CompareTo (b.Name);
 						});
-						if (renamed) {
-							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
-						}
 
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Service);
 						userinput = string.Empty;
+						if (renamed) {
+							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
+						} else {
+							MessageBox.Show (string.Format (Program.Language.CloneServiceDone, Program.Profiles [destination_profile].Name, destination_service));
+						}
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {
@@ -877,7 +881,37 @@ namespace PinCushion
 		{
 			this.NotIdle ();
 
-			MessageBox.Show ("Not yet implemented.");
+			try {
+				Stack buffer = new Stack ();
+				List<string> profilestocopy = new List<string> ();
+				string userinput = string.Empty;
+
+				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, "Program.Language.MergeProfiles_GetSourceProfilesTitle", "Program.Language.MergeProfiles_GetSourceProfilesPrompt") == DialogResult.OK) {
+					foreach (string s in userinput.Split (new char[] { ',' })) {
+						if (Program.Profiles.Find (x => x.Name == s.Trim ()) == null) {
+							MessageBox.Show ("Program.Language.MergeProfiles_SourceProfileNotFound");
+							return;
+						} else {
+							profilestocopy.Add (s.Trim ());
+						}
+					}
+					foreach (string profile in profilestocopy) {
+						foreach (Service service in Program.Profiles.Find(x => x.Name == profile).Profileservices) {
+							buffer.Push (service);
+						}
+					}
+					Profile newprofile = new Profile (DateTime.Now.ToString ());
+					foreach (Service s in buffer) {
+						newprofile.Profileservices.Add (s);
+					}
+					Program.Profiles.Add (newprofile);
+					MessageBox.Show ("Program.Language.MergeProfiles_Done");
+					this.RefreshControls (RefreshLevel.Profile);
+				}
+			} catch (ArgumentOutOfRangeException) {
+				MessageBox.Show ("Program.Language.MergeProfilesError");
+				this.RefreshControls (RefreshLevel.Profile);
+			}
 		}
 
 		/*

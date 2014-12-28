@@ -24,7 +24,6 @@
 namespace PinCushion
 {
 	using System;
-	using System.Collections;
 	using System.Collections.Generic;
 	using System.Diagnostics;
 	using System.IO;
@@ -882,8 +881,7 @@ namespace PinCushion
 			this.NotIdle ();
 
 			try {
-				Stack buffer = new Stack ();
-				List<string> profilestocopy = new List<string> ();
+				List<int> profilestocopy = new List<int> ();
 				string userinput_source = string.Empty;
 				string userinput_destination = string.Empty;
 
@@ -899,36 +897,34 @@ namespace PinCushion
 								MessageBox.Show (Program.Language.MergeProfilesSourceDoesNotExist);
 								return;
 							} else {
-								profilestocopy.Add (s.Trim ());
-							}
-						}
-
-						foreach (string profile in profilestocopy) {
-							foreach (Service service in Program.Profiles.Find(x => x.Name == profile).Profileservices) {
-								buffer.Push (service);
+								profilestocopy.Add (Program.Profiles.FindIndex (x => x.Name == s.Trim ()));
 							}
 						}
 
 						bool renamed = false;
 						Profile newprofile = new Profile (userinput_destination);
-						foreach (Service s in buffer) {
-							if (newprofile.Profileservices.Find (x => x.Name == s.Name) == null) {
-								newprofile.Profileservices.Add (s);
-							} else {
-								renamed = true;
-								s.Name += new Password ().GenSalt ();
-								newprofile.Profileservices.Add (s);
+						foreach (int i in profilestocopy) {
+							foreach (Service s in Program.Profiles[i].Profileservices) {
+								string service_name = s.Name;
+								if (newprofile.Profileservices.Find (x => x.Name == s.Name) != null) {
+									renamed = true;
+									service_name += new Password ().GenSalt ();
+								}
+
+								Service newservice = new Service (service_name, s.Command);
+								foreach (Account a in s.ServiceAccounts) {
+									Account newaccount = new Account (a.Name, a.Password);
+									newservice.ServiceAccounts.Add (newaccount);
+								}
+
+								newprofile.Profileservices.Add (newservice);
 							}
 						}
 
-						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
-							return s.Name.CompareTo (t.Name);
-						});
 						Program.Profiles.Add (newprofile);
-						this.RefreshControls (RefreshLevel.Profile);
 						this.saveOnClose = true;
-						userinput_source = string.Empty;
 						userinput_destination = string.Empty;
+						userinput_source = string.Empty;
 						if (renamed) {
 							MessageBox.Show (Program.Language.MergeProfilesDoneRename);
 						} else {

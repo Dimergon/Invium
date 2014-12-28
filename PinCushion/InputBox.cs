@@ -85,17 +85,17 @@ namespace PinCushion
 			this.textBox.UseSystemPasswordChar = this.textBox2.UseSystemPasswordChar = (mode == Mode.Normal) ? false : true;
 
 			if (mode == Mode.Doublepassword) {
-				this.textBox.TextChanged += new System.EventHandler (delegate {
+				this.textBox.TextChanged += (object sender, EventArgs e) => {
 					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : ((this.textBox.Text == this.textBox2.Text) ? true : false);
-				});
-				this.textBox2.TextChanged += new System.EventHandler (delegate {
+				};
+				this.textBox2.TextChanged += (object sender, EventArgs e) => {
 					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : ((this.textBox.Text == this.textBox2.Text) ? true : false);
-				});
+				};
 				this.buttonOk.Enabled = false;
 			} else {
-				this.textBox.TextChanged += new System.EventHandler (delegate {
+				this.textBox.TextChanged += (object sender, EventArgs e) => {
 					this.buttonOk.Enabled = (this.textBox.Text == string.Empty) ? false : true;
-				});
+				};
 				this.buttonOk.Enabled = false;
 			}
 

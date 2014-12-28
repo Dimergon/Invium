@@ -123,7 +123,9 @@ namespace PinCushion
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Service);
 			};
-			this.profileSelection.TextUpdate += new System.EventHandler (this.NotIdle);
+			this.profileSelection.TextUpdate += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+			};
 			this.serviceSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.serviceSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.serviceSelection.ContextMenu = null;
@@ -136,7 +138,9 @@ namespace PinCushion
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Account);
 			};
-			this.serviceSelection.TextUpdate += new System.EventHandler (this.NotIdle);
+			this.serviceSelection.TextUpdate += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+			};
 			this.profileLabel.Location = new System.Drawing.Point (12, 18);
 			this.profileLabel.Size = new System.Drawing.Size (52, 17);
 			this.serviceLabel.Location = new System.Drawing.Point (12, 99);
@@ -175,7 +179,9 @@ namespace PinCushion
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Password);
 			};
-			this.accountSelection.TextUpdate += new System.EventHandler (this.NotIdle);
+			this.accountSelection.TextUpdate += (object sender, System.EventArgs e) => {
+				this.NotIdle ();
+			};
 			this.accountLabel.Location = new System.Drawing.Point (12, 178);
 			this.accountLabel.Size = new System.Drawing.Size (63, 17);
 			this.addAccount.Location = new System.Drawing.Point (180, 207);
@@ -213,11 +219,17 @@ namespace PinCushion
 				this.cloneServiceToolStripMenuItem
 			});
 			this.executeToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.executeToolStripMenuItem.Click += new System.EventHandler (this.ExecuteToolStripMenuItem_Click);
+			this.executeToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.ExecuteCommand ();
+			};
 			this.setexecuteToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.setexecuteToolStripMenuItem.Click += new System.EventHandler (this.SetexecuteToolStripMenuItem_Click);
+			this.setexecuteToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.SetCommand ();
+			};
 			this.cloneServiceToolStripMenuItem.Size = new System.Drawing.Size (198, 24);
-			this.cloneServiceToolStripMenuItem.Click += new System.EventHandler (this.CloneServiceToolStripMenuItem_Click);
+			this.cloneServiceToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.CloneService ();
+			};
 			this.setPassword.Location = new System.Drawing.Point (180, 284);
 			this.setPassword.Size = new System.Drawing.Size (152, 39);
 			this.setPassword.TabStop = false;
@@ -257,7 +269,9 @@ namespace PinCushion
 			};
 			this.idleTimer.Enabled = true;
 			this.idleTimer.Interval = 1000;
-			this.idleTimer.Tick += new System.EventHandler (this.IdleTimer_Tick);
+			this.idleTimer.Tick += (object sender, System.EventArgs e) => {
+				this.ProcessTick ();
+			};
 			this.showPassword.Location = new System.Drawing.Point (15, 294);
 			this.showPassword.Size = new System.Drawing.Size (129, 21);
 			this.showPassword.TabStop = false;
@@ -285,7 +299,9 @@ namespace PinCushion
 			};
 			this.languageToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.importToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
-			this.importToolStripMenuItem.Click += new System.EventHandler (this.ImportToolStripMenuItem_Click);
+			this.importToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
+				this.Import ();
+			};
 			this.mergeProfilesToolStripMenuItem.Size = new System.Drawing.Size (213, 24);
 			this.mergeProfilesToolStripMenuItem.Click += (object sender, System.EventArgs e) => {
 				this.NotIdle ();

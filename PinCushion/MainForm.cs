@@ -117,7 +117,7 @@ namespace PinCushion
 				return true;
 			case Keys.Control | Keys.R:
 				// Run the command of the selected service
-				this.ExecuteToolStripMenuItem_Click ();
+				this.ExecuteCommand ();
 				return true;
 			case Keys.Control | Keys.Shift | Keys.S:
 				// Hard save
@@ -674,7 +674,7 @@ namespace PinCushion
 		/*
 		* Keeps track of idle time; using Application.Idle will not work reliably because of MessageBoxes.
 		*/
-		private void IdleTimer_Tick (object sender, EventArgs e)
+		private void ProcessTick ()
 		{
 			// Check for maximum idle time, quit if it expired...
 			if (!this.notimeout && DateTime.Now >= this.timeout) {
@@ -712,7 +712,7 @@ namespace PinCushion
 		*
 		* Used by several controls and in various other places to reset the idle timer.
 		*/
-		private void NotIdle (object sender = null, EventArgs e = null)
+		private void NotIdle ()
 		{
 			this.timeout = DateTime.Now.AddSeconds (MaxIdle);
 
@@ -763,7 +763,7 @@ namespace PinCushion
 		/*
 		* Execute the specified command for the selected service
 		*/
-		private void ExecuteToolStripMenuItem_Click (object sender = null, EventArgs e = null)
+		private void ExecuteCommand ()
 		{
 			this.NotIdle ();
 
@@ -780,7 +780,7 @@ namespace PinCushion
 		/*
 		* Set the command to execute for the given service
 		*/
-		private void SetexecuteToolStripMenuItem_Click (object sender, EventArgs e)
+		private void SetCommand ()
 		{
 			this.NotIdle ();
 
@@ -803,7 +803,7 @@ namespace PinCushion
 		/*
 		 * Clone a service to a different profile
 		 */
-		private void CloneServiceToolStripMenuItem_Click (object sender, EventArgs e)
+		private void CloneService ()
 		{
 			this.NotIdle ();
 
@@ -869,7 +869,7 @@ namespace PinCushion
 		/*
 		* Import a data file
 		*/
-		private void ImportToolStripMenuItem_Click (object sender, EventArgs e)
+		private void Import ()
 		{
 			this.NotIdle ();
 

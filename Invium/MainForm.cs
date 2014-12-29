@@ -66,10 +66,6 @@ namespace Invium
 			this.tray.BalloonTipTitle = this.Text = string.Format ("{0} v{1}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion);
 			this.tray.BalloonTipIcon = ToolTipIcon.Info;
 
-			/*
-			 * Main form right click menu items...
-			 */
-
 			// disable timeout
 			((ToolStripMenuItem)this.mainFormCM.Items [0]).Checked = this.notimeout;
 
@@ -163,7 +159,6 @@ namespace Invium
 							return p.Name.CompareTo (q.Name);
 						});
 						this.saveOnClose = true;
-						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 						userinput = string.Empty;
 					}
@@ -226,7 +221,6 @@ namespace Invium
 							return p.Name.CompareTo (q.Name);
 						});
 						this.saveOnClose = true;
-						this.RefreshControls (RefreshLevel.Profile);
 						this.profileSelection.SelectedIndex = this.profileSelection.FindStringExact (userinput, 0);
 						userinput = string.Empty;
 					}
@@ -263,7 +257,6 @@ namespace Invium
 							return s.Name.CompareTo (t.Name);
 						});
 						this.saveOnClose = true;
-						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 						userinput = string.Empty;
 					}
@@ -326,7 +319,6 @@ namespace Invium
 							return s.Name.CompareTo (t.Name);
 						});
 						this.saveOnClose = true;
-						this.RefreshControls (RefreshLevel.Service);
 						this.serviceSelection.SelectedIndex = this.serviceSelection.FindStringExact (userinput, 0);
 						userinput = string.Empty;
 					}
@@ -365,7 +357,6 @@ namespace Invium
 								return a.Name.CompareTo (b.Name);
 							});
 							this.saveOnClose = true;
-							this.RefreshControls (RefreshLevel.Account);
 							this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (account, 0);
 							account = password = string.Empty;
 						}
@@ -430,7 +421,6 @@ namespace Invium
 							return a.Name.CompareTo (b.Name);
 						});
 						this.saveOnClose = true;
-						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (userinput, 0);
 						userinput = string.Empty;
 					}

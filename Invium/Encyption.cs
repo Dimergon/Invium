@@ -43,10 +43,9 @@ namespace Invium
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
 				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
-				byte[] key = derived.GetBytes (32);
 				algR.KeySize = 256;
 				algR.BlockSize = 128;
-				algR.Key = key;
+				algR.Key = derived.GetBytes (32);
 				algR.IV = iv;
 				using (MemoryStream memoryStream = new MemoryStream ()) {
 					memoryStream.Write (iv, 0, 16);
@@ -67,15 +66,13 @@ namespace Invium
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
-				byte[] cipherBytes = Convert.FromBase64String (cipherText);
-				using (MemoryStream memoryStream = new MemoryStream (cipherBytes)) {
+				using (MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (cipherText))) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
 					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
-					byte[] key = derived.GetBytes (32);
 					algR.KeySize = 256;
 					algR.BlockSize = 128;
-					algR.Key = key;
+					algR.Key = derived.GetBytes (32);
 					algR.IV = iv;
 					using (CryptoStream cryptoStreamDecrypt = new CryptoStream (memoryStream, algR.CreateDecryptor (algR.Key, algR.IV), CryptoStreamMode.Read)) {
 						using (StreamReader streamReaderDecrypt = new StreamReader (cryptoStreamDecrypt)) {

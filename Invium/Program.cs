@@ -22,6 +22,12 @@
 * Main program entry. Performs several functions before actually launching
 * Invium's primary form.
 */
+[assembly: System.Reflection.AssemblyTitle ("Invium")]
+[assembly: System.Reflection.AssemblyDescription ("A password manager in C#")]
+[assembly: System.Reflection.AssemblyProduct ("Invium")]
+[assembly: System.Reflection.AssemblyCopyright ("Copyright ©  2013, 2014 Armin Altorffer")]
+[assembly: System.Reflection.AssemblyVersion ("0.41.*")]
+
 namespace Invium
 {
 	using System;

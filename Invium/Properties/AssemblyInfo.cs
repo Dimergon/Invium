@@ -24,4 +24,4 @@ using System.Reflection;
 [assembly: AssemblyDescription ("A password manager in C#")]
 [assembly: AssemblyProduct ("Invium")]
 [assembly: AssemblyCopyright ("Copyright ©  2013, 2014 Armin Altorffer")]
-[assembly: AssemblyVersion ("0.39.*")]
+[assembly: AssemblyVersion ("0.40")]

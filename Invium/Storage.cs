@@ -29,7 +29,7 @@ namespace Invium
 	using System.Windows.Forms;
 	using System.Xml;
 
-	public partial class MainForm
+	public class Storage
 	{
 		// Used in loading and saving...
 		private const string XMLBody = "body";
@@ -42,9 +42,6 @@ namespace Invium
 		private const string XMLPassword = "password";
 		private const string XMLCommand = "command";
 		private const string XMLDescendant = "descendant";
-
-		// Used in auto saving upon changes
-		private MasterPassword_Class masterPassword = new MasterPassword_Class ();
 
 		/*
 		* Load all data
@@ -128,7 +125,7 @@ namespace Invium
 					}
 				}
 
-				this.masterPassword.Password = input_password;
+				Program.masterPassword.Password = input_password;
 			}
 
 			short p_count, s_count, a_count;
@@ -180,25 +177,28 @@ namespace Invium
 				Program.Profiles.Add (p);
 			}
 
-			// Save all data in case data was unencrypted, to encrypt it again
-			if (do_recrypt_save) {
-				this.saveOnClose = true;
-			}
-
 			// and close the loading screen
 			loadingscreen.Close ();
 
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
-			this.tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
-			this.tray.ShowBalloonTip (int.MaxValue);
+			NotifyIcon tray = new NotifyIcon ();
+			tray.BalloonTipTitle = string.Format ("{0} v{1}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion);
+			tray.BalloonTipIcon = ToolTipIcon.Info;
+			tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
+			tray.ShowBalloonTip (int.MaxValue);
 			input_password = string.Empty;
+
+			// Save all data in case data was unencrypted, to encrypt it again
+			if (do_recrypt_save) {
+				this.DoSave (true);
+			}
 		}
 
 		/*
 		 * Save all data
 		 */
-		public void DoSave ()
+		public void DoSave (bool do_encrypt)
 		{
 			// Refuse to save any data in case of a forced read only state.
 			if (Program.ForcedReadOnly) {
@@ -227,8 +227,8 @@ namespace Invium
 
 				// encryption releated data
 				string salt = new Password ().GenSalt ();
-				string password_hash = crypto.Hash (this.masterPassword.Password, salt);
-				if (this.encrypt.Checked) {
+				string password_hash = crypto.Hash (Program.masterPassword.Password, salt);
+				if (do_encrypt) {
 					document_writer.WriteElementString (XMLencrypt, new Password ().GenSalt ());
 					document_writer.WriteElementString (XMLSalt, salt);
 					document_writer.WriteElementString (XMLPassword, password_hash);
@@ -237,21 +237,21 @@ namespace Invium
 				// Main Loop, will also encrypt if specified
 				foreach (Profile p in Program.Profiles) {
 					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = this.encrypt.Checked ? crypto.Encrypt (p.Name, this.masterPassword.Password) : p.Name;
+					string profile_name = do_encrypt ? crypto.Encrypt (p.Name, Program.masterPassword.Password) : p.Name;
 					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
 						document_writer.WriteStartElement (XMLService);
-						string service_name = this.encrypt.Checked ? crypto.Encrypt (s.Name, this.masterPassword.Password) : s.Name;
+						string service_name = do_encrypt ? crypto.Encrypt (s.Name, Program.masterPassword.Password) : s.Name;
 						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string service_command = this.encrypt.Checked ? crypto.Encrypt (s.Command, this.masterPassword.Password) : s.Command;
+							string service_command = do_encrypt ? crypto.Encrypt (s.Command, Program.masterPassword.Password) : s.Command;
 							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
 							document_writer.WriteStartElement (XMLAccount);
-							string account_name = this.encrypt.Checked ? crypto.Encrypt (a.Name, this.masterPassword.Password) : a.Name;
-							string account_password = this.encrypt.Checked ? crypto.Encrypt (a.Password, this.masterPassword.Password) : a.Password;
+							string account_name = do_encrypt ? crypto.Encrypt (a.Name, Program.masterPassword.Password) : a.Name;
+							string account_password = do_encrypt ? crypto.Encrypt (a.Password, Program.masterPassword.Password) : a.Password;
 							document_writer.WriteElementString (XMLName, account_name);
 							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();

@@ -123,7 +123,7 @@ namespace Invium
 			case Keys.Control | Keys.Shift | Keys.S:
 				// Hard save
 				this.NotIdle ();
-				this.DoSave ();
+				new Storage ().DoSave (this.encrypt.Checked);
 				this.saveOnClose = false;
 				return true;
 			case Keys.Control | Keys.C:
@@ -648,7 +648,7 @@ namespace Invium
 			// Load the data but only if there actually is data to load
 			if (File.Exists (Program.DataFile)) {
 				try {
-					this.DoLoad (Program.DataFile);
+					new Storage ().DoLoad (Program.DataFile);
 				} catch (InviumException ex) {
 					// We end up here in case of data corruption or in case an incorrect password was specified.
 					MessageBox.Show (ex.Message);
@@ -663,7 +663,7 @@ namespace Invium
 					Program.InviumExit ();
 				}
 
-				this.masterPassword.Password = input_password;
+				Program.masterPassword.Password = input_password;
 				input_password = string.Empty;
 			}
 
@@ -692,7 +692,7 @@ namespace Invium
 			// Auto-save if needed, after a period of inactivity.
 			if (this.saveOnClose) {
 				if (DateTime.Now >= this.timeout.AddSeconds (-AutoSave)) {
-					this.DoSave ();
+					new Storage ().DoSave (this.encrypt.Checked);
 					this.saveOnClose = false;
 				}
 			}
@@ -969,7 +969,7 @@ namespace Invium
 			f.Filter = string.Format ("{0}|{1}", System.Windows.Forms.Application.ProductName, Program.ImportFilter);
 			if (f.ShowDialog () == DialogResult.OK) {
 				try {
-					this.DoLoad (f.FileName, true);
+					new Storage ().DoLoad (f.FileName, true);
 					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (InviumException ex) {
@@ -989,7 +989,7 @@ namespace Invium
 
 			string input_password = string.Empty;
 			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.MasterPasswordTitle, Program.Language.MasterPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.OK) {
-				this.masterPassword.Password = input_password;
+				Program.masterPassword.Password = input_password;
 				this.saveOnClose = true;
 				input_password = string.Empty;
 			}
@@ -1023,7 +1023,7 @@ namespace Invium
 			}
 
 			if (this.saveOnClose) {
-				this.DoSave ();
+				new Storage ().DoSave (this.encrypt.Checked);
 			}
 		}
 	}

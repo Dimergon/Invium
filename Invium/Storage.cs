@@ -44,7 +44,7 @@ namespace Invium
 		private const string XMLDescendant = "descendant";
 
 		// Used in auto saving upon changes
-		private InviumPassword_Class inviumPassword = new InviumPassword_Class ();
+		private MasterPassword_Class masterPassword = new MasterPassword_Class ();
 
 		/*
 		* Load all data
@@ -128,7 +128,7 @@ namespace Invium
 					}
 				}
 
-				this.inviumPassword.Password = input_password;
+				this.masterPassword.Password = input_password;
 			}
 
 			short p_count, s_count, a_count;
@@ -227,7 +227,7 @@ namespace Invium
 
 				// encryption releated data
 				string salt = new Password ().GenSalt ();
-				string password_hash = crypto.Hash (this.inviumPassword.Password, salt);
+				string password_hash = crypto.Hash (this.masterPassword.Password, salt);
 				if (this.encrypt.Checked) {
 					document_writer.WriteElementString (XMLencrypt, new Password ().GenSalt ());
 					document_writer.WriteElementString (XMLSalt, salt);
@@ -237,21 +237,21 @@ namespace Invium
 				// Main Loop, will also encrypt if specified
 				foreach (Profile p in Program.Profiles) {
 					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = this.encrypt.Checked ? crypto.Encrypt (p.Name, this.inviumPassword.Password) : p.Name;
+					string profile_name = this.encrypt.Checked ? crypto.Encrypt (p.Name, this.masterPassword.Password) : p.Name;
 					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
 						document_writer.WriteStartElement (XMLService);
-						string service_name = this.encrypt.Checked ? crypto.Encrypt (s.Name, this.inviumPassword.Password) : s.Name;
+						string service_name = this.encrypt.Checked ? crypto.Encrypt (s.Name, this.masterPassword.Password) : s.Name;
 						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string service_command = this.encrypt.Checked ? crypto.Encrypt (s.Command, this.inviumPassword.Password) : s.Command;
+							string service_command = this.encrypt.Checked ? crypto.Encrypt (s.Command, this.masterPassword.Password) : s.Command;
 							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
 							document_writer.WriteStartElement (XMLAccount);
-							string account_name = this.encrypt.Checked ? crypto.Encrypt (a.Name, this.inviumPassword.Password) : a.Name;
-							string account_password = this.encrypt.Checked ? crypto.Encrypt (a.Password, this.inviumPassword.Password) : a.Password;
+							string account_name = this.encrypt.Checked ? crypto.Encrypt (a.Name, this.masterPassword.Password) : a.Name;
+							string account_password = this.encrypt.Checked ? crypto.Encrypt (a.Password, this.masterPassword.Password) : a.Password;
 							document_writer.WriteElementString (XMLName, account_name);
 							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();

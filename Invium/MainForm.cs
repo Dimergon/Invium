@@ -663,7 +663,7 @@ namespace Invium
 					Program.InviumExit ();
 				}
 
-				this.inviumPassword.Password = input_password;
+				this.masterPassword.Password = input_password;
 				input_password = string.Empty;
 			}
 
@@ -989,7 +989,7 @@ namespace Invium
 
 			string input_password = string.Empty;
 			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.InviumReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.InviumReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumReencryptConfirmation) == DialogResult.OK) {
-				this.inviumPassword.Password = input_password;
+				this.masterPassword.Password = input_password;
 				this.saveOnClose = true;
 				input_password = string.Empty;
 			}

@@ -19,7 +19,7 @@
 */
 
 /*
-* Container for Invium's password.
+* Container for the master password.
 */
 namespace Invium
 {
@@ -27,7 +27,7 @@ namespace Invium
 	using System.Net;
 	using System.Text;
 
-	public class InviumPassword_Class
+	public class MasterPassword_Class
 	{
 		private NetworkCredential data = new NetworkCredential ();
 

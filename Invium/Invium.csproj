@@ -83,12 +83,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InviumException.cs" />
-    <Compile Include="InviumPassword_Class.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="StorageSplash.cs" />
+    <Compile Include="MasterPassword_Class.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

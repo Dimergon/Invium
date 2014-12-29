@@ -63,7 +63,7 @@ namespace Invium
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMsetLanguage;
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMimport;
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMmergeProfiles;
-		private System.Windows.Forms.Button setInviumPassword;
+		private System.Windows.Forms.Button setMasterPassword;
 		private System.Windows.Forms.Label passwordStrengthDescription;
 
 		private void InitializeComponent ()
@@ -105,7 +105,7 @@ namespace Invium
 			this.mainFormCMsetLanguage = new System.Windows.Forms.ToolStripMenuItem ();
 			this.mainFormCMimport = new System.Windows.Forms.ToolStripMenuItem ();
 			this.mainFormCMmergeProfiles = new System.Windows.Forms.ToolStripMenuItem ();
-			this.setInviumPassword = new System.Windows.Forms.Button ();
+			this.setMasterPassword = new System.Windows.Forms.Button ();
 			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
 			this.copyTextCM.SuspendLayout ();
 			this.serviceCM.SuspendLayout ();
@@ -328,11 +328,11 @@ namespace Invium
 			this.mainFormCMmergeProfiles.Click += (object sender, System.EventArgs e) => {
 				this.MergeProfiles ();
 			};
-			this.setInviumPassword.Location = new System.Drawing.Point (180, 330);
-			this.setInviumPassword.Size = new System.Drawing.Size (312, 39);
-			this.setInviumPassword.TabStop = false;
-			this.setInviumPassword.Click += (object sender, System.EventArgs e) => {
-				this.SetInviumPassword ();
+			this.setMasterPassword.Location = new System.Drawing.Point (180, 330);
+			this.setMasterPassword.Size = new System.Drawing.Size (312, 39);
+			this.setMasterPassword.TabStop = false;
+			this.setMasterPassword.Click += (object sender, System.EventArgs e) => {
+				this.SetMasterPassword ();
 			};
 			this.passwordStrengthDescription.Location = new System.Drawing.Point (585, 354);
 			this.passwordStrengthDescription.Size = new System.Drawing.Size (66, 17);
@@ -342,7 +342,7 @@ namespace Invium
 			this.ContextMenu = null;
 			this.ContextMenuStrip = this.mainFormCM;
 			this.Controls.Add (this.passwordStrengthDescription);
-			this.Controls.Add (this.setInviumPassword);
+			this.Controls.Add (this.setMasterPassword);
 			this.Controls.Add (this.passwordStrengthLabel);
 			this.Controls.Add (this.showPassword);
 			this.Controls.Add (this.encrypt);

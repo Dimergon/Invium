@@ -605,7 +605,7 @@ namespace Invium
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.mainFormCM.Items [2].Enabled = !this.readOnly.Checked;
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
-				this.setInviumPassword.Enabled = !this.readOnly.Checked;
+				this.setMasterPassword.Enabled = !this.readOnly.Checked;
 				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
 				this.copyTextCM.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
@@ -749,7 +749,7 @@ namespace Invium
 			this.serviceCM.Items [1].Text = Program.Language.SetExecute;
 			this.serviceCM.Items [2].Text = Program.Language.CloneService;
 			this.setPassword.Text = Program.Language.Set;
-			this.setInviumPassword.Text = string.Format (Program.Language.InviumPassword, System.Windows.Forms.Application.ProductName);
+			this.setMasterPassword.Text = Program.Language.MasterPassword;
 			this.generatePassword.Text = Program.Language.Generate;
 			this.readOnly.Text = Program.Language.ReadOnly;
 			this.encrypt.Text = Program.Language.Encrypt;
@@ -981,9 +981,9 @@ namespace Invium
 		}
 
 		/*
-		* Manually set a new password for Invium
+		* Manually set a new master password
 		*/
-		private void SetInviumPassword ()
+		private void SetMasterPassword ()
 		{
 			this.NotIdle ();
 

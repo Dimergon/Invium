@@ -120,7 +120,7 @@ namespace Invium
 		public string Language;
 		public string Import;
 		public string ProfileMerge;
-		public string InviumPassword;
+		public string MasterPassword;
 		public string Execute;
 		public string NoExecute;
 		public string SetExecute;
@@ -266,7 +266,7 @@ namespace Invium
 				this.Language = "Taal";
 				this.Import = "Importeren";
 				this.ProfileMerge = "Profielen samenvoegen";
-				this.InviumPassword = "{0} wachtwoord instellen";
+				this.MasterPassword = "Hoofdwachtwoord instellen";
 				this.Execute = "{0} uitvoeren";
 				this.NoExecute = "Geen commando ingesteld om uit te voeren.";
 				this.CloneService = "Dienst klonen";
@@ -378,7 +378,7 @@ namespace Invium
 				this.Language = "Language";
 				this.Import = "Import";
 				this.ProfileMerge = "Merge profiles";
-				this.InviumPassword = "Set {0} password";
+				this.MasterPassword = "Set master password";
 				this.Execute = "Open {0}";
 				this.NoExecute = "No command specified to execute.";
 				this.CloneService = "Clone service";

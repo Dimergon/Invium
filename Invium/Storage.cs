@@ -125,7 +125,7 @@ namespace Invium
 					}
 				}
 
-				Program.masterPassword.Password = input_password;
+				Program.MasterPassword.Password = input_password;
 			}
 
 			short p_count, s_count, a_count;
@@ -227,7 +227,7 @@ namespace Invium
 
 				// encryption releated data
 				string salt = new Password ().GenSalt ();
-				string password_hash = crypto.Hash (Program.masterPassword.Password, salt);
+				string password_hash = crypto.Hash (Program.MasterPassword.Password, salt);
 				if (do_encrypt) {
 					document_writer.WriteElementString (XMLencrypt, new Password ().GenSalt ());
 					document_writer.WriteElementString (XMLSalt, salt);
@@ -237,21 +237,21 @@ namespace Invium
 				// Main Loop, will also encrypt if specified
 				foreach (Profile p in Program.Profiles) {
 					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = do_encrypt ? crypto.Encrypt (p.Name, Program.masterPassword.Password) : p.Name;
+					string profile_name = do_encrypt ? crypto.Encrypt (p.Name, Program.MasterPassword.Password) : p.Name;
 					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
 						document_writer.WriteStartElement (XMLService);
-						string service_name = do_encrypt ? crypto.Encrypt (s.Name, Program.masterPassword.Password) : s.Name;
+						string service_name = do_encrypt ? crypto.Encrypt (s.Name, Program.MasterPassword.Password) : s.Name;
 						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string service_command = do_encrypt ? crypto.Encrypt (s.Command, Program.masterPassword.Password) : s.Command;
+							string service_command = do_encrypt ? crypto.Encrypt (s.Command, Program.MasterPassword.Password) : s.Command;
 							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
 							document_writer.WriteStartElement (XMLAccount);
-							string account_name = do_encrypt ? crypto.Encrypt (a.Name, Program.masterPassword.Password) : a.Name;
-							string account_password = do_encrypt ? crypto.Encrypt (a.Password, Program.masterPassword.Password) : a.Password;
+							string account_name = do_encrypt ? crypto.Encrypt (a.Name, Program.MasterPassword.Password) : a.Name;
+							string account_password = do_encrypt ? crypto.Encrypt (a.Password, Program.MasterPassword.Password) : a.Password;
 							document_writer.WriteElementString (XMLName, account_name);
 							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();

@@ -663,7 +663,7 @@ namespace Invium
 					Program.InviumExit ();
 				}
 
-				Program.masterPassword.Password = input_password;
+				Program.MasterPassword.Password = input_password;
 				input_password = string.Empty;
 			}
 
@@ -989,7 +989,7 @@ namespace Invium
 
 			string input_password = string.Empty;
 			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.MasterPasswordTitle, Program.Language.MasterPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.OK) {
-				Program.masterPassword.Password = input_password;
+				Program.MasterPassword.Password = input_password;
 				this.saveOnClose = true;
 				input_password = string.Empty;
 			}

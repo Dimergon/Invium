@@ -59,7 +59,7 @@ namespace Invium
 		public static List<Profile> Profiles = new List<Profile> ();
 
 		// Used in auto saving upon changes
-		public static MasterPassword_Class masterPassword = new MasterPassword_Class ();
+		public static MasterPassword_Class MasterPassword = new MasterPassword_Class ();
 
 		// used to prevent multiple instances
 		private static string lockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;

@@ -659,7 +659,7 @@ namespace Invium
 			} else {
 				// First run, let's grab a password for Invium before proceeding.
 				string input_password = string.Empty;
-				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.FirstRunTitle, Program.Language.FirstRunPrompt, Program.Language.MasterPasswordConfirmation) == DialogResult.Cancel) {
+				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.FirstRunTitle, Program.Language.FirstRunPrompt, Program.Language.ConfirmPassword) == DialogResult.Cancel) {
 					Program.InviumExit ();
 				}
 

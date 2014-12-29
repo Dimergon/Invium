@@ -86,7 +86,6 @@ namespace Invium
 		/* Saving data */
 		public string FirstRunTitle;
 		public string FirstRunPrompt;
-		public string MasterPasswordConfirmation;
 		public string MasterPasswordTitle;
 		public string MasterPasswordPrompt;
 
@@ -234,7 +233,6 @@ namespace Invium
 				this.UnsavedPasswordTitle = "Niet opgeslagen wachtwoord";
 				this.FirstRunTitle = "Instellen";
 				this.FirstRunPrompt = "Geef een hoofdwachtwoord op.";
-				this.MasterPasswordConfirmation = "Bevestig het wachtwoord.";
 				this.MasterPasswordTitle = "Hoofdwachtwoord";
 				this.MasterPasswordPrompt = "Geef een nieuw hoofdwachtwoord op.";
 				this.FatalNoPasswordNode = "De gegevens zijn versleuteld maar de wachtwoord informatie ontbreekt.\r\nDe gegevens zijn niet te herstellen.";
@@ -344,7 +342,6 @@ namespace Invium
 				this.UnsavedPasswordTitle = "Unsaved password";
 				this.FirstRunTitle = "Initial setup";
 				this.FirstRunPrompt = "Please provide a master password.";
-				this.MasterPasswordConfirmation = "Please confirm this password.";
 				this.MasterPasswordTitle = "Master password";
 				this.MasterPasswordPrompt = "Please provide a new master password.";
 				this.FatalNoPasswordNode = "Data is encrypted but the password information is absent.\r\nData is unrecoverable.";

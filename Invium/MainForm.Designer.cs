@@ -123,9 +123,6 @@ namespace Invium
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Service);
 			};
-			this.profileSelection.TextUpdate += (object sender, System.EventArgs e) => {
-				this.NotIdle ();
-			};
 			this.serviceSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.serviceSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.serviceSelection.ContextMenu = null;
@@ -137,9 +134,6 @@ namespace Invium
 			this.serviceSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Account);
-			};
-			this.serviceSelection.TextUpdate += (object sender, System.EventArgs e) => {
-				this.NotIdle ();
 			};
 			this.profileLabel.Location = new System.Drawing.Point (12, 18);
 			this.profileLabel.Size = new System.Drawing.Size (52, 17);
@@ -190,9 +184,6 @@ namespace Invium
 			this.accountSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Password);
-			};
-			this.accountSelection.TextUpdate += (object sender, System.EventArgs e) => {
-				this.NotIdle ();
 			};
 			this.accountLabel.Location = new System.Drawing.Point (12, 178);
 			this.accountLabel.Size = new System.Drawing.Size (63, 17);

@@ -183,7 +183,7 @@ namespace Invium
 			this.accountSelection.TabIndex = 2;
 			this.accountSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
-				this.RefreshControls (RefreshLevel.Password);
+				this.accountPassword.Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password;
 			};
 			this.accountLabel.Location = new System.Drawing.Point (12, 178);
 			this.accountLabel.Size = new System.Drawing.Size (63, 17);
@@ -260,7 +260,15 @@ namespace Invium
 			this.passwordStrength.Value = 2;
 			this.passwordStrength.ValueChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
-				this.RefreshControls (RefreshLevel.None);
+				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
+				this.passwordStrengthDescription.Text += " aA0";
+				if (this.passwordStrength.Value > 1) {
+					this.passwordStrengthDescription.Text += "!";
+				}
+
+				if (this.passwordStrength.Value > 5) {
+					this.passwordStrengthDescription.Text += "#";
+				}
 			};
 			this.readOnly.Checked = true;
 			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;

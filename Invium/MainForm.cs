@@ -96,7 +96,6 @@ namespace Invium
 		private enum RefreshLevel
 		{
 			None,
-			Password,
 			Account,
 			Service,
 			Profile
@@ -555,15 +554,6 @@ namespace Invium
 					this.profileSelection.Select ();
 					break;
 				case RefreshLevel.Account:
-					// Enable/disable the execute rightclick item
-					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty) {
-						this.serviceCM.Items [0].Text = Program.Language.NoExecute;
-						this.serviceCM.Items [0].Enabled = false;
-					} else {
-						this.serviceCM.Items [0].Text = string.Format (Program.Language.Execute, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
-						this.serviceCM.Items [0].Enabled = true;
-					}
-
 					this.accountSelection.Items.Clear ();
 					this.accountSelection.Text = string.Empty;
 					this.accountSelection.SelectedIndex = -1;
@@ -574,12 +564,14 @@ namespace Invium
 
 					this.serviceSelection.Select ();
 					break;
-				case RefreshLevel.Password:
-					this.accountPassword.Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password;
-					this.accountSelection.Select ();
-					break;
 				default:
 					break;
+				}
+
+				// Service rightclick menu
+				if (this.serviceSelection.SelectedItem != null) {
+					this.serviceCM.Items [0].Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? Program.Language.NoExecute : Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command;
+					this.serviceCM.Items [0].Enabled = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? false : true;
 				}
 
 				// Enable/Disable/readOnly
@@ -590,34 +582,19 @@ namespace Invium
 				this.addService.Enabled = this.profileSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.removeService.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.renameService.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
-				this.serviceCM.Items [0].Text = this.serviceSelection.SelectedItem == null ? Program.Language.NoExecute : this.serviceCM.Items [0].Text;
-				this.serviceCM.Items [0].Enabled = this.serviceSelection.SelectedItem == null ? false : this.serviceCM.Items [0].Enabled;
 				this.serviceCM.Items [1].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.serviceCM.Items [2].Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.accountSelection.Enabled = this.serviceSelection.SelectedItem == null ? false : true;
-				this.accountPassword.TabStop = this.serviceSelection.SelectedItem == null ? false : true;
 				this.addAccount.Enabled = this.serviceSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.removeAccount.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.renameAccount.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.setPassword.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.generatePassword.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
-				this.encrypt.Enabled = !this.readOnly.Checked;
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
+				this.encrypt.Enabled = !this.readOnly.Checked;
 				this.mainFormCM.Items [2].Enabled = !this.readOnly.Checked;
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
 				this.setMasterPassword.Enabled = !this.readOnly.Checked;
-				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
-				this.passwordStrengthDescription.Text += " aA0";
-				this.copyTextCM.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
-				if (this.passwordStrength.Value > 1) {
-					this.passwordStrengthDescription.Text += "!";
-				}
-
-				if (this.passwordStrength.Value > 5) {
-					this.passwordStrengthDescription.Text += "#";
-				}
-
-				// The main form's title...
 				if (this.profileSelection.SelectedItem != null) {
 					this.Text = string.Format ("{0} v{1} | {2}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Count));
 				} else {
@@ -1000,14 +977,18 @@ namespace Invium
 		*/
 		private void Copy2Clipboard (string message)
 		{
-			#if BuildForMono
-			((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Text = message;
-			((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
-			#else
+			try {
+				#if BuildForMono
+				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Text = message;
+				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
+				#else
 			System.Windows.Forms.Clipboard.SetText (message);
-			#endif
-			Program.ClipboardClearEnabled = true;
-			this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
+				#endif
+				Program.ClipboardClearEnabled = true;
+				this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
+			} catch (ArgumentOutOfRangeException) {
+				this.RefreshControls (RefreshLevel.Profile);
+			}
 		}
 
 		/*

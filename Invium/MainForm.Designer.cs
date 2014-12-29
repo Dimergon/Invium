@@ -260,15 +260,7 @@ namespace Invium
 			this.passwordStrength.Value = 2;
 			this.passwordStrength.ValueChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
-				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
-				this.passwordStrengthDescription.Text += " aA0";
-				if (this.passwordStrength.Value > 1) {
-					this.passwordStrengthDescription.Text += "!";
-				}
-
-				if (this.passwordStrength.Value > 5) {
-					this.passwordStrengthDescription.Text += "#";
-				}
+				this.RefreshControls (RefreshLevel.None);
 			};
 			this.readOnly.Checked = true;
 			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;

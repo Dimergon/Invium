@@ -595,6 +595,16 @@ namespace Invium
 				this.mainFormCM.Items [2].Enabled = !this.readOnly.Checked;
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
 				this.setMasterPassword.Enabled = !this.readOnly.Checked;
+				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
+				this.passwordStrengthDescription.Text += " aA0";
+				if (this.passwordStrength.Value > 1) {
+					this.passwordStrengthDescription.Text += "!";
+				}
+
+				if (this.passwordStrength.Value > 5) {
+					this.passwordStrengthDescription.Text += "#";
+				}
+
 				if (this.profileSelection.SelectedItem != null) {
 					this.Text = string.Format ("{0} v{1} | {2}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Count));
 				} else {

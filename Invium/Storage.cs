@@ -121,7 +121,7 @@ namespace Invium
 			*/
 			if (!importing) {
 				if (!do_decrypt) {
-					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.InviumReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.InviumReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumReencryptConfirmation) == DialogResult.Cancel) {
+					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.MasterPasswordTitle, Program.Language.MasterPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.Cancel) {
 						throw new InviumException (Program.Language.FatalNeedPasswordReencrypt);
 					} else {
 						do_recrypt_save = true;

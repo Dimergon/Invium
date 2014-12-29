@@ -40,7 +40,6 @@ namespace Invium
 		public string AddAccountPrompt;
 		public string AddAccountPasswordTitle;
 		public string AddAccountPasswordPrompt;
-		public string AddAccountPasswordConfirmation;
 		public string RenameAccountTitle;
 		public string RenameAccountPrompt;
 		public string AddProfileTitle;
@@ -84,14 +83,12 @@ namespace Invium
 		public string UnsavedPasswordPrompt;
 		public string UnsavedPasswordTitle;
 
-		/* Saving Invium data */
+		/* Saving data */
 		public string FirstRunTitle;
 		public string FirstRunPrompt;
-		public string FirstRunConfirmation;
-		public string InviumSaveConfirmation;
-		public string InviumReencryptTitle;
-		public string InviumReencryptPrompt;
-		public string InviumReencryptConfirmation;
+		public string MasterPasswordConfirmation;
+		public string MasterPasswordTitle;
+		public string MasterPasswordPrompt;
 
 		/* Fatal errors */
 		public string FatalNoPasswordNode;
@@ -129,6 +126,7 @@ namespace Invium
 		public string Saving;
 
 		/* etc... */
+		public string ConfirmPassword;
 		public string ConfirmQuestion;
 		public string ConfirmCaption;
 		public string Stats;
@@ -196,7 +194,6 @@ namespace Invium
 				this.AddAccountPrompt = "Geef een naam op voor dit nieuwe account.";
 				this.AddAccountPasswordTitle = "Wacht voor nieuw account";
 				this.AddAccountPasswordPrompt = "Geef het wachtwoord op voor dit nieuwe account.";
-				this.AddAccountPasswordConfirmation = "Bevestig het wachtwoord.";
 				this.RenameAccountTitle = "Account hernoemen";
 				this.RenameAccountPrompt = "Geef een nieuwe naam op voor het account.";
 				this.AddProfileTitle = "Nieuw profiel";
@@ -235,13 +232,11 @@ namespace Invium
 				this.CustomLoadFail = "Het opgegeven bestand {0} kon niet worden geopend.";
 				this.UnsavedPasswordPrompt = "Een aangemaakt wachtwoord voor {0} is nog niet opgeslagen, klik op 'Ja' om dit nu te doen.\r\nKlik op 'Nee' om het aangemaakte wachtwoord te vergeten.";
 				this.UnsavedPasswordTitle = "Niet opgeslagen wachtwoord";
-				this.FirstRunTitle = "Instellen van {0}";
-				this.FirstRunPrompt = "Geef een wachtwoord op voor toegang tot {0}.";
-				this.FirstRunConfirmation = "Bevestig het wachtwoord.";
-				this.InviumSaveConfirmation = "Bevestig het wachtwoord.";
-				this.InviumReencryptTitle = "Versleuteling van {0} activeren";
-				this.InviumReencryptPrompt = "Geef een nieuw wachtwoord op voor toegang tot {0}.";
-				this.InviumReencryptConfirmation = "Bevestig het wachtwoord.";
+				this.FirstRunTitle = "Instellen";
+				this.FirstRunPrompt = "Geef een hoofdwachtwoord op.";
+				this.MasterPasswordConfirmation = "Bevestig het wachtwoord.";
+				this.MasterPasswordTitle = "Hoofdwachtwoord";
+				this.MasterPasswordPrompt = "Geef een nieuw hoofdwachtwoord op.";
 				this.FatalNoPasswordNode = "De gegevens zijn versleuteld maar de wachtwoord informatie ontbreekt.\r\nDe gegevens zijn niet te herstellen.";
 				this.FatalNoSaltNode = "De gegevens zijn versleuteld maar de salt informatie ontbreekt.\r\nDe gegevens zijn niet te herstellen.";
 				this.FatalSingleInstance = "Dit programma mag maar een keer tegelijk actief zijn.";
@@ -273,6 +268,7 @@ namespace Invium
 				this.SetExecute = "Stel commando in om uit te voeren.";
 				this.Loading = "Even geduld tijdens het laden.";
 				this.Saving = "Even geduld tijdens het opslaan.";
+				this.ConfirmPassword = "Bevestig het wachtwoord.";
 				this.ConfirmQuestion = "Weet u het zeker?";
 				this.ConfirmCaption = "Graag bevestigen";
 				this.Stats = "Profiel {0} bevat {1} diensten.";
@@ -308,7 +304,6 @@ namespace Invium
 				this.AddAccountPrompt = "Please provide an account name.";
 				this.AddAccountPasswordTitle = "Password for new account";
 				this.AddAccountPasswordPrompt = "Please provide a password for this new account.";
-				this.AddAccountPasswordConfirmation = "Please confirm this password.";
 				this.RenameAccountTitle = "Rename account";
 				this.RenameAccountPrompt = "Please provide a new account name.";
 				this.AddProfileTitle = "New profile";
@@ -347,13 +342,11 @@ namespace Invium
 				this.CustomLoadFail = "The specified file {0} could not be found.";
 				this.UnsavedPasswordPrompt = "A generated password for {0} was not stored, click 'Yes' to store it now.\r\nClicking 'No' will cause it to be lost.";
 				this.UnsavedPasswordTitle = "Unsaved password";
-				this.FirstRunTitle = "Initial {0} setup";
-				this.FirstRunPrompt = "Please provide a password for {0} access.";
-				this.FirstRunConfirmation = "Please confirm this password.";
-				this.InviumSaveConfirmation = "Please confirm this password.";
-				this.InviumReencryptTitle = "Enabling {0} encryption";
-				this.InviumReencryptPrompt = "Please provide a new password for {0} access.";
-				this.InviumReencryptConfirmation = "Please confirm this password.";
+				this.FirstRunTitle = "Initial setup";
+				this.FirstRunPrompt = "Please provide a master password.";
+				this.MasterPasswordConfirmation = "Please confirm this password.";
+				this.MasterPasswordTitle = "Master password";
+				this.MasterPasswordPrompt = "Please provide a new master password.";
 				this.FatalNoPasswordNode = "Data is encrypted but the password information is absent.\r\nData is unrecoverable.";
 				this.FatalNoSaltNode = "Data is encrypted but the salt information is absent.\r\nData is unrecoverable.";
 				this.FatalSingleInstance = "Only one instance of this application may be run at any single time.";
@@ -385,6 +378,7 @@ namespace Invium
 				this.SetExecute = "Set command to execute.";
 				this.Loading = "Loading, please wait.";
 				this.Saving = "Saving, please wait.";
+				this.ConfirmPassword = "Please confirm this password.";
 				this.ConfirmQuestion = "Are you sure?";
 				this.ConfirmCaption = "Please confirm";
 				this.Stats = "Profile {0} contains {1} services.";

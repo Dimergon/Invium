@@ -354,7 +354,7 @@ namespace Invium
 				string account = string.Empty;
 				string password = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref account, Program.Language.AddAccountTitle, Program.Language.AddAccountPrompt) == DialogResult.OK) {
-					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref password, Program.Language.AddAccountPasswordTitle, Program.Language.AddAccountPasswordPrompt, Program.Language.AddAccountPasswordConfirmation) == DialogResult.OK) {
+					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref password, Program.Language.AddAccountPasswordTitle, Program.Language.AddAccountPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.OK) {
 						if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
 							return a.Name == account;
 						}) != null) {
@@ -659,7 +659,7 @@ namespace Invium
 			} else {
 				// First run, let's grab a password for Invium before proceeding.
 				string input_password = string.Empty;
-				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.FirstRunTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.FirstRunPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumSaveConfirmation) == DialogResult.Cancel) {
+				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.FirstRunTitle, Program.Language.FirstRunPrompt, Program.Language.MasterPasswordConfirmation) == DialogResult.Cancel) {
 					Program.InviumExit ();
 				}
 
@@ -988,7 +988,7 @@ namespace Invium
 			this.NotIdle ();
 
 			string input_password = string.Empty;
-			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.InviumReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.InviumReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumReencryptConfirmation) == DialogResult.OK) {
+			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, Program.Language.MasterPasswordTitle, Program.Language.MasterPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.OK) {
 				this.masterPassword.Password = input_password;
 				this.saveOnClose = true;
 				input_password = string.Empty;

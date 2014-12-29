@@ -1,28 +1,28 @@
 ﻿/*
-* PinCushion, a password manager in C#
+* Invium, a password manager in C#
 * Copyright (c) 2013, 2014 Armin Altorffer
 *
-* This file is part of PinCushion.
+* This file is part of Invium.
 *
-* PinCushion is free software: you can redistribute it and/or modify
+* Invium is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* PinCushion is distributed in the hope that it will be useful,
+* Invium is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
+* along with Invium.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
 * Originally VS Studio generated, this is the container that shapes
-* the UI of PinCushion.
+* the UI of Invium.
 */
-namespace PinCushion
+namespace Invium
 {
 	public partial class MainForm
 	{
@@ -63,7 +63,7 @@ namespace PinCushion
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMsetLanguage;
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMimport;
 		private System.Windows.Forms.ToolStripMenuItem mainFormCMmergeProfiles;
-		private System.Windows.Forms.Button setPinCushionPassword;
+		private System.Windows.Forms.Button setInviumPassword;
 		private System.Windows.Forms.Label passwordStrengthDescription;
 
 		private void InitializeComponent ()
@@ -105,7 +105,7 @@ namespace PinCushion
 			this.mainFormCMsetLanguage = new System.Windows.Forms.ToolStripMenuItem ();
 			this.mainFormCMimport = new System.Windows.Forms.ToolStripMenuItem ();
 			this.mainFormCMmergeProfiles = new System.Windows.Forms.ToolStripMenuItem ();
-			this.setPinCushionPassword = new System.Windows.Forms.Button ();
+			this.setInviumPassword = new System.Windows.Forms.Button ();
 			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
 			this.copyTextCM.SuspendLayout ();
 			this.serviceCM.SuspendLayout ();
@@ -328,11 +328,11 @@ namespace PinCushion
 			this.mainFormCMmergeProfiles.Click += (object sender, System.EventArgs e) => {
 				this.MergeProfiles ();
 			};
-			this.setPinCushionPassword.Location = new System.Drawing.Point (180, 330);
-			this.setPinCushionPassword.Size = new System.Drawing.Size (312, 39);
-			this.setPinCushionPassword.TabStop = false;
-			this.setPinCushionPassword.Click += (object sender, System.EventArgs e) => {
-				this.SetPinCushionPassword ();
+			this.setInviumPassword.Location = new System.Drawing.Point (180, 330);
+			this.setInviumPassword.Size = new System.Drawing.Size (312, 39);
+			this.setInviumPassword.TabStop = false;
+			this.setInviumPassword.Click += (object sender, System.EventArgs e) => {
+				this.SetInviumPassword ();
 			};
 			this.passwordStrengthDescription.Location = new System.Drawing.Point (585, 354);
 			this.passwordStrengthDescription.Size = new System.Drawing.Size (66, 17);
@@ -342,7 +342,7 @@ namespace PinCushion
 			this.ContextMenu = null;
 			this.ContextMenuStrip = this.mainFormCM;
 			this.Controls.Add (this.passwordStrengthDescription);
-			this.Controls.Add (this.setPinCushionPassword);
+			this.Controls.Add (this.setInviumPassword);
 			this.Controls.Add (this.passwordStrengthLabel);
 			this.Controls.Add (this.showPassword);
 			this.Controls.Add (this.encrypt);

@@ -1,25 +1,25 @@
 ﻿/*
-* PinCushion, a password manager in C#
+* Invium, a password manager in C#
 * Copyright (c) 2013, 2014 Armin Altorffer
 *
-* This file is part of PinCushion.
+* This file is part of Invium.
 *
-* PinCushion is free software: you can redistribute it and/or modify
+* Invium is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* PinCushion is distributed in the hope that it will be useful,
+* Invium is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
+* along with Invium.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Holds storage (loading/saving) related functions
-namespace PinCushion
+namespace Invium
 {
 	using System;
 	using System.Diagnostics;
@@ -44,7 +44,7 @@ namespace PinCushion
 		private const string XMLDescendant = "descendant";
 
 		// Used in auto saving upon changes
-		private PinCushionPassword_Class pinCushionPassword = new PinCushionPassword_Class ();
+		private InviumPassword_Class inviumPassword = new InviumPassword_Class ();
 
 		/*
 		* Load all data
@@ -55,7 +55,7 @@ namespace PinCushion
 			*
 			* I experimented with various other approaches but XmlDocument + Xpath proved the least cumbersome.
 			*/
-			PinCushionCryptography crypto = new PinCushionCryptography ();
+			InviumCryptography crypto = new InviumCryptography ();
 			Stopwatch load_timer = new Stopwatch ();
 			XmlDocument document = new XmlDocument ();
 			document.Load (file);
@@ -80,11 +80,11 @@ namespace PinCushion
 				XmlNode salt_node = document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLSalt));
 				XmlNode password_node = document.SelectSingleNode (string.Format ("{0}::{1}", XMLDescendant, XMLPassword));
 				if (salt_node == null) {
-					throw new PinCushionException (Program.Language.FatalNoSaltNode);
+					throw new InviumException (Program.Language.FatalNoSaltNode);
 				}
 
 				if (password_node == null) {
-					throw new PinCushionException (Program.Language.FatalNoPasswordNode);
+					throw new InviumException (Program.Language.FatalNoPasswordNode);
 				}
 
 				salt = salt_node.InnerText;
@@ -92,7 +92,7 @@ namespace PinCushion
 
 				// This InputBox will ask for the password, of either log on or of the import
 				if (new InputBox ().ShowMe (InputBox.Mode.Singlepassword, ref input_password, importing ? Program.Language.ImportAuth : Program.Language.Login, importing ? Program.Language.ImportPassword : Program.Language.AuthPassword) == DialogResult.Cancel) {
-					throw new PinCushionException (importing ? Program.Language.ImportCancel : Program.Language.AuthFailCancel);
+					throw new InviumException (importing ? Program.Language.ImportCancel : Program.Language.AuthFailCancel);
 				}
 
 				// Start the loading screen
@@ -106,7 +106,7 @@ namespace PinCushion
 
 				if (crypto.Hash (input_password, salt) != password_hash) {
 					loadingscreen.Close ();
-					throw new PinCushionException (Program.Language.AuthFailIncorrect);
+					throw new InviumException (Program.Language.AuthFailIncorrect);
 				}
 			}
 
@@ -121,14 +121,14 @@ namespace PinCushion
 			*/
 			if (!importing) {
 				if (!do_decrypt) {
-					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.Cancel) {
-						throw new PinCushionException (Program.Language.FatalNeedPasswordReencrypt);
+					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.InviumReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.InviumReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumReencryptConfirmation) == DialogResult.Cancel) {
+						throw new InviumException (Program.Language.FatalNeedPasswordReencrypt);
 					} else {
 						do_recrypt_save = true;
 					}
 				}
 
-				this.pinCushionPassword.Password = input_password;
+				this.inviumPassword.Password = input_password;
 			}
 
 			short p_count, s_count, a_count;
@@ -205,7 +205,7 @@ namespace PinCushion
 				return;
 			}
 
-			PinCushionCryptography crypto = new PinCushionCryptography ();
+			InviumCryptography crypto = new InviumCryptography ();
 			// Create and load the savingscreen
 			StorageSplash savingscreen = new StorageSplash (Program.Language.Saving);
 			Thread savingscreen_thread = new Thread (new ThreadStart (delegate() {
@@ -227,7 +227,7 @@ namespace PinCushion
 
 				// encryption releated data
 				string salt = new Password ().GenSalt ();
-				string password_hash = crypto.Hash (this.pinCushionPassword.Password, salt);
+				string password_hash = crypto.Hash (this.inviumPassword.Password, salt);
 				if (this.encrypt.Checked) {
 					document_writer.WriteElementString (XMLencrypt, new Password ().GenSalt ());
 					document_writer.WriteElementString (XMLSalt, salt);
@@ -237,21 +237,21 @@ namespace PinCushion
 				// Main Loop, will also encrypt if specified
 				foreach (Profile p in Program.Profiles) {
 					document_writer.WriteStartElement (XMLProfile);
-					string profile_name = this.encrypt.Checked ? crypto.Encrypt (p.Name, this.pinCushionPassword.Password) : p.Name;
+					string profile_name = this.encrypt.Checked ? crypto.Encrypt (p.Name, this.inviumPassword.Password) : p.Name;
 					document_writer.WriteElementString (XMLName, profile_name);
 					foreach (Service s in p.Profileservices) {
 						document_writer.WriteStartElement (XMLService);
-						string service_name = this.encrypt.Checked ? crypto.Encrypt (s.Name, this.pinCushionPassword.Password) : s.Name;
+						string service_name = this.encrypt.Checked ? crypto.Encrypt (s.Name, this.inviumPassword.Password) : s.Name;
 						document_writer.WriteElementString (XMLName, service_name);
 						if (s.Command != string.Empty) {
-							string service_command = this.encrypt.Checked ? crypto.Encrypt (s.Command, this.pinCushionPassword.Password) : s.Command;
+							string service_command = this.encrypt.Checked ? crypto.Encrypt (s.Command, this.inviumPassword.Password) : s.Command;
 							document_writer.WriteElementString (XMLCommand, service_command);
 						}
 
 						foreach (Account a in s.ServiceAccounts) {
 							document_writer.WriteStartElement (XMLAccount);
-							string account_name = this.encrypt.Checked ? crypto.Encrypt (a.Name, this.pinCushionPassword.Password) : a.Name;
-							string account_password = this.encrypt.Checked ? crypto.Encrypt (a.Password, this.pinCushionPassword.Password) : a.Password;
+							string account_name = this.encrypt.Checked ? crypto.Encrypt (a.Name, this.inviumPassword.Password) : a.Name;
+							string account_password = this.encrypt.Checked ? crypto.Encrypt (a.Password, this.inviumPassword.Password) : a.Password;
 							document_writer.WriteElementString (XMLName, account_name);
 							document_writer.WriteElementString (XMLPassword, account_password);
 							document_writer.WriteEndElement ();

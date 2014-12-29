@@ -5,9 +5,9 @@
     <ProjectGuid>{4699CE6C-462D-4195-9987-80204BA96556}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PinCushion</RootNamespace>
-    <AssemblyName>PinCushion</AssemblyName>
-    <AssemblyName Condition=" '$(Platform)' == 'x64' ">PinCushion64</AssemblyName>
+    <RootNamespace>Invium</RootNamespace>
+    <AssemblyName>Invium</AssemblyName>
+    <AssemblyName Condition=" '$(Platform)' == 'x64' ">Invium64</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <Install>false</Install>
@@ -82,8 +82,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PinCushionException.cs" />
-    <Compile Include="PinCushionPassword_Class.cs" />
+    <Compile Include="InviumException.cs" />
+    <Compile Include="InviumPassword_Class.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Account.cs" />

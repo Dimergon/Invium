@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinCushion", "PinCushion\PinCushion.csproj", "{4699CE6C-462D-4195-9987-80204BA96556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invium", "Invium\Invium.csproj", "{4699CE6C-462D-4195-9987-80204BA96556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,7 +20,7 @@ Global
                 {4699CE6C-462D-4195-9987-80204BA96556}.dotNET64|x64.Build.0 = dotNET64|x64
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = PinCushion\PinCushion.csproj
+		StartupItem = Invium\Invium.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

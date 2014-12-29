@@ -1,28 +1,28 @@
 ﻿/*
-* PinCushion, a password manager in C#
+* Invium, a password manager in C#
 * Copyright (c) 2013, 2014 Armin Altorffer
 *
-* This file is part of PinCushion.
+* This file is part of Invium.
 *
-* PinCushion is free software: you can redistribute it and/or modify
+* Invium is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* PinCushion is distributed in the hope that it will be useful,
+* Invium is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
+* along with Invium.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
 * This holds all the language strings, all the actual language entries
 * and also performs any language changes.
 */
-namespace PinCushion
+namespace Invium
 {
 	using System;
 	using System.Globalization;
@@ -84,14 +84,14 @@ namespace PinCushion
 		public string UnsavedPasswordPrompt;
 		public string UnsavedPasswordTitle;
 
-		/* Saving PinCushion data */
+		/* Saving Invium data */
 		public string FirstRunTitle;
 		public string FirstRunPrompt;
 		public string FirstRunConfirmation;
-		public string PinCushionSaveConfirmation;
-		public string PinCushionReencryptTitle;
-		public string PinCushionReencryptPrompt;
-		public string PinCushionReencryptConfirmation;
+		public string InviumSaveConfirmation;
+		public string InviumReencryptTitle;
+		public string InviumReencryptPrompt;
+		public string InviumReencryptConfirmation;
 
 		/* Fatal errors */
 		public string FatalNoPasswordNode;
@@ -120,7 +120,7 @@ namespace PinCushion
 		public string Language;
 		public string Import;
 		public string ProfileMerge;
-		public string PinCushionPassword;
+		public string InviumPassword;
 		public string Execute;
 		public string NoExecute;
 		public string SetExecute;
@@ -238,10 +238,10 @@ namespace PinCushion
 				this.FirstRunTitle = "Instellen van {0}";
 				this.FirstRunPrompt = "Geef een wachtwoord op voor toegang tot {0}.";
 				this.FirstRunConfirmation = "Bevestig het wachtwoord.";
-				this.PinCushionSaveConfirmation = "Bevestig het wachtwoord.";
-				this.PinCushionReencryptTitle = "Versleuteling van {0} activeren";
-				this.PinCushionReencryptPrompt = "Geef een nieuw wachtwoord op voor toegang tot {0}.";
-				this.PinCushionReencryptConfirmation = "Bevestig het wachtwoord.";
+				this.InviumSaveConfirmation = "Bevestig het wachtwoord.";
+				this.InviumReencryptTitle = "Versleuteling van {0} activeren";
+				this.InviumReencryptPrompt = "Geef een nieuw wachtwoord op voor toegang tot {0}.";
+				this.InviumReencryptConfirmation = "Bevestig het wachtwoord.";
 				this.FatalNoPasswordNode = "De gegevens zijn versleuteld maar de wachtwoord informatie ontbreekt.\r\nDe gegevens zijn niet te herstellen.";
 				this.FatalNoSaltNode = "De gegevens zijn versleuteld maar de salt informatie ontbreekt.\r\nDe gegevens zijn niet te herstellen.";
 				this.FatalSingleInstance = "Dit programma mag maar een keer tegelijk actief zijn.";
@@ -266,7 +266,7 @@ namespace PinCushion
 				this.Language = "Taal";
 				this.Import = "Importeren";
 				this.ProfileMerge = "Profielen samenvoegen";
-				this.PinCushionPassword = "{0} wachtwoord instellen";
+				this.InviumPassword = "{0} wachtwoord instellen";
 				this.Execute = "{0} uitvoeren";
 				this.NoExecute = "Geen commando ingesteld om uit te voeren.";
 				this.CloneService = "Dienst klonen";
@@ -350,10 +350,10 @@ namespace PinCushion
 				this.FirstRunTitle = "Initial {0} setup";
 				this.FirstRunPrompt = "Please provide a password for {0} access.";
 				this.FirstRunConfirmation = "Please confirm this password.";
-				this.PinCushionSaveConfirmation = "Please confirm this password.";
-				this.PinCushionReencryptTitle = "Enabling {0} encryption";
-				this.PinCushionReencryptPrompt = "Please provide a new password for {0} access.";
-				this.PinCushionReencryptConfirmation = "Please confirm this password.";
+				this.InviumSaveConfirmation = "Please confirm this password.";
+				this.InviumReencryptTitle = "Enabling {0} encryption";
+				this.InviumReencryptPrompt = "Please provide a new password for {0} access.";
+				this.InviumReencryptConfirmation = "Please confirm this password.";
 				this.FatalNoPasswordNode = "Data is encrypted but the password information is absent.\r\nData is unrecoverable.";
 				this.FatalNoSaltNode = "Data is encrypted but the salt information is absent.\r\nData is unrecoverable.";
 				this.FatalSingleInstance = "Only one instance of this application may be run at any single time.";
@@ -378,7 +378,7 @@ namespace PinCushion
 				this.Language = "Language";
 				this.Import = "Import";
 				this.ProfileMerge = "Merge profiles";
-				this.PinCushionPassword = "Set {0} password";
+				this.InviumPassword = "Set {0} password";
 				this.Execute = "Open {0}";
 				this.NoExecute = "No command specified to execute.";
 				this.CloneService = "Clone service";

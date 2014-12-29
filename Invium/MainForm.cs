@@ -1,27 +1,27 @@
 ﻿/*
-* PinCushion, a password manager in C#
+* Invium, a password manager in C#
 * Copyright (c) 2013, 2014 Armin Altorffer
 *
-* This file is part of PinCushion.
+* This file is part of Invium.
 *
-* PinCushion is free software: you can redistribute it and/or modify
+* Invium is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* PinCushion is distributed in the hope that it will be useful,
+* Invium is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
+* along with Invium.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
-* Main UI of PinCushion, houses most of its actual functionality.
+* Main UI of Invium, houses most of its actual functionality.
 */
-namespace PinCushion
+namespace Invium
 {
 	using System;
 	using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace PinCushion
 		private const short CCTime = 120;
 		private const short AutoSave = 180;
 
-		// Used in the automatic timeout functionality, PinCushion will quit after a certain period of inactivity.
+		// Used in the automatic timeout functionality, Invium will quit after a certain period of inactivity.
 		private DateTime timeout = DateTime.Now.AddSeconds (MaxIdle);
 		private bool notimeout = false;
 
@@ -605,7 +605,7 @@ namespace PinCushion
 				this.passwordStrength.Enabled = this.accountSelection.SelectedItem == null ? false : !this.readOnly.Checked;
 				this.mainFormCM.Items [2].Enabled = !this.readOnly.Checked;
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
-				this.setPinCushionPassword.Enabled = !this.readOnly.Checked;
+				this.setInviumPassword.Enabled = !this.readOnly.Checked;
 				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
 				this.copyTextCM.Items [0].Enabled = this.accountSelection.SelectedItem == null ? false : true;
@@ -649,21 +649,21 @@ namespace PinCushion
 			if (File.Exists (Program.DataFile)) {
 				try {
 					this.DoLoad (Program.DataFile);
-				} catch (PinCushionException ex) {
+				} catch (InviumException ex) {
 					// We end up here in case of data corruption or in case an incorrect password was specified.
 					MessageBox.Show (ex.Message);
-					Program.PinCushionExit ();
+					Program.InviumExit ();
 				} catch (System.Xml.XmlException) {
 					// Most likely merely an empty XML file.
 				}
 			} else {
-				// First run, let's grab a password for PinCushion before proceeding.
+				// First run, let's grab a password for Invium before proceeding.
 				string input_password = string.Empty;
-				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.FirstRunTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.FirstRunPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionSaveConfirmation) == DialogResult.Cancel) {
-					Program.PinCushionExit ();
+				if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.FirstRunTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.FirstRunPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumSaveConfirmation) == DialogResult.Cancel) {
+					Program.InviumExit ();
 				}
 
-				this.pinCushionPassword.Password = input_password;
+				this.inviumPassword.Password = input_password;
 				input_password = string.Empty;
 			}
 
@@ -686,7 +686,7 @@ namespace PinCushion
 					}
 				}
 
-				Program.PinCushionExit ();
+				Program.InviumExit ();
 			}
 
 			// Auto-save if needed, after a period of inactivity.
@@ -749,7 +749,7 @@ namespace PinCushion
 			this.serviceCM.Items [1].Text = Program.Language.SetExecute;
 			this.serviceCM.Items [2].Text = Program.Language.CloneService;
 			this.setPassword.Text = Program.Language.Set;
-			this.setPinCushionPassword.Text = string.Format (Program.Language.PinCushionPassword, System.Windows.Forms.Application.ProductName);
+			this.setInviumPassword.Text = string.Format (Program.Language.InviumPassword, System.Windows.Forms.Application.ProductName);
 			this.generatePassword.Text = Program.Language.Generate;
 			this.readOnly.Text = Program.Language.ReadOnly;
 			this.encrypt.Text = Program.Language.Encrypt;
@@ -972,7 +972,7 @@ namespace PinCushion
 					this.DoLoad (f.FileName, true);
 					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Profile);
-				} catch (PinCushionException ex) {
+				} catch (InviumException ex) {
 					MessageBox.Show (ex.Message);
 				} catch (System.Xml.XmlException) {
 					// Most likely an empty XML file, just ignore.
@@ -981,15 +981,15 @@ namespace PinCushion
 		}
 
 		/*
-		* Manually set a new password for PinCushion
+		* Manually set a new password for Invium
 		*/
-		private void SetPinCushionPassword ()
+		private void SetInviumPassword ()
 		{
 			this.NotIdle ();
 
 			string input_password = string.Empty;
-			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.PinCushionReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.PinCushionReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.PinCushionReencryptConfirmation) == DialogResult.OK) {
-				this.pinCushionPassword.Password = input_password;
+			if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref input_password, string.Format (Program.Language.InviumReencryptTitle, System.Windows.Forms.Application.ProductName), string.Format (Program.Language.InviumReencryptPrompt, System.Windows.Forms.Application.ProductName), Program.Language.InviumReencryptConfirmation) == DialogResult.OK) {
+				this.inviumPassword.Password = input_password;
 				this.saveOnClose = true;
 				input_password = string.Empty;
 			}

@@ -1,28 +1,28 @@
 ﻿/*
-* PinCushion, a password manager in C#
+* Invium, a password manager in C#
 * Copyright (c) 2013, 2014 Armin Altorffer
 *
-* This file is part of PinCushion.
+* This file is part of Invium.
 *
-* PinCushion is free software: you can redistribute it and/or modify
+* Invium is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* PinCushion is distributed in the hope that it will be useful,
+* Invium is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with PinCushion.  If not, see <http://www.gnu.org/licenses/>.
+* along with Invium.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
 * Main program entry. Performs several functions before actually launching
-* PinCushion's primary form.
+* Invium's primary form.
 */
-namespace PinCushion
+namespace Invium
 {
 	using System;
 	using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace PinCushion
 		public static string ImportFilter = "n_data.xml";
 		public static string DataFile = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + ImportFilter;
 
-		// used to determine if we need to clear the clipboard; this sits here because of PinCushionExit()
+		// used to determine if we need to clear the clipboard; this sits here because of InviumExit()
 		public static bool ClipboardClearEnabled = false;
 
 		// forced read only state; useful in environments where access is shared
@@ -56,7 +56,7 @@ namespace PinCushion
 		private static string lockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
 
 		// Custom exit
-		public static void PinCushionExit ()
+		public static void InviumExit ()
 		{
 			// Clear the clipboard but only if we placed something on it...
 			if (ClipboardClearEnabled) {
@@ -80,9 +80,9 @@ namespace PinCushion
 		private static void Main (string[] args)
 		{
 			// Unhandled exception...
-			Application.ThreadException += new System.Threading.ThreadExceptionEventHandler (Pincushion_ThreadException);
+			Application.ThreadException += new System.Threading.ThreadExceptionEventHandler (Invium_ThreadException);
 			Application.SetUnhandledExceptionMode (UnhandledExceptionMode.CatchException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler (PinCushion_UnhandledException);
+			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler (Invium_UnhandledException);
 
 			// Initialize the localization
 			Language = new LanguageClass ();
@@ -111,7 +111,7 @@ namespace PinCushion
 					DataFile = args [Array.IndexOf (args, s) + 1];
 					if (!File.Exists (DataFile)) {
 						MessageBox.Show (string.Format (Language.CustomLoadFail, DataFile));
-						PinCushionExit ();
+						InviumExit ();
 					}
 
 					break;
@@ -146,19 +146,19 @@ namespace PinCushion
 			Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
 			Application.SetCompatibleTextRenderingDefault (true);
 			Application.Run (new MainForm ());
-			PinCushionExit ();
+			InviumExit ();
 		}
 
-		private static void Pincushion_ThreadException (object sender, ThreadExceptionEventArgs e)
+		private static void Invium_ThreadException (object sender, ThreadExceptionEventArgs e)
 		{
 			MessageBox.Show (e.Exception.ToString (), Language.ThreadException, MessageBoxButtons.OK);
-			PinCushionExit ();
+			InviumExit ();
 		}
 
-		private static void PinCushion_UnhandledException (object sender, UnhandledExceptionEventArgs e)
+		private static void Invium_UnhandledException (object sender, UnhandledExceptionEventArgs e)
 		{
 			MessageBox.Show (((Exception)e.ExceptionObject).InnerException.ToString (), Language.UnhandledException, MessageBoxButtons.OK);
-			PinCushionExit ();
+			InviumExit ();
 		}
 	}
 }

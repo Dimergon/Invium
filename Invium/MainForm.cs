@@ -480,6 +480,7 @@ namespace Invium
 						string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
 						this.saveOnClose = true;
+						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 						userinput = string.Empty;
 					}
@@ -490,6 +491,7 @@ namespace Invium
 					string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
 					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = this.accountPassword.Text;
 					this.saveOnClose = true;
+					this.RefreshControls (RefreshLevel.Account);
 					this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
 				}
 			} catch (ArgumentOutOfRangeException) {

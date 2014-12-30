@@ -59,6 +59,9 @@ namespace Invium
 		// Make sure we save in case there is data to save
 		private bool saveOnClose = false;
 
+		// Heartbeat
+		private Thread heartbeat;
+
 		public MainForm ()
 		{
 			this.InitializeComponent ();
@@ -93,12 +96,16 @@ namespace Invium
 			((ToolStripMenuItem)this.mainFormCM.Items [3]).Enabled = false;
 
 			// Create a pulse.
-			new Thread (new ThreadStart (delegate() {
+			this.heartbeat = new Thread (new ThreadStart (delegate() {
 				while (true) {
 					this.ProcessTick ();
 					Thread.Sleep (1000);
 				}
-			})).Start ();
+			}));
+			this.heartbeat.IsBackground = true;
+			this.heartbeat.Start ();
+			while (!this.heartbeat.IsAlive) {
+			}
 		}
 
 		// Used in refreshing

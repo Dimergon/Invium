@@ -27,6 +27,7 @@ namespace Invium
 	using System.Collections.Generic;
 	using System.Diagnostics;
 	using System.IO;
+	using System.Threading;
 	using System.Windows.Forms;
 
 	#if BuildForMono
@@ -92,10 +93,10 @@ namespace Invium
 			((ToolStripMenuItem)this.mainFormCM.Items [3]).Enabled = false;
 
 			// Create a pulse.
-			new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+			new Thread (new ThreadStart (delegate() {
 				while (true) {
 					this.ProcessTick ();
-					System.Threading.Thread.Sleep (1000);
+					Thread.Sleep (1000);
 				}
 			})).Start ();
 		}

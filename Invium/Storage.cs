@@ -68,7 +68,11 @@ namespace Invium
 			// Create the loadingscreen
 			StorageSplash loadingscreen = new StorageSplash (Program.Language.Loading);
 			Thread loadingscreen_thread = new Thread (new ThreadStart (delegate() {
-				loadingscreen.ShowDialog ();
+				try {
+					loadingscreen.ShowDialog ();
+				} catch (ThreadAbortException) {
+					loadingscreen.Close ();
+				}
 			}));
 			loadingscreen_thread.IsBackground = true;
 
@@ -186,7 +190,7 @@ namespace Invium
 			}
 
 			// and close the loading screen
-			loadingscreen.Close ();
+			loadingscreen_thread.Abort ();
 
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
@@ -217,7 +221,11 @@ namespace Invium
 			// Create and load the savingscreen
 			StorageSplash savingscreen = new StorageSplash (Program.Language.Saving);
 			Thread savingscreen_thread = new Thread (new ThreadStart (delegate() {
-				savingscreen.ShowDialog ();
+				try {
+					savingscreen.ShowDialog ();
+				} catch (ThreadAbortException) {
+					savingscreen.Close ();
+				}
 			}));
 			savingscreen_thread.IsBackground = true;
 			savingscreen_thread.Start ();
@@ -278,7 +286,7 @@ namespace Invium
 			}
 
 			// really done!
-			savingscreen.Close ();
+			savingscreen_thread.Abort ();
 		}
 	}
 }

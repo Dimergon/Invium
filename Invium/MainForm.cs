@@ -607,15 +607,7 @@ namespace Invium
 		}
 
 		/*
-		* Load the data.
-		*
-		* Steps:
-		* - Load all the data into an XML document, but only if it exists.
-		* - Request the password if the data is encrypted.
-		* - Loop through all child profiles.
-		*      - Loop through all child services of each profile.
-		*          - Loop through all child accounts of each service.
-		* - Refresh controls.
+		* Load the data, if it exists.
 		*/
 		private void MainForm_Load (object sender, EventArgs e)
 		{

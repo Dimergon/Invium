@@ -44,7 +44,15 @@ namespace Invium
 		private const string XMLDescendant = "descendant";
 
 		/*
-		* Load all data
+		* Load the specified data file
+		*
+		* Steps:
+		* - Load all the data into an XML document, but only if it exists.
+		* - Request the password if the data is encrypted.
+		* - Loop through all child profiles.
+		*      - Loop through all child services of each profile.
+		*          - Loop through all child accounts of each service.
+		* - Refresh controls.
 		*/
 		public void DoLoad (string file, bool importing = false)
 		{

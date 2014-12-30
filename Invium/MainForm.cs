@@ -525,13 +525,10 @@ namespace Invium
 				case RefreshLevel.Profile:
 					this.profileSelection.Items.Clear ();
 					this.profileSelection.Text = string.Empty;
-					this.profileSelection.SelectedIndex = -1;
 					this.serviceSelection.Items.Clear ();
 					this.serviceSelection.Text = string.Empty;
-					this.serviceSelection.SelectedIndex = -1;
 					this.accountSelection.Items.Clear ();
 					this.accountSelection.Text = string.Empty;
-					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
 					foreach (Profile p in Program.Profiles) {
 						this.profileSelection.Items.Add (p.Name);
@@ -542,10 +539,8 @@ namespace Invium
 				case RefreshLevel.Service:
 					this.serviceSelection.Items.Clear ();
 					this.serviceSelection.Text = string.Empty;
-					this.serviceSelection.SelectedIndex = -1;
 					this.accountSelection.Items.Clear ();
 					this.accountSelection.Text = string.Empty;
-					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
 					foreach (Service s in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices) {
 						this.serviceSelection.Items.Add (s.Name);
@@ -556,7 +551,6 @@ namespace Invium
 				case RefreshLevel.Account:
 					this.accountSelection.Items.Clear ();
 					this.accountSelection.Text = string.Empty;
-					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
 					foreach (Account a in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices[this.serviceSelection.SelectedIndex].ServiceAccounts) {
 						this.accountSelection.Items.Add (a.Name);

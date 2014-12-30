@@ -48,7 +48,6 @@ namespace Invium
 		private System.Windows.Forms.TrackBar passwordStrength;
 		private System.Windows.Forms.CheckBox readOnly;
 		private System.Windows.Forms.CheckBox encrypt;
-		private System.Windows.Forms.Timer idleTimer;
 		private System.Windows.Forms.ContextMenuStrip copyTextCM;
 		private System.Windows.Forms.ToolStripMenuItem copyTextCMMI;
 		private System.Windows.Forms.ContextMenuStrip serviceCM;
@@ -96,7 +95,6 @@ namespace Invium
 			this.passwordStrength = new System.Windows.Forms.TrackBar ();
 			this.readOnly = new System.Windows.Forms.CheckBox ();
 			this.encrypt = new System.Windows.Forms.CheckBox ();
-			this.idleTimer = new System.Windows.Forms.Timer ();
 			this.showPassword = new System.Windows.Forms.CheckBox ();
 			this.passwordStrengthLabel = new System.Windows.Forms.Label ();
 			this.tray = new System.Windows.Forms.NotifyIcon ();
@@ -287,11 +285,6 @@ namespace Invium
 			this.encrypt.CheckedChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
 				this.saveOnClose = true;
-			};
-			this.idleTimer.Enabled = true;
-			this.idleTimer.Interval = 1000;
-			this.idleTimer.Tick += (object sender, System.EventArgs e) => {
-				this.ProcessTick ();
 			};
 			this.showPassword.Location = new System.Drawing.Point (15, 294);
 			this.showPassword.Size = new System.Drawing.Size (129, 21);

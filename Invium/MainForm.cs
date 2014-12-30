@@ -90,6 +90,14 @@ namespace Invium
 
 			// merge functionality
 			((ToolStripMenuItem)this.mainFormCM.Items [3]).Enabled = false;
+
+			// Create a pulse.
+			new System.Threading.Thread (new System.Threading.ThreadStart (delegate() {
+				while (true) {
+					this.ProcessTick ();
+					System.Threading.Thread.Sleep (1000);
+				}
+			})).Start ();
 		}
 
 		// Used in refreshing
@@ -643,7 +651,7 @@ namespace Invium
 		}
 
 		/*
-		* Keeps track of idle time; using Application.Idle will not work reliably because of MessageBoxes.
+		* Process the heartbeat.
 		*/
 		private void ProcessTick ()
 		{

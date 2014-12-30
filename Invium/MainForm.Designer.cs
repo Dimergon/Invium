@@ -260,7 +260,15 @@ namespace Invium
 			this.passwordStrength.Value = 2;
 			this.passwordStrength.ValueChanged += (object sender, System.EventArgs e) => {
 				this.NotIdle ();
-				this.RefreshControls (RefreshLevel.None);
+				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
+				this.passwordStrengthDescription.Text += " aA0";
+				if (this.passwordStrength.Value > 1) {
+					this.passwordStrengthDescription.Text += "!";
+				}
+
+				if (this.passwordStrength.Value > 5) {
+					this.passwordStrengthDescription.Text += "#";
+				}
 			};
 			this.readOnly.Checked = true;
 			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -327,6 +335,7 @@ namespace Invium
 			};
 			this.passwordStrengthDescription.Location = new System.Drawing.Point (585, 354);
 			this.passwordStrengthDescription.Size = new System.Drawing.Size (66, 17);
+			this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString () + " aA0!";
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.ClientSize = new System.Drawing.Size (this.passwordStrengthDescription.Right + 20, this.passwordStrengthDescription.Bottom + 10);

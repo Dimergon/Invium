@@ -61,6 +61,10 @@ namespace Invium
 
 		// Heartbeat
 		private Thread heartbeat;
+		// Heartbeat lock -- used to interrupt/block ProcessTick()
+		// this is done to avoid closing the program when idle in case
+		// of very large data files (taking more than 300 seconds to load or save).
+		private object heartbeatlock = new object ();
 
 		public MainForm ()
 		{
@@ -138,7 +142,7 @@ namespace Invium
 			case Keys.Control | Keys.Shift | Keys.S:
 				// Hard save
 				this.NotIdle ();
-				new Storage ().DoSave (this.encrypt.Checked);
+				new Storage ().DoSave (this.encrypt.Checked, this.heartbeatlock);
 				this.saveOnClose = false;
 				return true;
 			case Keys.Control | Keys.C:
@@ -633,7 +637,7 @@ namespace Invium
 			// Load the data but only if there actually is data to load
 			if (File.Exists (Program.DataFile)) {
 				try {
-					new Storage ().DoLoad (Program.DataFile);
+					new Storage ().DoLoad (Program.DataFile, this.heartbeatlock, false);
 				} catch (InviumException ex) {
 					// We end up here in case of data corruption or in case an incorrect password was specified.
 					MessageBox.Show (ex.Message);
@@ -663,34 +667,36 @@ namespace Invium
 		*/
 		private void ProcessTick ()
 		{
-			// Check for maximum idle time, quit if it expired...
-			if (!this.notimeout && DateTime.Now >= this.timeout) {
-				if (this.unsavedPassword) {
-					if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-						Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+			lock (this.heartbeatlock) {
+				// Check for maximum idle time, quit if it expired...
+				if (!this.notimeout && DateTime.Now >= this.timeout) {
+					if (this.unsavedPassword) {
+						if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+							Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
+						}
+					}
+
+					Program.InviumExit ();
+				}
+
+				// Auto-save if needed, after a period of inactivity.
+				if (this.saveOnClose) {
+					if (DateTime.Now >= this.timeout.AddSeconds (-AutoSave)) {
+						new Storage ().DoSave (this.encrypt.Checked, this.heartbeatlock);
+						this.saveOnClose = false;
 					}
 				}
 
-				Program.InviumExit ();
-			}
-
-			// Auto-save if needed, after a period of inactivity.
-			if (this.saveOnClose) {
-				if (DateTime.Now >= this.timeout.AddSeconds (-AutoSave)) {
-					new Storage ().DoSave (this.encrypt.Checked);
-					this.saveOnClose = false;
-				}
-			}
-
-			// Clear the clipboard but only if we placed something on it.
-			if (Program.ClipboardClearEnabled && DateTime.Now >= this.clipboardTimeout) {
-				#if BuildForMono
-				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
-				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
-				#else
+				// Clear the clipboard but only if we placed something on it.
+				if (Program.ClipboardClearEnabled && DateTime.Now >= this.clipboardTimeout) {
+					#if BuildForMono
+					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
+					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
+					#else
 				System.Windows.Forms.Clipboard.Clear ();
-				#endif
-				Program.ClipboardClearEnabled = false;
+					#endif
+					Program.ClipboardClearEnabled = false;
+				}
 			}
 		}
 
@@ -954,7 +960,7 @@ namespace Invium
 			f.Filter = string.Format ("{0}|{1}", System.Windows.Forms.Application.ProductName, Program.ImportFilter);
 			if (f.ShowDialog () == DialogResult.OK) {
 				try {
-					new Storage ().DoLoad (f.FileName, true);
+					new Storage ().DoLoad (f.FileName, this.heartbeatlock, true);
 					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (InviumException ex) {
@@ -1012,7 +1018,7 @@ namespace Invium
 			}
 
 			if (this.saveOnClose) {
-				new Storage ().DoSave (this.encrypt.Checked);
+				new Storage ().DoSave (this.encrypt.Checked, this.heartbeatlock);
 			}
 		}
 	}

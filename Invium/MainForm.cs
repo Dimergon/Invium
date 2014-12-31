@@ -132,7 +132,6 @@ namespace Invium
 			case Keys.Alt | Keys.F4:
 			case Keys.Control | Keys.Shift | Keys.X:
 				// Some common Quit combinations
-				this.NotIdle ();
 				this.Close ();
 				return true;
 			case Keys.Control | Keys.R:

@@ -671,6 +671,7 @@ namespace Invium
 				// Check for maximum idle time, quit if it expired...
 				if (!this.notimeout && DateTime.Now >= this.timeout) {
 					if (this.unsavedPassword) {
+						this.unsavedPassword = false;
 						if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 							Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
 						}
@@ -715,13 +716,12 @@ namespace Invium
 			 * such as data manipulation takes place. Hence, it is the safest spot.
 			 */
 			if (this.unsavedPassword) {
+				this.unsavedPassword = false;
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
 					this.saveOnClose = true;
 				}
 			}
-
-			this.unsavedPassword = false;
 		}
 
 		/*
@@ -1011,6 +1011,7 @@ namespace Invium
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
 			if (this.unsavedPassword) {
+				this.unsavedPassword = false;
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
 					this.saveOnClose = true;

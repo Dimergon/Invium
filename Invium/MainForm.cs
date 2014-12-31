@@ -694,7 +694,7 @@ namespace Invium
 					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
 					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 					#else
-				System.Windows.Forms.Clipboard.Clear ();
+					System.Windows.Forms.Clipboard.Clear ();
 					#endif
 					Program.ClipboardClearEnabled = false;
 				}
@@ -996,7 +996,7 @@ namespace Invium
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Text = message;
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 				#else
-			System.Windows.Forms.Clipboard.SetText (message);
+				System.Windows.Forms.Clipboard.SetText (message);
 				#endif
 				Program.ClipboardClearEnabled = true;
 				this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);

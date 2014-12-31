@@ -1010,6 +1010,7 @@ namespace Invium
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
+			// Give the user one final chance to save the unsaved password, if there is one.
 			if (this.unsavedPassword) {
 				this.unsavedPassword = false;
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -1018,6 +1019,15 @@ namespace Invium
 				}
 			}
 
+			// Lock and stop the heartbeat, this is to prevent fringe situations where
+			// corruption could theoretically occur.
+			lock (this.heartbeatlock) {
+				this.heartbeat.Abort ();
+				while (this.heartbeat.IsAlive) {
+				}
+			}
+
+			// Store all data if needed, we're done here.
 			if (this.saveOnClose) {
 				new Storage ().DoSave (this.encrypt.Checked, this.heartbeatlock);
 			}

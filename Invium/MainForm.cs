@@ -541,9 +541,10 @@ namespace Invium
 					this.accountSelection.Text = string.Empty;
 					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
-					foreach (Profile p in Program.Profiles) {
-						this.profileSelection.Items.Add (p.Name);
-					}
+
+					this.profileSelection.Items.AddRange (Program.Profiles.ConvertAll<string> (delegate (Profile x) {
+						return x.Name;
+					}).ToArray ());
 
 					this.profileSelection.Select ();
 					break;
@@ -555,9 +556,10 @@ namespace Invium
 					this.accountSelection.Text = string.Empty;
 					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
-					foreach (Service s in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices) {
-						this.serviceSelection.Items.Add (s.Name);
-					}
+
+					this.serviceSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.ConvertAll<string> (delegate (Service x) {
+						return x.Name;
+					}).ToArray ());
 
 					this.profileSelection.Select ();
 					break;
@@ -566,9 +568,10 @@ namespace Invium
 					this.accountSelection.Text = string.Empty;
 					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
-					foreach (Account a in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices[this.serviceSelection.SelectedIndex].ServiceAccounts) {
-						this.accountSelection.Items.Add (a.Name);
-					}
+
+					this.accountSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.ConvertAll<string> (delegate (Account x) {
+						return x.Name;
+					}).ToArray ());
 
 					this.serviceSelection.Select ();
 					break;

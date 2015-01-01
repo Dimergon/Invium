@@ -791,7 +791,9 @@ namespace Invium
 						}
 
 						Service new_service = new Service (destination_service, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
-						new_service.ServiceAccounts.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts);
+						foreach (Account a in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices[this.serviceSelection.SelectedIndex].ServiceAccounts) {
+							new_service.ServiceAccounts.Add (new Account (a.Name, a.Password));
+						}
 
 						Program.Profiles [destination_profile].Profileservices.Add (new_service);
 						Program.Profiles [destination_profile].Profileservices.Sort (delegate (Service a, Service b) {

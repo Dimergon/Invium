@@ -588,7 +588,7 @@ namespace Invium
 					break;
 				}
 
-				// Service rightclick menu
+				// Service context menu
 				if (this.serviceSelection.SelectedItem != null) {
 					this.serviceCM.Items [0].Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? Program.Language.NoExecute : Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command;
 					this.serviceCM.Items [0].Enabled = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? false : true;
@@ -720,6 +720,7 @@ namespace Invium
 				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
 					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
 					this.saveOnClose = true;
+					this.RefreshControls (RefreshLevel.None);
 				}
 			}
 		}

@@ -853,9 +853,24 @@ namespace Invium
 							}
 						}
 
+						bool renamed = false;
 						Profile newprofile = new Profile (userinput_destination);
 						foreach (int i in profilestocopy) {
-							newprofile.Profileservices.AddRange (Program.Profiles [i].Profileservices);
+							foreach (Service s in Program.Profiles[i].Profileservices) {
+								string service_name = s.Name;
+								if (newprofile.Profileservices.Find (x => x.Name == s.Name) != null) {
+									renamed = true;
+									service_name += new Password ().GenSalt ();
+								}
+
+								Service newservice = new Service (service_name, s.Command);
+								foreach (Account a in s.ServiceAccounts) {
+									Account newaccount = new Account (a.Name, a.Password);
+									newservice.ServiceAccounts.Add (newaccount);
+								}
+
+								newprofile.Profileservices.Add (newservice);
+							}
 						}
 
 						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
@@ -866,7 +881,11 @@ namespace Invium
 						this.saveOnClose = true;
 						userinput_destination = string.Empty;
 						userinput_source = string.Empty;
-						MessageBox.Show (Program.Language.MergeProfilesDone);
+						if (renamed) {
+							MessageBox.Show (Program.Language.MergeProfilesDoneRename);
+						} else {
+							MessageBox.Show (Program.Language.MergeProfilesDone);
+						}
 					}
 				}
 			} catch (ArgumentOutOfRangeException) {

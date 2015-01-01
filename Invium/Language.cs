@@ -64,6 +64,7 @@ namespace Invium
 		public string MergeProfilesDestinationExists;
 		public string MergeProfilesSourceDoesNotExist;
 		public string MergeProfilesDone;
+		public string MergeProfilesDoneRename;
 
 		/* New password input */
 		public string NewPasswordTitle;
@@ -214,6 +215,7 @@ namespace Invium
 				this.MergeProfilesDestinationExists = "Een profiel met de opgegeven doelbestemmingsnaam bestaat al, geannuleerd.";
 				this.MergeProfilesSourceDoesNotExist = "Niet alle opgegeven bron profielen bestaan, geannuleerd.";
 				this.MergeProfilesDone = "Het samenvoegen van de opgegeven profielen is successvol verlopen.";
+				this.MergeProfilesDoneRename = "Het samenvoegen van de opgegeven profielen is successvol verlopen.\r\nEchter, er bestonden duplicaten binnen de opgegeven profielen, deze zijn hernoemd.";
 				this.NewPasswordTitle = "Wachtwoord";
 				this.NewPasswordPrompt = "Geef een nieuw wachtwoord op.";
 				this.NewPasswordConfirmation = "Bevestig het wachtwoord.";
@@ -320,6 +322,7 @@ namespace Invium
 				this.MergeProfilesDestinationExists = "A profile with the specified destination name already exists, aborted.";
 				this.MergeProfilesSourceDoesNotExist = "Not all the specified source profiles exist, aborted.";
 				this.MergeProfilesDone = "The merging process was completed successfully.";
+				this.MergeProfilesDoneRename = "The merging process was completed sucessfully.\r\nHowever, since duplicate services exist, these have been renamed.";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";
 				this.NewPasswordConfirmation = "Please confirm the password.";

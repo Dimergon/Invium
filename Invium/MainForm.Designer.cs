@@ -24,239 +24,243 @@
 */
 namespace Invium
 {
+	using System;
+	using System.Drawing;
+	using System.Windows.Forms;
+
 	public partial class MainForm
 	{
-		private System.Windows.Forms.ComboBox profileSelection;
-		private System.Windows.Forms.ComboBox serviceSelection;
-		private System.Windows.Forms.Label profileLabel;
-		private System.Windows.Forms.Label serviceLabel;
-		private System.Windows.Forms.Button addProfile;
-		private System.Windows.Forms.Button removeProfile;
-		private System.Windows.Forms.Button renameProfile;
-		private System.Windows.Forms.Button addService;
-		private System.Windows.Forms.Button removeService;
-		private System.Windows.Forms.Button renameService;
-		private System.Windows.Forms.ComboBox accountSelection;
-		private System.Windows.Forms.Label accountLabel;
-		private System.Windows.Forms.Button addAccount;
-		private System.Windows.Forms.Button removeAccount;
-		private System.Windows.Forms.Button renameAccount;
-		private System.Windows.Forms.TextBox accountPassword;
-		private System.Windows.Forms.Button setPassword;
-		private System.Windows.Forms.Button generatePassword;
-		private System.Windows.Forms.Label passwordLabel;
-		private System.Windows.Forms.TrackBar passwordStrength;
-		private System.Windows.Forms.CheckBox readOnly;
-		private System.Windows.Forms.CheckBox encrypt;
-		private System.Windows.Forms.ContextMenuStrip copyTextCM;
-		private System.Windows.Forms.ToolStripMenuItem copyTextCMMI;
-		private System.Windows.Forms.ContextMenuStrip serviceCM;
-		private System.Windows.Forms.ToolStripMenuItem serviceCMexecuteCommand;
-		private System.Windows.Forms.ToolStripMenuItem serviceCMsetCommand;
-		private System.Windows.Forms.ToolStripMenuItem serviceCMclone;
-		private System.Windows.Forms.CheckBox showPassword;
-		private System.Windows.Forms.Label passwordStrengthLabel;
-		private System.Windows.Forms.NotifyIcon tray;
-		private System.Windows.Forms.ContextMenuStrip mainFormCM;
-		private System.Windows.Forms.ToolStripMenuItem mainFormCMdisableTimeout;
-		private System.Windows.Forms.ToolStripMenuItem mainFormCMsetLanguage;
-		private System.Windows.Forms.ToolStripMenuItem mainFormCMimport;
-		private System.Windows.Forms.ToolStripMenuItem mainFormCMmergeProfiles;
-		private System.Windows.Forms.Button setMasterPassword;
-		private System.Windows.Forms.Label passwordStrengthDescription;
+		private ComboBox profileSelection;
+		private ComboBox serviceSelection;
+		private Label profileLabel;
+		private Label serviceLabel;
+		private Button addProfile;
+		private Button removeProfile;
+		private Button renameProfile;
+		private Button addService;
+		private Button removeService;
+		private Button renameService;
+		private ComboBox accountSelection;
+		private Label accountLabel;
+		private Button addAccount;
+		private Button removeAccount;
+		private Button renameAccount;
+		private TextBox accountPassword;
+		private Button setPassword;
+		private Button generatePassword;
+		private Label passwordLabel;
+		private TrackBar passwordStrength;
+		private CheckBox readOnly;
+		private CheckBox encrypt;
+		private ContextMenuStrip copyTextCM;
+		private ToolStripMenuItem copyTextCMMI;
+		private ContextMenuStrip serviceCM;
+		private ToolStripMenuItem serviceCMexecuteCommand;
+		private ToolStripMenuItem serviceCMsetCommand;
+		private ToolStripMenuItem serviceCMclone;
+		private CheckBox showPassword;
+		private Label passwordStrengthLabel;
+		private NotifyIcon tray;
+		private ContextMenuStrip mainFormCM;
+		private ToolStripMenuItem mainFormCMdisableTimeout;
+		private ToolStripMenuItem mainFormCMsetLanguage;
+		private ToolStripMenuItem mainFormCMimport;
+		private ToolStripMenuItem mainFormCMmergeProfiles;
+		private Button setMasterPassword;
+		private Label passwordStrengthDescription;
 
 		private void InitializeComponent ()
 		{
-			this.profileSelection = new System.Windows.Forms.ComboBox ();
-			this.serviceSelection = new System.Windows.Forms.ComboBox ();
-			this.profileLabel = new System.Windows.Forms.Label ();
-			this.serviceLabel = new System.Windows.Forms.Label ();
-			this.addProfile = new System.Windows.Forms.Button ();
-			this.removeProfile = new System.Windows.Forms.Button ();
-			this.renameProfile = new System.Windows.Forms.Button ();
-			this.addService = new System.Windows.Forms.Button ();
-			this.removeService = new System.Windows.Forms.Button ();
-			this.renameService = new System.Windows.Forms.Button ();
-			this.accountSelection = new System.Windows.Forms.ComboBox ();
-			this.accountLabel = new System.Windows.Forms.Label ();
-			this.addAccount = new System.Windows.Forms.Button ();
-			this.removeAccount = new System.Windows.Forms.Button ();
-			this.renameAccount = new System.Windows.Forms.Button ();
-			this.accountPassword = new System.Windows.Forms.TextBox ();
-			this.copyTextCM = new System.Windows.Forms.ContextMenuStrip ();
-			this.copyTextCMMI = new System.Windows.Forms.ToolStripMenuItem ();
-			this.serviceCM = new System.Windows.Forms.ContextMenuStrip ();
-			this.serviceCMexecuteCommand = new System.Windows.Forms.ToolStripMenuItem ();
-			this.serviceCMsetCommand = new System.Windows.Forms.ToolStripMenuItem ();
-			this.serviceCMclone = new System.Windows.Forms.ToolStripMenuItem ();
-			this.setPassword = new System.Windows.Forms.Button ();
-			this.generatePassword = new System.Windows.Forms.Button ();
-			this.passwordLabel = new System.Windows.Forms.Label ();
-			this.passwordStrength = new System.Windows.Forms.TrackBar ();
-			this.readOnly = new System.Windows.Forms.CheckBox ();
-			this.encrypt = new System.Windows.Forms.CheckBox ();
-			this.showPassword = new System.Windows.Forms.CheckBox ();
-			this.passwordStrengthLabel = new System.Windows.Forms.Label ();
-			this.tray = new System.Windows.Forms.NotifyIcon ();
-			this.mainFormCM = new System.Windows.Forms.ContextMenuStrip ();
-			this.mainFormCMdisableTimeout = new System.Windows.Forms.ToolStripMenuItem ();
-			this.mainFormCMsetLanguage = new System.Windows.Forms.ToolStripMenuItem ();
-			this.mainFormCMimport = new System.Windows.Forms.ToolStripMenuItem ();
-			this.mainFormCMmergeProfiles = new System.Windows.Forms.ToolStripMenuItem ();
-			this.setMasterPassword = new System.Windows.Forms.Button ();
-			this.passwordStrengthDescription = new System.Windows.Forms.Label ();
+			this.profileSelection = new ComboBox ();
+			this.serviceSelection = new ComboBox ();
+			this.profileLabel = new Label ();
+			this.serviceLabel = new Label ();
+			this.addProfile = new Button ();
+			this.removeProfile = new Button ();
+			this.renameProfile = new Button ();
+			this.addService = new Button ();
+			this.removeService = new Button ();
+			this.renameService = new Button ();
+			this.accountSelection = new ComboBox ();
+			this.accountLabel = new Label ();
+			this.addAccount = new Button ();
+			this.removeAccount = new Button ();
+			this.renameAccount = new Button ();
+			this.accountPassword = new TextBox ();
+			this.copyTextCM = new ContextMenuStrip ();
+			this.copyTextCMMI = new ToolStripMenuItem ();
+			this.serviceCM = new ContextMenuStrip ();
+			this.serviceCMexecuteCommand = new ToolStripMenuItem ();
+			this.serviceCMsetCommand = new ToolStripMenuItem ();
+			this.serviceCMclone = new ToolStripMenuItem ();
+			this.setPassword = new Button ();
+			this.generatePassword = new Button ();
+			this.passwordLabel = new Label ();
+			this.passwordStrength = new TrackBar ();
+			this.readOnly = new CheckBox ();
+			this.encrypt = new CheckBox ();
+			this.showPassword = new CheckBox ();
+			this.passwordStrengthLabel = new Label ();
+			this.tray = new NotifyIcon ();
+			this.mainFormCM = new ContextMenuStrip ();
+			this.mainFormCMdisableTimeout = new ToolStripMenuItem ();
+			this.mainFormCMsetLanguage = new ToolStripMenuItem ();
+			this.mainFormCMimport = new ToolStripMenuItem ();
+			this.mainFormCMmergeProfiles = new ToolStripMenuItem ();
+			this.setMasterPassword = new Button ();
+			this.passwordStrengthDescription = new Label ();
 			this.copyTextCM.SuspendLayout ();
 			this.serviceCM.SuspendLayout ();
 			this.mainFormCM.SuspendLayout ();
 			this.SuspendLayout ();
-			this.profileSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-			this.profileSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.profileSelection.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			this.profileSelection.AutoCompleteSource = AutoCompleteSource.ListItems;
 			this.profileSelection.ContextMenu = null;
 			this.profileSelection.ContextMenuStrip = this.copyTextCM;
 			this.profileSelection.FormattingEnabled = true;
-			this.profileSelection.Location = new System.Drawing.Point (143, 15);
-			this.profileSelection.Size = new System.Drawing.Size (508, 24);
+			this.profileSelection.Location = new Point (143, 15);
+			this.profileSelection.Size = new Size (508, 24);
 			this.profileSelection.TabIndex = 0;
-			this.profileSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+			this.profileSelection.SelectedIndexChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Service);
 			};
-			this.serviceSelection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-			this.serviceSelection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.serviceSelection.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			this.serviceSelection.AutoCompleteSource = AutoCompleteSource.ListItems;
 			this.serviceSelection.ContextMenu = null;
 			this.serviceSelection.ContextMenuStrip = this.serviceCM;
 			this.serviceSelection.FormattingEnabled = true;
-			this.serviceSelection.Location = new System.Drawing.Point (143, 96);
-			this.serviceSelection.Size = new System.Drawing.Size (508, 24);
+			this.serviceSelection.Location = new Point (143, 96);
+			this.serviceSelection.Size = new Size (508, 24);
 			this.serviceSelection.TabIndex = 1;
-			this.serviceSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+			this.serviceSelection.SelectedIndexChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.Account);
 			};
-			this.profileLabel.Location = new System.Drawing.Point (12, 18);
-			this.profileLabel.Size = new System.Drawing.Size (52, 17);
-			this.serviceLabel.Location = new System.Drawing.Point (12, 99);
-			this.serviceLabel.Size = new System.Drawing.Size (59, 17);
-			this.addProfile.Location = new System.Drawing.Point (179, 47);
-			this.addProfile.Size = new System.Drawing.Size (152, 41);
+			this.profileLabel.Location = new Point (12, 18);
+			this.profileLabel.Size = new Size (52, 17);
+			this.serviceLabel.Location = new Point (12, 99);
+			this.serviceLabel.Size = new Size (59, 17);
+			this.addProfile.Location = new Point (179, 47);
+			this.addProfile.Size = new Size (152, 41);
 			this.addProfile.TabStop = false;
-			this.addProfile.Click += (object sender, System.EventArgs e) => {
+			this.addProfile.Click += (object sender, EventArgs e) => {
 				this.AddProfile ();
 			};
-			this.removeProfile.Location = new System.Drawing.Point (339, 47);
-			this.removeProfile.Size = new System.Drawing.Size (152, 41);
+			this.removeProfile.Location = new Point (339, 47);
+			this.removeProfile.Size = new Size (152, 41);
 			this.removeProfile.TabStop = false;
-			this.removeProfile.Click += (object sender, System.EventArgs e) => {
+			this.removeProfile.Click += (object sender, EventArgs e) => {
 				this.RemoveProfile ();
 			};
-			this.renameProfile.Location = new System.Drawing.Point (499, 47);
-			this.renameProfile.Size = new System.Drawing.Size (152, 41);
+			this.renameProfile.Location = new Point (499, 47);
+			this.renameProfile.Size = new Size (152, 41);
 			this.renameProfile.TabStop = false;
-			this.renameProfile.Click += (object sender, System.EventArgs e) => {
+			this.renameProfile.Click += (object sender, EventArgs e) => {
 				this.RenameProfile ();
 			};
-			this.addService.Location = new System.Drawing.Point (179, 128);
-			this.addService.Size = new System.Drawing.Size (152, 39);
+			this.addService.Location = new Point (179, 128);
+			this.addService.Size = new Size (152, 39);
 			this.addService.TabStop = false;
-			this.addService.Click += (object sender, System.EventArgs e) => {
+			this.addService.Click += (object sender, EventArgs e) => {
 				this.AddService ();
 			};
-			this.removeService.Location = new System.Drawing.Point (339, 128);
-			this.removeService.Size = new System.Drawing.Size (152, 39);
+			this.removeService.Location = new Point (339, 128);
+			this.removeService.Size = new Size (152, 39);
 			this.removeService.TabStop = false;
-			this.removeService.Click += (object sender, System.EventArgs e) => {
+			this.removeService.Click += (object sender, EventArgs e) => {
 				this.RemoveService ();
 			};
-			this.renameService.Location = new System.Drawing.Point (499, 128);
-			this.renameService.Size = new System.Drawing.Size (152, 39);
+			this.renameService.Location = new Point (499, 128);
+			this.renameService.Size = new Size (152, 39);
 			this.renameService.TabStop = false;
-			this.renameService.Click += (object sender, System.EventArgs e) => {
+			this.renameService.Click += (object sender, EventArgs e) => {
 				this.RenameService ();
 			};
 			this.accountSelection.FormattingEnabled = true;
 			this.accountSelection.ContextMenu = null;
 			this.accountSelection.ContextMenuStrip = this.copyTextCM;
-			this.accountSelection.Location = new System.Drawing.Point (143, 175);
-			this.accountSelection.Size = new System.Drawing.Size (508, 24);
+			this.accountSelection.Location = new Point (143, 175);
+			this.accountSelection.Size = new Size (508, 24);
 			this.accountSelection.TabIndex = 2;
-			this.accountSelection.SelectedIndexChanged += (object sender, System.EventArgs e) => {
+			this.accountSelection.SelectedIndexChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.accountPassword.Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password;
 			};
-			this.accountLabel.Location = new System.Drawing.Point (12, 178);
-			this.accountLabel.Size = new System.Drawing.Size (63, 17);
-			this.addAccount.Location = new System.Drawing.Point (180, 207);
-			this.addAccount.Size = new System.Drawing.Size (152, 39);
+			this.accountLabel.Location = new Point (12, 178);
+			this.accountLabel.Size = new Size (63, 17);
+			this.addAccount.Location = new Point (180, 207);
+			this.addAccount.Size = new Size (152, 39);
 			this.addAccount.TabStop = false;
-			this.addAccount.Click += (object sender, System.EventArgs e) => {
+			this.addAccount.Click += (object sender, EventArgs e) => {
 				this.AddAccount ();
 			};
-			this.removeAccount.Location = new System.Drawing.Point (340, 207);
-			this.removeAccount.Size = new System.Drawing.Size (152, 39);
+			this.removeAccount.Location = new Point (340, 207);
+			this.removeAccount.Size = new Size (152, 39);
 			this.removeAccount.TabStop = false;
-			this.removeAccount.Click += (object sender, System.EventArgs e) => {
+			this.removeAccount.Click += (object sender, EventArgs e) => {
 				this.RemoveAccount ();
 			};
-			this.renameAccount.Location = new System.Drawing.Point (498, 207);
-			this.renameAccount.Size = new System.Drawing.Size (153, 39);
+			this.renameAccount.Location = new Point (498, 207);
+			this.renameAccount.Size = new Size (153, 39);
 			this.renameAccount.TabStop = false;
-			this.renameAccount.Click += (object sender, System.EventArgs e) => {
+			this.renameAccount.Click += (object sender, EventArgs e) => {
 				this.RenameAccount ();
 			};
 			this.accountPassword.ContextMenu = null;
 			this.accountPassword.ContextMenuStrip = this.copyTextCM;
-			this.accountPassword.Location = new System.Drawing.Point (143, 254);
+			this.accountPassword.Location = new Point (143, 254);
 			this.accountPassword.ReadOnly = true;
-			this.accountPassword.Size = new System.Drawing.Size (508, 22);
+			this.accountPassword.Size = new Size (508, 22);
 			this.accountPassword.TabIndex = 3;
 			this.accountPassword.UseSystemPasswordChar = true;
-			this.copyTextCM.Size = new System.Drawing.Size (199, 28);
-			this.copyTextCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+			this.copyTextCM.Size = new Size (199, 28);
+			this.copyTextCM.Items.AddRange (new ToolStripItem[] {
 				this.copyTextCMMI
 			});
-			this.copyTextCMMI.Size = new System.Drawing.Size (198, 24);
-			this.copyTextCMMI.Click += (object sender, System.EventArgs e) => {
+			this.copyTextCMMI.Size = new Size (198, 24);
+			this.copyTextCMMI.Click += (object sender, EventArgs e) => {
 				this.NotIdle ();
-				this.Copy2Clipboard (((System.Windows.Forms.Control)((System.Windows.Forms.ContextMenuStrip)((System.Windows.Forms.ToolStripMenuItem)sender).Owner).SourceControl).Text);
+				this.Copy2Clipboard (((Control)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).Text);
 			};
-			this.serviceCM.Size = new System.Drawing.Size (199, 28);
-			this.serviceCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+			this.serviceCM.Size = new Size (199, 28);
+			this.serviceCM.Items.AddRange (new ToolStripItem[] {
 				this.serviceCMexecuteCommand,
 				this.serviceCMsetCommand,
 				this.serviceCMclone
 			});
-			this.serviceCMexecuteCommand.Size = new System.Drawing.Size (198, 24);
-			this.serviceCMexecuteCommand.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMexecuteCommand.Size = new Size (198, 24);
+			this.serviceCMexecuteCommand.Click += (object sender, EventArgs e) => {
 				this.ExecuteCommand ();
 			};
-			this.serviceCMsetCommand.Size = new System.Drawing.Size (198, 24);
-			this.serviceCMsetCommand.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMsetCommand.Size = new Size (198, 24);
+			this.serviceCMsetCommand.Click += (object sender, EventArgs e) => {
 				this.SetCommand ();
 			};
-			this.serviceCMclone.Size = new System.Drawing.Size (198, 24);
-			this.serviceCMclone.Click += (object sender, System.EventArgs e) => {
+			this.serviceCMclone.Size = new Size (198, 24);
+			this.serviceCMclone.Click += (object sender, EventArgs e) => {
 				this.CloneService ();
 			};
-			this.setPassword.Location = new System.Drawing.Point (180, 284);
-			this.setPassword.Size = new System.Drawing.Size (152, 39);
+			this.setPassword.Location = new Point (180, 284);
+			this.setPassword.Size = new Size (152, 39);
 			this.setPassword.TabStop = false;
-			this.setPassword.Click += (object sender, System.EventArgs e) => {
+			this.setPassword.Click += (object sender, EventArgs e) => {
 				this.SetPassword ();
 			};
-			this.generatePassword.Location = new System.Drawing.Point (340, 284);
-			this.generatePassword.Size = new System.Drawing.Size (152, 39);
+			this.generatePassword.Location = new Point (340, 284);
+			this.generatePassword.Size = new Size (152, 39);
 			this.generatePassword.TabStop = false;
-			this.generatePassword.Click += (object sender, System.EventArgs e) => {
+			this.generatePassword.Click += (object sender, EventArgs e) => {
 				this.GeneratePassword ();
 			};
-			this.passwordLabel.Location = new System.Drawing.Point (12, 257);
-			this.passwordLabel.Size = new System.Drawing.Size (73, 17);
-			this.passwordStrength.Location = new System.Drawing.Point (498, 284);
+			this.passwordLabel.Location = new Point (12, 257);
+			this.passwordLabel.Size = new Size (73, 17);
+			this.passwordStrength.Location = new Point (498, 284);
 			this.passwordStrength.Maximum = new Password ().PasswordLength.GetLength (0) - 1;
-			this.passwordStrength.Size = new System.Drawing.Size (153, 56);
+			this.passwordStrength.Size = new Size (153, 56);
 			this.passwordStrength.TabStop = false;
 			this.passwordStrength.Value = 2;
-			this.passwordStrength.ValueChanged += (object sender, System.EventArgs e) => {
+			this.passwordStrength.ValueChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString ();
 				this.passwordStrengthDescription.Text += " aA0";
@@ -269,69 +273,69 @@ namespace Invium
 				}
 			};
 			this.readOnly.Checked = true;
-			this.readOnly.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.readOnly.Location = new System.Drawing.Point (15, 324);
-			this.readOnly.Size = new System.Drawing.Size (97, 21);
+			this.readOnly.CheckState = CheckState.Checked;
+			this.readOnly.Location = new Point (15, 324);
+			this.readOnly.Size = new Size (97, 21);
 			this.readOnly.TabStop = false;
-			this.readOnly.CheckedChanged += (object sender, System.EventArgs e) => {
+			this.readOnly.CheckedChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.RefreshControls (RefreshLevel.None);
 			};
 			this.encrypt.Checked = true;
-			this.encrypt.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.encrypt.Location = new System.Drawing.Point (15, 353);
-			this.encrypt.Size = new System.Drawing.Size (112, 21);
+			this.encrypt.CheckState = CheckState.Checked;
+			this.encrypt.Location = new Point (15, 353);
+			this.encrypt.Size = new Size (112, 21);
 			this.encrypt.TabStop = false;
-			this.encrypt.CheckedChanged += (object sender, System.EventArgs e) => {
+			this.encrypt.CheckedChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.saveOnClose = true;
 			};
-			this.showPassword.Location = new System.Drawing.Point (15, 294);
-			this.showPassword.Size = new System.Drawing.Size (129, 21);
+			this.showPassword.Location = new Point (15, 294);
+			this.showPassword.Size = new Size (129, 21);
 			this.showPassword.TabStop = false;
-			this.showPassword.CheckedChanged += (object sender, System.EventArgs e) => {
+			this.showPassword.CheckedChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.accountPassword.UseSystemPasswordChar = !this.showPassword.Checked;
 			};
-			this.passwordStrengthLabel.Location = new System.Drawing.Point (496, 330);
-			this.passwordStrengthLabel.Size = new System.Drawing.Size (127, 17);
+			this.passwordStrengthLabel.Location = new Point (496, 330);
+			this.passwordStrengthLabel.Size = new Size (127, 17);
 			this.tray.ContextMenu = null;
 			this.tray.ContextMenuStrip = null;
 			this.tray.Visible = false;
-			this.mainFormCM.Items.AddRange (new System.Windows.Forms.ToolStripItem[] {
+			this.mainFormCM.Items.AddRange (new ToolStripItem[] {
 				this.mainFormCMdisableTimeout,
 				this.mainFormCMsetLanguage,
 				this.mainFormCMimport,
 				this.mainFormCMmergeProfiles
 			});
-			this.mainFormCM.Size = new System.Drawing.Size (214, 76);
-			this.mainFormCMdisableTimeout.Size = new System.Drawing.Size (213, 24);
-			this.mainFormCMdisableTimeout.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCM.Size = new Size (214, 76);
+			this.mainFormCMdisableTimeout.Size = new Size (213, 24);
+			this.mainFormCMdisableTimeout.Click += (object sender, EventArgs e) => {
 				this.NotIdle ();
 				this.notimeout = !this.notimeout;
-				((System.Windows.Forms.ToolStripMenuItem)this.mainFormCM.Items [0]).Checked = this.notimeout;
+				((ToolStripMenuItem)this.mainFormCM.Items [0]).Checked = this.notimeout;
 			};
-			this.mainFormCMsetLanguage.Size = new System.Drawing.Size (213, 24);
-			this.mainFormCMimport.Size = new System.Drawing.Size (213, 24);
-			this.mainFormCMimport.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCMsetLanguage.Size = new Size (213, 24);
+			this.mainFormCMimport.Size = new Size (213, 24);
+			this.mainFormCMimport.Click += (object sender, EventArgs e) => {
 				this.Import ();
 			};
-			this.mainFormCMmergeProfiles.Size = new System.Drawing.Size (213, 24);
-			this.mainFormCMmergeProfiles.Click += (object sender, System.EventArgs e) => {
+			this.mainFormCMmergeProfiles.Size = new Size (213, 24);
+			this.mainFormCMmergeProfiles.Click += (object sender, EventArgs e) => {
 				this.MergeProfiles ();
 			};
-			this.setMasterPassword.Location = new System.Drawing.Point (180, 330);
-			this.setMasterPassword.Size = new System.Drawing.Size (312, 39);
+			this.setMasterPassword.Location = new Point (180, 330);
+			this.setMasterPassword.Size = new Size (312, 39);
 			this.setMasterPassword.TabStop = false;
-			this.setMasterPassword.Click += (object sender, System.EventArgs e) => {
+			this.setMasterPassword.Click += (object sender, EventArgs e) => {
 				this.SetMasterPassword ();
 			};
-			this.passwordStrengthDescription.Location = new System.Drawing.Point (585, 354);
-			this.passwordStrengthDescription.Size = new System.Drawing.Size (66, 17);
+			this.passwordStrengthDescription.Location = new Point (585, 354);
+			this.passwordStrengthDescription.Size = new Size (66, 17);
 			this.passwordStrengthDescription.Text = new Password ().PasswordLength [this.passwordStrength.Value].ToString () + " aA0!";
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.ClientSize = new System.Drawing.Size (this.passwordStrengthDescription.Right + 20, this.passwordStrengthDescription.Bottom + 10);
+			this.AutoScaleMode = AutoScaleMode.None;
+			this.FormBorderStyle = FormBorderStyle.FixedDialog;
+			this.ClientSize = new Size (this.passwordStrengthDescription.Right + 20, this.passwordStrengthDescription.Bottom + 10);
 			this.ContextMenu = null;
 			this.ContextMenuStrip = this.mainFormCM;
 			this.Controls.Add (this.passwordStrengthDescription);
@@ -362,9 +366,9 @@ namespace Invium
 			this.Controls.Add (this.profileSelection);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Load += new System.EventHandler (this.MainForm_Load);
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler (this.MainForm_Closing);
+			this.StartPosition = FormStartPosition.CenterScreen;
+			this.Load += new EventHandler (this.MainForm_Load);
+			this.FormClosing += new FormClosingEventHandler (this.MainForm_Closing);
 			this.copyTextCM.ResumeLayout (false);
 			this.serviceCM.ResumeLayout (false);
 			this.mainFormCM.ResumeLayout (false);

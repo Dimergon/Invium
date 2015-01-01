@@ -29,6 +29,7 @@ namespace Invium
 	using System.IO;
 	using System.Threading;
 	using System.Windows.Forms;
+	using System.Xml;
 
 	#if BuildForMono
 	using Gtk;
@@ -641,7 +642,7 @@ namespace Invium
 					// We end up here in case of data corruption or in case an incorrect password was specified.
 					MessageBox.Show (ex.Message);
 					Program.InviumExit ();
-				} catch (System.Xml.XmlException) {
+				} catch (XmlException) {
 					// Most likely merely an empty XML file.
 				}
 			} else {
@@ -693,7 +694,7 @@ namespace Invium
 					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
 					((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 					#else
-					System.Windows.Forms.Clipboard.Clear ();
+					Clipboard.Clear ();
 					#endif
 					Program.ClipboardClearEnabled = false;
 				}
@@ -964,7 +965,7 @@ namespace Invium
 					this.RefreshControls (RefreshLevel.Profile);
 				} catch (InviumException ex) {
 					MessageBox.Show (ex.Message);
-				} catch (System.Xml.XmlException) {
+				} catch (XmlException) {
 					// Most likely an empty XML file, just ignore.
 				}
 			}
@@ -995,7 +996,7 @@ namespace Invium
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Text = message;
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 				#else
-				System.Windows.Forms.Clipboard.SetText (message);
+				Clipboard.SetText (message);
 				#endif
 				Program.ClipboardClearEnabled = true;
 				this.clipboardTimeout = DateTime.Now.AddSeconds (CCTime);

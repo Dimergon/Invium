@@ -36,6 +36,7 @@ namespace Invium
 	using System.IO;
 	using System.Threading;
 	using System.Windows.Forms;
+	using System.Windows.Forms.VisualStyles;
 
 	public static class Program
 	{
@@ -47,7 +48,7 @@ namespace Invium
 
 		// and where else would we store our data...
 		public static string ImportFilter = "n_data.xml";
-		public static string DataFile = System.Windows.Forms.Application.StartupPath + Path.DirectorySeparatorChar + ImportFilter;
+		public static string DataFile = Application.StartupPath + Path.DirectorySeparatorChar + ImportFilter;
 
 		// used to determine if we need to clear the clipboard; this sits here because of InviumExit()
 		public static bool ClipboardClearEnabled = false;
@@ -73,7 +74,7 @@ namespace Invium
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Clear ();
 				((Gtk.Clipboard)Gtk.Clipboard.Get (Gdk.Selection.Clipboard)).Store ();
 				#else
-				System.Windows.Forms.Clipboard.Clear ();
+				Clipboard.Clear ();
 				#endif
 			}
 
@@ -89,7 +90,7 @@ namespace Invium
 		private static void Main (string[] args)
 		{
 			// Unhandled exception...
-			Application.ThreadException += new System.Threading.ThreadExceptionEventHandler (Invium_ThreadException);
+			Application.ThreadException += new ThreadExceptionEventHandler (Invium_ThreadException);
 			Application.SetUnhandledExceptionMode (UnhandledExceptionMode.CatchException);
 			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler (Invium_UnhandledException);
 
@@ -152,7 +153,7 @@ namespace Invium
 				*/
 			}
 
-			Application.VisualStyleState = System.Windows.Forms.VisualStyles.VisualStyleState.NoneEnabled;
+			Application.VisualStyleState = VisualStyleState.NoneEnabled;
 			Application.SetCompatibleTextRenderingDefault (true);
 			Application.Run (new MainForm ());
 			InviumExit ();

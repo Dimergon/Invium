@@ -867,8 +867,7 @@ namespace Invium
 
 								Service newservice = new Service (service_name, s.Command);
 								foreach (Account a in s.ServiceAccounts) {
-									Account newaccount = new Account (a.Name, a.Password);
-									newservice.ServiceAccounts.Add (newaccount);
+									newservice.ServiceAccounts.Add (new Account (a.Name, a.Password));
 								}
 
 								newprofile.Profileservices.Add (newservice);

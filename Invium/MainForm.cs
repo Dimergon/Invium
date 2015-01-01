@@ -53,10 +53,6 @@ namespace Invium
 		// Used to clear the clipboard after copying a password
 		private DateTime clipboardTimeout = DateTime.Now.AddSeconds (CCTime);
 
-		// Remind the user of an unsaved password...
-		private bool unsavedPassword = false;
-		private int[] unsavedPasswordIndeces = { 0, 0, 0 };
-
 		// Make sure we save in case there is data to save
 		private bool saveOnClose = false;
 
@@ -471,10 +467,6 @@ namespace Invium
 				string password = new Password ().Generate (ref Program.Profiles, this.passwordStrength.Value);
 				this.accountPassword.Text = password;
 				this.Copy2Clipboard (password);
-				this.unsavedPassword = true;
-				this.unsavedPasswordIndeces [0] = this.profileSelection.SelectedIndex;
-				this.unsavedPasswordIndeces [1] = this.serviceSelection.SelectedIndex;
-				this.unsavedPasswordIndeces [2] = this.accountSelection.SelectedIndex;
 				this.tray.BalloonTipText = string.Format (Program.Language.TrayGenerateReminder, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name);
 				this.tray.ShowBalloonTip (int.MaxValue);
 			} catch (ArgumentOutOfRangeException) {
@@ -494,9 +486,6 @@ namespace Invium
 		*/
 		private void SetPassword ()
 		{
-			// this next call needs to be here to avoid an unnecessary popup (see NotIdle)
-			this.unsavedPassword = false;
-
 			this.NotIdle ();
 
 			try {
@@ -670,14 +659,7 @@ namespace Invium
 			lock (this.heartbeatlock) {
 				// Check for maximum idle time, quit if it expired...
 				if (!this.notimeout && DateTime.Now >= this.timeout) {
-					if (this.unsavedPassword) {
-						this.unsavedPassword = false;
-						if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-							Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-						}
-					}
-
-					Program.InviumExit ();
+					this.Close ();
 				}
 
 				// Auto-save if needed, after a period of inactivity.
@@ -709,20 +691,6 @@ namespace Invium
 		private void NotIdle ()
 		{
 			this.timeout = DateTime.Now.AddSeconds (MaxIdle);
-
-			/*
-			 * After several trials, I have found that this is the best spot to have this check
-			 * for an unsaved password; this function gets called before any other action
-			 * such as data manipulation takes place. Hence, it is the safest spot.
-			 */
-			if (this.unsavedPassword) {
-				this.unsavedPassword = false;
-				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-					this.saveOnClose = true;
-					this.RefreshControls (RefreshLevel.None);
-				}
-			}
 		}
 
 		/*
@@ -1011,15 +979,6 @@ namespace Invium
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
-			// Give the user one final chance to save the unsaved password, if there is one.
-			if (this.unsavedPassword) {
-				this.unsavedPassword = false;
-				if (MessageBox.Show (string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].Name), Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-					Program.Profiles [this.unsavedPasswordIndeces [0]].Profileservices [this.unsavedPasswordIndeces [1]].ServiceAccounts [this.unsavedPasswordIndeces [2]].Password = this.accountPassword.Text;
-					this.saveOnClose = true;
-				}
-			}
-
 			// Lock and stop the heartbeat, this is to prevent fringe situations where
 			// corruption could theoretically occur.
 			lock (this.heartbeatlock) {

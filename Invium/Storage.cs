@@ -193,7 +193,7 @@ namespace Invium
 			// Done, inform user of the time it took to load all data
 			load_timer.Stop ();
 			NotifyIcon tray = new NotifyIcon ();
-			tray.BalloonTipTitle = string.Format ("{0} v{1}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion);
+			tray.BalloonTipTitle = string.Format ("{0} v{1}", Program.ProductName, Program.ProductVersion);
 			tray.BalloonTipIcon = ToolTipIcon.Info;
 			tray.BalloonTipText = string.Format (Program.Language.LoadStats, p_count, s_count, a_count, load_timer.ElapsedMilliseconds);
 			tray.ShowBalloonTip (int.MaxValue);

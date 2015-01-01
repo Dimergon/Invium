@@ -72,7 +72,7 @@ namespace Invium
 			this.InitializeComponent ();
 
 			// Initialize the tray icon
-			this.tray.BalloonTipTitle = this.Text = string.Format ("{0} v{1}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion);
+			this.tray.BalloonTipTitle = this.Text = string.Format ("{0} v{1}", Program.ProductName, Program.ProductVersion);
 			this.tray.BalloonTipIcon = ToolTipIcon.Info;
 
 			/*
@@ -616,9 +616,9 @@ namespace Invium
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
 				this.setMasterPassword.Enabled = !this.readOnly.Checked;
 				if (this.profileSelection.SelectedItem != null) {
-					this.Text = string.Format ("{0} v{1} | {2}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Count));
+					this.Text = string.Format ("{0} v{1} | {2}", Program.ProductName, Program.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Count));
 				} else {
-					this.Text = string.Format ("{0} v{1}", System.Windows.Forms.Application.ProductName, System.Windows.Forms.Application.ProductVersion);
+					this.Text = string.Format ("{0} v{1}", Program.ProductName, Program.ProductVersion);
 				}
 			} catch (ArgumentOutOfRangeException) {
 				// If for whatever reason we end up here, just try again but this time... from the top.
@@ -957,7 +957,7 @@ namespace Invium
 			this.NotIdle ();
 
 			OpenFileDialog f = new OpenFileDialog ();
-			f.Filter = string.Format ("{0}|{1}", System.Windows.Forms.Application.ProductName, Program.ImportFilter);
+			f.Filter = string.Format ("{0}|{1}", Program.ProductName, Program.ImportFilter);
 			if (f.ShowDialog () == DialogResult.OK) {
 				try {
 					new Storage ().DoLoad (f.FileName, this.heartbeatlock, true);

@@ -62,8 +62,12 @@ namespace Invium
 		// Used in auto saving upon changes
 		public static MasterPassword_Class MasterPassword = new MasterPassword_Class ();
 
+		// Title
+		public static string ProductName = System.Windows.Forms.Application.ProductName;
+		public static string ProductVersion = System.Windows.Forms.Application.ProductVersion;
+
 		// used to prevent multiple instances
-		private static string lockFile = Path.GetTempPath () + System.Windows.Forms.Application.ProductName;
+		private static string lockFile = Path.GetTempPath () + Program.ProductName;
 
 		// Custom exit
 		public static void InviumExit ()

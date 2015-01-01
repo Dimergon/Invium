@@ -80,8 +80,6 @@ namespace Invium
 		public string ImportPassword;
 		public string ImportCancel;
 		public string CustomLoadFail;
-		public string UnsavedPasswordPrompt;
-		public string UnsavedPasswordTitle;
 
 		/* Saving data */
 		public string FirstRunTitle;
@@ -229,8 +227,6 @@ namespace Invium
 				this.ImportPassword = "Geef het wachtwoord van de versleutelde gegevens op.";
 				this.ImportCancel = "Er is een wachtwoord vereist voor het importeren van deze gegevens.";
 				this.CustomLoadFail = "Het opgegeven bestand {0} kon niet worden geopend.";
-				this.UnsavedPasswordPrompt = "Een aangemaakt wachtwoord voor {0} is nog niet opgeslagen, klik op 'Ja' om dit nu te doen.\r\nKlik op 'Nee' om het aangemaakte wachtwoord te vergeten.";
-				this.UnsavedPasswordTitle = "Niet opgeslagen wachtwoord";
 				this.FirstRunTitle = "Instellen";
 				this.FirstRunPrompt = "Geef een hoofdwachtwoord op.";
 				this.MasterPasswordTitle = "Hoofdwachtwoord";
@@ -338,8 +334,6 @@ namespace Invium
 				this.ImportPassword = "To import this data, enter its password.";
 				this.ImportCancel = "Importing this data requires a password.";
 				this.CustomLoadFail = "The specified file {0} could not be found.";
-				this.UnsavedPasswordPrompt = "A generated password for {0} was not stored, click 'Yes' to store it now.\r\nClicking 'No' will cause it to be lost.";
-				this.UnsavedPasswordTitle = "Unsaved password";
 				this.FirstRunTitle = "Initial setup";
 				this.FirstRunPrompt = "Please provide a master password.";
 				this.MasterPasswordTitle = "Master password";

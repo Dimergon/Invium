@@ -275,12 +275,32 @@ namespace Invium
 			this.setPassword.Size = new Size (152, 39);
 			this.setPassword.TabStop = false;
 			this.setPassword.Click += (object sender, EventArgs e) => {
+				// Give the user one final chance to save the unsaved password, if there is one
+				if (this.unsavedPassword) {
+					this.unsavedPassword = false;
+					if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						Account a = (Account)this.unsavedPasswordaccount.Pop ();
+						a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+						this.saveOnClose = true;
+					}
+				}
+
 				this.SetPassword ();
 			};
 			this.generatePassword.Location = new Point (340, 284);
 			this.generatePassword.Size = new Size (152, 39);
 			this.generatePassword.TabStop = false;
 			this.generatePassword.Click += (object sender, EventArgs e) => {
+				// Give the user one final chance to save the unsaved password, if there is one
+				if (this.unsavedPassword) {
+					this.unsavedPassword = false;
+					if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						Account a = (Account)this.unsavedPasswordaccount.Pop ();
+						a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+						this.saveOnClose = true;
+					}
+				}
+
 				this.GeneratePassword ();
 			};
 			this.passwordLabel.Location = new Point (12, 257);

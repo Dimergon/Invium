@@ -23,29 +23,26 @@
 */
 namespace Invium
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Net;
-	using System.Text;
-
 	public class Account
 	{
-		private NetworkCredential data = new NetworkCredential ();
+		private string name;
+		private string password;
+		private string internalpassword = new Password ().GenSalt ();
 
 		public Account (string arg, string arg2)
 		{
-			this.data.UserName = arg;
-			this.data.Password = arg2;
+			this.name = new InviumCryptography ().Encrypt (arg, this.internalpassword, true);
+			this.password = new InviumCryptography ().Encrypt (arg2, this.internalpassword, true);
 		}
 
 		public string Name {
-			get { return this.data.UserName; }
-			set { this.data.UserName = value; }
+			get { return new InviumCryptography ().Decrypt (this.name, this.internalpassword, true); }
+			set { this.name = new InviumCryptography ().Encrypt (value, this.internalpassword, true); }
 		}
 
 		public string Password {
-			get { return this.data.Password; }
-			set { this.data.Password = value; }
+			get { return new InviumCryptography ().Decrypt (this.password, this.internalpassword, true); }
+			set { this.password = new InviumCryptography ().Encrypt (value, this.internalpassword, true); }
 		}
 	}
 }

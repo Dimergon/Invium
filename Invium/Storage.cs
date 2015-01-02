@@ -177,10 +177,10 @@ namespace Invium
 							string account_name = do_decrypt ? crypto.Decrypt (account_name_node.InnerText, input_password) : account_name_node.InnerText;
 							string account_password = do_decrypt ? crypto.Decrypt (account_password_node.InnerText, input_password) : account_password_node.InnerText;
 							Account a = new Account (account_name, account_password);
-							s.ServiceAccounts.Add (a);
+							s.Accounts.Add (a);
 						}
 
-						p.Profileservices.Add (s);
+						p.Services.Add (s);
 					}
 
 					Program.Profiles.Add (p);
@@ -255,7 +255,7 @@ namespace Invium
 						document_writer.WriteStartElement (XMLProfile);
 						string profile_name = do_encrypt ? crypto.Encrypt (p.Name, Program.MasterPassword.Password) : p.Name;
 						document_writer.WriteElementString (XMLName, profile_name);
-						foreach (Service s in p.Profileservices) {
+						foreach (Service s in p.Services) {
 							document_writer.WriteStartElement (XMLService);
 							string service_name = do_encrypt ? crypto.Encrypt (s.Name, Program.MasterPassword.Password) : s.Name;
 							document_writer.WriteElementString (XMLName, service_name);
@@ -264,7 +264,7 @@ namespace Invium
 								document_writer.WriteElementString (XMLCommand, service_command);
 							}
 
-							foreach (Account a in s.ServiceAccounts) {
+							foreach (Account a in s.Accounts) {
 								document_writer.WriteStartElement (XMLAccount);
 								string account_name = do_encrypt ? crypto.Encrypt (a.Name, Program.MasterPassword.Password) : a.Name;
 								string account_password = do_encrypt ? crypto.Encrypt (a.Password, Program.MasterPassword.Password) : a.Password;

@@ -185,7 +185,7 @@ namespace Invium
 			this.accountSelection.TabIndex = 2;
 			this.accountSelection.SelectedIndexChanged += (object sender, EventArgs e) => {
 				this.NotIdle ();
-				this.accountPassword.Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password;
+				this.accountPassword.Text = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Password;
 			};
 			this.accountLabel.Location = new Point (12, 178);
 			this.accountLabel.Size = new Size (63, 17);

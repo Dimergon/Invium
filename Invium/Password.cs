@@ -114,16 +114,16 @@ namespace Invium
 
 			// Check for doubles across all profiles, services and accounts
 			foreach (Profile p in profiles) {
-				foreach (Service s in p.Profileservices) {
+				foreach (Service s in p.Services) {
 					/*
 					 * The following alternative seems more eloquant but after careful
 					 * measurement, it was found to be at best on-par in terms of performance
 					 * and in practice more erratic performance wise.
-					 * if (s.ServiceAccounts.Find (x => (x.Name == password) || (x.Password == password)) != null) {
+					 * if (s.Accounts.Find (x => (x.Name == password) || (x.Password == password)) != null) {
 					 * return false;
 					 * }
 					 */
-					foreach (Account a in s.ServiceAccounts) {
+					foreach (Account a in s.Accounts) {
 						if (password == a.Password) {
 							return false;
 						}

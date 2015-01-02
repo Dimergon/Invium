@@ -35,14 +35,14 @@ namespace Invium
 		/*
 		 * Encryption/Decryption, based on AES256 and PBKDF2
 		 */
-		public string Encrypt (string plainText, string passPhrase)
+		public string Encrypt (string plainText, string passPhrase, bool fast_encrypt = false)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
 				RNGCryptoServiceProvider rngC = new RNGCryptoServiceProvider ();
 				byte[] iv = new byte[16];
 				rngC.GetBytes (iv);
-				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
+				Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_encrypt ? 10 : 125);
 				algR.KeySize = 256;
 				algR.BlockSize = 128;
 				algR.Key = derived.GetBytes (32);
@@ -62,14 +62,14 @@ namespace Invium
 			return result;
 		}
 
-		public string Decrypt (string cipherText, string passPhrase)
+		public string Decrypt (string cipherText, string passPhrase, bool fast_decrypt = false)
 		{
 			string result;
 			using (Rijndael algR = Rijndael.Create ()) {
 				using (MemoryStream memoryStream = new MemoryStream (Convert.FromBase64String (cipherText))) {
 					byte[] iv = new byte[16];
 					memoryStream.Read (iv, 0, 16);
-					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, 125);
+					Rfc2898DeriveBytes derived = new Rfc2898DeriveBytes (passPhrase, iv, fast_decrypt ? 10 : 125);
 					algR.KeySize = 256;
 					algR.BlockSize = 128;
 					algR.Key = derived.GetBytes (32);

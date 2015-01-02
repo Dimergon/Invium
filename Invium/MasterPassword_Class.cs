@@ -23,17 +23,14 @@
 */
 namespace Invium
 {
-	using System;
-	using System.Net;
-	using System.Text;
-
 	public class MasterPassword_Class
 	{
-		private NetworkCredential data = new NetworkCredential ();
+		private string password = string.Empty;
+		private string internalpassword = new Password ().GenSalt ();
 
 		public string Password {
-			get { return this.data.Password; }
-			set { this.data.Password = value; }
+			get { return new InviumCryptography ().Decrypt (this.password, this.internalpassword, true); }
+			set { this.password = new InviumCryptography ().Encrypt (value, this.internalpassword, true); }
 		}
 	}
 }

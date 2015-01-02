@@ -267,13 +267,13 @@ namespace Invium
 			try {
 				string userinput = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.AddServiceTitle, Program.Language.AddServicePrompt) == DialogResult.OK) {
-					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
+					if (Program.Profiles [this.profileSelection.SelectedIndex].Services.Find (delegate(Service s) {
 						return s.Name == userinput;
 					}) != null) {
 						MessageBox.Show (string.Format (Program.Language.ServiceExists, Program.Profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Add (new Service (userinput, string.Empty));
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
+						Program.Profiles [this.profileSelection.SelectedIndex].Services.Add (new Service (userinput, string.Empty));
+						Program.Profiles [this.profileSelection.SelectedIndex].Services.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
 						this.saveOnClose = true;
@@ -301,8 +301,8 @@ namespace Invium
 
 			try {
 				if (MessageBox.Show (Program.Language.ConfirmQuestion, Program.Language.ConfirmCaption, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Remove (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex]);
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
+					Program.Profiles [this.profileSelection.SelectedIndex].Services.Remove (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex]);
+					Program.Profiles [this.profileSelection.SelectedIndex].Services.Sort (delegate(Service s, Service t) {
 						return s.Name.CompareTo (t.Name);
 					});
 					this.saveOnClose = true;
@@ -330,13 +330,13 @@ namespace Invium
 			try {
 				string userinput = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.RenameServiceTitle, Program.Language.RenameServicePrompt) == DialogResult.OK) {
-					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Find (delegate(Service s) {
+					if (Program.Profiles [this.profileSelection.SelectedIndex].Services.Find (delegate(Service s) {
 						return s.Name == userinput;
 					}) != null) {
 						MessageBox.Show (string.Format (Program.Language.ServiceExists, Program.Profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name = userinput;
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Sort (delegate(Service s, Service t) {
+						Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name = userinput;
+						Program.Profiles [this.profileSelection.SelectedIndex].Services.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
 						this.saveOnClose = true;
@@ -369,13 +369,13 @@ namespace Invium
 				string password = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref account, Program.Language.AddAccountTitle, Program.Language.AddAccountPrompt) == DialogResult.OK) {
 					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref password, Program.Language.AddAccountPasswordTitle, Program.Language.AddAccountPasswordPrompt, Program.Language.ConfirmPassword) == DialogResult.OK) {
-						if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
+						if (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Find (delegate(Account a) {
 							return a.Name == account;
 						}) != null) {
-							MessageBox.Show (string.Format (Program.Language.AccountExists, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Name));
+							MessageBox.Show (string.Format (Program.Language.AccountExists, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Name));
 						} else {
-							Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Add (new Account (account, password));
-							Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
+							Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Add (new Account (account, password));
+							Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Sort (delegate(Account a, Account b) {
 								return a.Name.CompareTo (b.Name);
 							});
 							this.saveOnClose = true;
@@ -405,8 +405,8 @@ namespace Invium
 
 			try {
 				if (MessageBox.Show (Program.Language.ConfirmQuestion, Program.Language.ConfirmCaption, MessageBoxButtons.YesNo) == DialogResult.Yes) {
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Remove (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex]);
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
+					Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Remove (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex]);
+					Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Sort (delegate(Account a, Account b) {
 						return a.Name.CompareTo (b.Name);
 					});
 					this.saveOnClose = true;
@@ -434,13 +434,13 @@ namespace Invium
 			try {
 				string userinput = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.RenameAccountTitle, Program.Language.RenameAccountPrompt) == DialogResult.OK) {
-					if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Find (delegate(Account a) {
+					if (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Find (delegate(Account a) {
 						return a.Name == userinput;
 					}) != null) {
-						MessageBox.Show (string.Format (Program.Language.AccountExists, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Name));
+						MessageBox.Show (string.Format (Program.Language.AccountExists, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Name));
 					} else {
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name = userinput;
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.Sort (delegate(Account a, Account b) {
+						Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Name = userinput;
+						Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.Sort (delegate(Account a, Account b) {
 							return a.Name.CompareTo (b.Name);
 						});
 						this.saveOnClose = true;
@@ -466,7 +466,7 @@ namespace Invium
 				string password = new Password ().Generate (ref Program.Profiles, this.passwordStrength.Value);
 				this.accountPassword.Text = password;
 				this.Copy2Clipboard (password);
-				this.tray.BalloonTipText = string.Format (Program.Language.TrayGenerateReminder, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name);
+				this.tray.BalloonTipText = string.Format (Program.Language.TrayGenerateReminder, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name);
 				this.tray.ShowBalloonTip (int.MaxValue);
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.GeneratePasswordError);
@@ -488,14 +488,14 @@ namespace Invium
 			this.NotIdle ();
 
 			try {
-				if (this.accountPassword.Text == Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password) {
+				if (this.accountPassword.Text == Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Password) {
 					/*
 					 * Show the popup in case the shown password matches the listed password, implying we want to manually set a new password.
 					 */
 					string userinput = string.Empty;
 					if (new InputBox ().ShowMe (InputBox.Mode.Doublepassword, ref userinput, Program.Language.NewPasswordTitle, Program.Language.NewPasswordPrompt, Program.Language.NewPasswordConfirmation) == DialogResult.OK) {
-						string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
-						Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = userinput;
+						string current = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Name;
+						Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Password = userinput;
 						this.saveOnClose = true;
 						this.RefreshControls (RefreshLevel.Account);
 						this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
@@ -505,8 +505,8 @@ namespace Invium
 					/*
 					 * Apparently we generated a new password, just set the listed password to whatever was generated
 					 */
-					string current = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Name;
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts [this.accountSelection.SelectedIndex].Password = this.accountPassword.Text;
+					string current = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Name;
+					Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex].Password = this.accountPassword.Text;
 					this.saveOnClose = true;
 					this.RefreshControls (RefreshLevel.Account);
 					this.accountSelection.SelectedIndex = this.accountSelection.FindStringExact (current, 0);
@@ -557,7 +557,7 @@ namespace Invium
 					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
 
-					this.serviceSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.ConvertAll<string> (delegate (Service x) {
+					this.serviceSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Services.ConvertAll<string> (delegate (Service x) {
 						return x.Name;
 					}).ToArray ());
 
@@ -569,7 +569,7 @@ namespace Invium
 					this.accountSelection.SelectedIndex = -1;
 					this.accountPassword.Text = string.Empty;
 
-					this.accountSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].ServiceAccounts.ConvertAll<string> (delegate (Account x) {
+					this.accountSelection.Items.AddRange (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts.ConvertAll<string> (delegate (Account x) {
 						return x.Name;
 					}).ToArray ());
 
@@ -581,8 +581,8 @@ namespace Invium
 
 				// Service context menu
 				if (this.serviceSelection.SelectedItem != null) {
-					this.serviceCM.Items [0].Text = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? Program.Language.NoExecute : Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command;
-					this.serviceCM.Items [0].Enabled = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command == string.Empty ? false : true;
+					this.serviceCM.Items [0].Text = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command == string.Empty ? Program.Language.NoExecute : Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command;
+					this.serviceCM.Items [0].Enabled = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command == string.Empty ? false : true;
 				}
 
 				// Enable/Disable/readOnly
@@ -607,7 +607,7 @@ namespace Invium
 				this.mainFormCM.Items [3].Enabled = !this.readOnly.Checked;
 				this.setMasterPassword.Enabled = !this.readOnly.Checked;
 				if (this.profileSelection.SelectedItem != null) {
-					this.Text = string.Format ("{0} v{1} | {2}", Program.ProductName, Program.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices.Count));
+					this.Text = string.Format ("{0} v{1} | {2}", Program.ProductName, Program.ProductVersion, string.Format (Program.Language.Stats, Program.Profiles [this.profileSelection.SelectedIndex].Name, Program.Profiles [this.profileSelection.SelectedIndex].Services.Count));
 				} else {
 					this.Text = string.Format ("{0} v{1}", Program.ProductName, Program.ProductVersion);
 				}
@@ -724,8 +724,8 @@ namespace Invium
 			this.NotIdle ();
 
 			try {
-				if (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command != string.Empty) {
-					Process.Start (Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
+				if (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command != string.Empty) {
+					Process.Start (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command);
 				}
 			} catch (ArgumentOutOfRangeException) {
 				MessageBox.Show (Program.Language.RunExecuteError);
@@ -743,7 +743,7 @@ namespace Invium
 			try {
 				string userinput = string.Empty;
 				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.SetExecuteTitle, Program.Language.SetExecutePrompt) == DialogResult.OK) {
-					Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command = userinput;
+					Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command = userinput;
 					this.saveOnClose = true;
 					int currentAccount = this.accountSelection.SelectedIndex;
 					this.RefreshControls (RefreshLevel.Account);
@@ -774,7 +774,7 @@ namespace Invium
 			try {
 				string userinput = string.Empty;
 
-				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
+				if (new InputBox ().ShowMe (InputBox.Mode.Normal, ref userinput, Program.Language.CloneServiceTitle, string.Format (Program.Language.CloneServicePrompt, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name)) == DialogResult.OK) {
 					int destination_profile = Program.Profiles.FindIndex (delegate (Profile p) {
 						return p.Name == userinput;
 					});
@@ -782,21 +782,21 @@ namespace Invium
 						MessageBox.Show (Program.Language.CloneServiceNoSuchProfile);
 					} else {
 						bool renamed = false;
-						string destination_service = Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name;
-						if (Program.Profiles [destination_profile].Profileservices.Find (delegate (Service s) {
+						string destination_service = Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name;
+						if (Program.Profiles [destination_profile].Services.Find (delegate (Service s) {
 							return s.Name == destination_service;
 						}) != null) {
 							renamed = true;
 							destination_service += new Password ().GenSalt ();
 						}
 
-						Service new_service = new Service (destination_service, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Command);
-						foreach (Account a in Program.Profiles[this.profileSelection.SelectedIndex].Profileservices[this.serviceSelection.SelectedIndex].ServiceAccounts) {
-							new_service.ServiceAccounts.Add (new Account (a.Name, a.Password));
+						Service new_service = new Service (destination_service, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Command);
+						foreach (Account a in Program.Profiles[this.profileSelection.SelectedIndex].Services[this.serviceSelection.SelectedIndex].Accounts) {
+							new_service.Accounts.Add (new Account (a.Name, a.Password));
 						}
 
-						Program.Profiles [destination_profile].Profileservices.Add (new_service);
-						Program.Profiles [destination_profile].Profileservices.Sort (delegate (Service a, Service b) {
+						Program.Profiles [destination_profile].Services.Add (new_service);
+						Program.Profiles [destination_profile].Services.Sort (delegate (Service a, Service b) {
 							return a.Name.CompareTo (b.Name);
 						});
 
@@ -804,7 +804,7 @@ namespace Invium
 						this.RefreshControls (RefreshLevel.Service);
 						userinput = string.Empty;
 						if (renamed) {
-							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Profileservices [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
+							MessageBox.Show (string.Format (Program.Language.CloneServiceRename, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name, Program.Profiles [destination_profile].Name, destination_service));
 						} else {
 							MessageBox.Show (string.Format (Program.Language.CloneServiceDone, Program.Profiles [destination_profile].Name, destination_service));
 						}
@@ -858,23 +858,23 @@ namespace Invium
 						bool renamed = false;
 						Profile newprofile = new Profile (userinput_destination);
 						foreach (int i in profilestocopy) {
-							foreach (Service s in Program.Profiles[i].Profileservices) {
+							foreach (Service s in Program.Profiles[i].Services) {
 								string service_name = s.Name;
-								if (newprofile.Profileservices.Find (x => x.Name == s.Name) != null) {
+								if (newprofile.Services.Find (x => x.Name == s.Name) != null) {
 									renamed = true;
 									service_name += new Password ().GenSalt ();
 								}
 
 								Service newservice = new Service (service_name, s.Command);
-								foreach (Account a in s.ServiceAccounts) {
-									newservice.ServiceAccounts.Add (new Account (a.Name, a.Password));
+								foreach (Account a in s.Accounts) {
+									newservice.Accounts.Add (new Account (a.Name, a.Password));
 								}
 
-								newprofile.Profileservices.Add (newservice);
+								newprofile.Services.Add (newservice);
 							}
 						}
 
-						newprofile.Profileservices.Sort (delegate(Service s, Service t) {
+						newprofile.Services.Sort (delegate(Service s, Service t) {
 							return s.Name.CompareTo (t.Name);
 						});
 						Program.Profiles.Add (newprofile);

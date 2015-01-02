@@ -151,6 +151,16 @@ namespace Invium
 			this.removeProfile.Size = new Size (152, 41);
 			this.removeProfile.TabStop = false;
 			this.removeProfile.Click += (object sender, EventArgs e) => {
+				// Give the user one final chance to save the unsaved password, if there is one
+				if (this.unsavedPassword) {
+					this.unsavedPassword = false;
+					if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						Account a = (Account)this.unsavedPasswordaccount.Pop ();
+						a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+						this.saveOnClose = true;
+					}
+				}
+
 				this.RemoveProfile ();
 			};
 			this.renameProfile.Location = new Point (499, 47);
@@ -169,6 +179,16 @@ namespace Invium
 			this.removeService.Size = new Size (152, 39);
 			this.removeService.TabStop = false;
 			this.removeService.Click += (object sender, EventArgs e) => {
+				// Give the user one final chance to save the unsaved password, if there is one
+				if (this.unsavedPassword) {
+					this.unsavedPassword = false;
+					if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						Account a = (Account)this.unsavedPasswordaccount.Pop ();
+						a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+						this.saveOnClose = true;
+					}
+				}
+
 				this.RemoveService ();
 			};
 			this.renameService.Location = new Point (499, 128);
@@ -199,6 +219,16 @@ namespace Invium
 			this.removeAccount.Size = new Size (152, 39);
 			this.removeAccount.TabStop = false;
 			this.removeAccount.Click += (object sender, EventArgs e) => {
+				// Give the user one final chance to save the unsaved password, if there is one
+				if (this.unsavedPassword) {
+					this.unsavedPassword = false;
+					if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+						Account a = (Account)this.unsavedPasswordaccount.Pop ();
+						a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+						this.saveOnClose = true;
+					}
+				}
+
 				this.RemoveAccount ();
 			};
 			this.renameAccount.Location = new Point (498, 207);

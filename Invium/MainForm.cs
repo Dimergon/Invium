@@ -24,6 +24,7 @@
 namespace Invium
 {
 	using System;
+	using System.Collections;
 	using System.Collections.Generic;
 	using System.Diagnostics;
 	using System.IO;
@@ -54,6 +55,13 @@ namespace Invium
 
 		// Make sure we save in case there is data to save
 		private bool saveOnClose = false;
+
+		// Unsaved password
+		private bool unsavedPassword = false;
+		private string unsavedPasswordpassword;
+		private string unsavedPasswordinternalpassword;
+		private string unsavedPasswordprompt;
+		private Stack unsavedPasswordaccount = new Stack ();
 
 		// Heartbeat
 		private Thread heartbeat;
@@ -466,6 +474,11 @@ namespace Invium
 				string password = new Password ().Generate (ref Program.Profiles, this.passwordStrength.Value);
 				this.accountPassword.Text = password;
 				this.Copy2Clipboard (password);
+				this.unsavedPassword = true;
+				this.unsavedPasswordprompt = string.Format (Program.Language.UnsavedPasswordPrompt, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name);
+				this.unsavedPasswordinternalpassword = new Password ().GenSalt ();
+				this.unsavedPasswordpassword = new InviumCryptography ().Encrypt (password, this.unsavedPasswordinternalpassword, true);
+				this.unsavedPasswordaccount.Push (Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Accounts [this.accountSelection.SelectedIndex]);
 				this.tray.BalloonTipText = string.Format (Program.Language.TrayGenerateReminder, Program.Profiles [this.profileSelection.SelectedIndex].Services [this.serviceSelection.SelectedIndex].Name);
 				this.tray.ShowBalloonTip (int.MaxValue);
 			} catch (ArgumentOutOfRangeException) {
@@ -972,6 +985,16 @@ namespace Invium
 		 */
 		private void MainForm_Closing (object sender, EventArgs e)
 		{
+			// Give the user one final chance to save the unsaved password, if there is one
+			if (this.unsavedPassword) {
+				this.unsavedPassword = false;
+				if (MessageBox.Show (this.unsavedPasswordprompt, Program.Language.UnsavedPasswordTitle, MessageBoxButtons.YesNo) == DialogResult.Yes) {
+					Account a = (Account)this.unsavedPasswordaccount.Pop ();
+					a.Password = new InviumCryptography ().Decrypt (this.unsavedPasswordpassword, this.unsavedPasswordinternalpassword, true);
+					this.saveOnClose = true;
+				}
+			}
+
 			// Lock and stop the heartbeat, this is to prevent fringe situations where
 			// corruption could theoretically occur.
 			lock (this.heartbeatlock) {

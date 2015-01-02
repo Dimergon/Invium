@@ -65,6 +65,8 @@ namespace Invium
 		public string MergeProfilesSourceDoesNotExist;
 		public string MergeProfilesDone;
 		public string MergeProfilesDoneRename;
+		public string UnsavedPasswordTitle;
+		public string UnsavedPasswordPrompt;
 
 		/* New password input */
 		public string NewPasswordTitle;
@@ -216,6 +218,8 @@ namespace Invium
 				this.MergeProfilesSourceDoesNotExist = "Niet alle opgegeven bron profielen bestaan, geannuleerd.";
 				this.MergeProfilesDone = "Het samenvoegen van de opgegeven profielen is successvol verlopen.";
 				this.MergeProfilesDoneRename = "Het samenvoegen van de opgegeven profielen is successvol verlopen.\r\nEchter, er bestonden duplicaten binnen de opgegeven profielen, deze zijn hernoemd.";
+				this.UnsavedPasswordTitle = "Niet opgeslagen wachtwoord";
+				this.UnsavedPasswordPrompt = "Een voor {0} aangemaakt wachtwoord is nog niet opgeslagen. Klik op 'Ja' om dit nu te doen.\r\nKlik op 'Nee' om dit wachtwoord te vergeten.";
 				this.NewPasswordTitle = "Wachtwoord";
 				this.NewPasswordPrompt = "Geef een nieuw wachtwoord op.";
 				this.NewPasswordConfirmation = "Bevestig het wachtwoord.";
@@ -323,6 +327,8 @@ namespace Invium
 				this.MergeProfilesSourceDoesNotExist = "Not all the specified source profiles exist, aborted.";
 				this.MergeProfilesDone = "The merging process was completed successfully.";
 				this.MergeProfilesDoneRename = "The merging process was completed sucessfully.\r\nHowever, since duplicate services exist, these have been renamed.";
+				this.UnsavedPasswordTitle = "Unsaved password";
+				this.UnsavedPasswordPrompt = "A generated password for {0} has not yet been stored, click 'Yes' to do so now.\r\nClicking 'No' will cause it to be lost.";
 				this.NewPasswordTitle = "Password";
 				this.NewPasswordPrompt = "Please provide a new password.";
 				this.NewPasswordConfirmation = "Please confirm the password.";
